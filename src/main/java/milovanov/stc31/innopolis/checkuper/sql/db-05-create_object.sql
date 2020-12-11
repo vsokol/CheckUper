@@ -33,8 +33,8 @@ comment on column customer.name    is 'ФИО';
 comment on column customer.address is 'Адрес';
 comment on column customer.descr   is 'Описание заказчика';
 
--- таблица задач
-create table if not exists task (
+-- таблица заявок
+create table if not exists request (
     id          bigserial
   , name        varchar(50)
   , status      varchar(10)
@@ -46,68 +46,68 @@ create table if not exists task (
   , descr       text
 );
 
-alter table if exists task add constraint task_id_pk primary key (id);
-alter table if exists task add constraint task_customer_id_fk foreign key (customer_id) references customer(id);
-alter table if exists task add constraint task_executor_id_fk foreign key (executor_id) references executor(id);
+alter table if exists request add constraint request_id_pk primary key (id);
+alter table if exists request add constraint request_customer_id_fk foreign key (customer_id) references customer(id);
+alter table if exists request add constraint request_executor_id_fk foreign key (executor_id) references executor(id);
 
-create index if not exists task_customer_id_idx on task(customer_id);
-create index if not exists task_executor_id_idx on task(executor_id);
+create index if not exists request_customer_id_idx on request(customer_id);
+create index if not exists request_executor_id_idx on request(executor_id);
 
-alter sequence if exists task_id_seq restart with 10000;
+alter sequence if exists request_id_seq restart with 10000;
 
-comment on table task is 'Задачи';
-comment on column task.id          is 'Идентификатор';
-comment on column task.name        is 'Название';
-comment on column task.status      is 'Статус (NEW, TODO, INPROGRESS, DONE';
-comment on column task.dt_start    is 'Дата и время начала, когда можно начать выполнять задание';
-comment on column task.dt_end      is 'Дата и время окончание, когда можно начать выполнять задание';
-comment on column task.dt_comleted is 'Дата выполнения';
-comment on column task.customer_id is 'Заказчик';
-comment on column task.executor_id is 'Исполнитель';
-comment on column task.descr       is 'Описание задачи';
+comment on table request is 'Заявки';
+comment on column request.id          is 'Идентификатор';
+comment on column request.name        is 'Название';
+comment on column request.status      is 'Статус (NEW, TODO, INPROGRESS, DONE';
+comment on column request.dt_start    is 'Дата и время начала, когда можно начать выполнять заявку';
+comment on column request.dt_end      is 'Дата и время окончание, когда можно начать выполнять заявку';
+comment on column request.dt_comleted is 'Дата выполнения';
+comment on column request.customer_id is 'Заказчик';
+comment on column request.executor_id is 'Исполнитель';
+comment on column request.descr       is 'Описание задачи';
 
 -- таблица типов элементов чек-листов
-create table if not exists checklist_item_type (
+create table if not exists task_type (
     id    bigserial
   , code  varchar(15) not null
   , name  varchar(50) not null
   , descr text
 );
 
-alter table if exists checklist_item_type add constraint chechlist_item_type_id_pk primary key (id);
-alter table if exists checklist_item_type add constraint checklist_item_type_code_uk unique (code);
+alter table if exists task_type add constraint task_type_id_pk primary key (id);
+alter table if exists task_type add constraint task_type_code_uk unique (code);
 
-alter sequence if exists checklist_item_type_id_seq restart with 10000;
+alter sequence if exists task_type_id_seq restart with 10000;
 
-comment on table checklist_item_type is 'Задачи';
-comment on column checklist_item_type.id    is 'Идентификатор';
-comment on column checklist_item_type.code  is 'Код';
-comment on column checklist_item_type.name  is 'Название';
-comment on column checklist_item_type.descr is 'Описание';
+comment on table task_type is 'Типы задач';
+comment on column task_type.id    is 'Идентификатор';
+comment on column task_type.code  is 'Код';
+comment on column task_type.name  is 'Название';
+comment on column task_type.descr is 'Описание';
 
 -- таблица чек-листов
 create table if not exists checklist (
-    id      bigserial
-  , task_id bigint      not null  
-  , name    varchar(50) not null
-  , descr   text
+    id         bigserial
+  , request_id bigint      not null  
+  , name       varchar(50) not null
+  , descr      text
 );
 
 alter table if exists checklist add constraint checklist_id_pk primary key (id);
-alter table if exists checklist add constraint checklist_id_fk foreign key (task_id) references task(id);
+alter table if exists checklist add constraint checklist_id_fk foreign key (request_id) references request(id);
 
-create index if not exists checklist_id_idx on checklist(task_id);
+create index if not exists checklist_id_idx on checklist(request_id);
 
 alter sequence if exists checklist_id_seq restart with 10000;
 
 comment on table checklist is 'Чек-лист';
-comment on column checklist.id      is 'Идентификатор';
-comment on column checklist.task_id is '';
-comment on column checklist.name    is 'Название';
-comment on column checklist.descr   is 'Описание';
+comment on column checklist.id         is 'Идентификатор';
+comment on column checklist.request_id is '';
+comment on column checklist.name       is 'Название';
+comment on column checklist.descr      is 'Описание';
 
--- таблица элементов чек-листов
-create table if not exists checklist_item (
+-- таблица задач для чек-листов
+create table if not exists task (
     id           bigserial
   , type_id      bigint      not null
   , checklist_id bigint      not null  
@@ -116,38 +116,38 @@ create table if not exists checklist_item (
   , descr        text
 );
 
-alter table if exists checklist_item add constraint checklist_item_id_pk primary key (id);
-alter table if exists checklist_item add constraint checklist_item_type_id_fk foreign key (type_id) references checklist_item_type(id);
-alter table if exists checklist_item add constraint checklist_item_checklist_id_fk foreign key (checklist_id) references checklist(id);
+alter table if exists task add constraint task_id_pk primary key (id);
+alter table if exists task add constraint task_type_id_fk foreign key (type_id) references task_type(id);
+alter table if exists task add constraint task_checklist_id_fk foreign key (checklist_id) references checklist(id);
 
-create index if not exists checklist_item_type_id_idx on checklist_item(type_id);
-create index if not exists checklist_item_checklist_id_idx on checklist_item(checklist_id);
+create index if not exists task_type_id_idx on task(type_id);
+create index if not exists task_checklist_id_idx on task(checklist_id);
 
-alter sequence if exists checklist_item_id_seq restart with 10000;
+alter sequence if exists task_id_seq restart with 10000;
 
-comment on table checklist_item is 'Элемент чек-листа';
-comment on column checklist_item.id           is 'Идентификатор';
-comment on column checklist_item.type_id      is 'Тип элемента (пока только один тип - LABEL)';
-comment on column checklist_item.checklist_id is 'Чек-лис, в который входит элемент';
-comment on column checklist_item.info         is 'Краткое описание элемента (что будет выведено на экран исполнителю)';
-comment on column checklist_item.is_required  is 'Обязательность выполнения текущего элемента';
-comment on column checklist_item.descr        is 'Комментарии к элементу';
+comment on table task is 'Задача по чек-листу';
+comment on column task.id           is 'Идентификатор';
+comment on column task.type_id      is 'Тип задачи (пока только один тип - LABEL)';
+comment on column task.checklist_id is 'Чек-лис, в который входит задача';
+comment on column task.info         is 'Краткое описание задачи (что будет выведено на экран исполнителю)';
+comment on column task.is_required  is 'Обязательность выполнения задачи';
+comment on column task.descr        is 'Комментарии к задачи';
 
 -- таблица результатов выполнения задач в разрезе элементов
-create table if not exists result_item (
+create table if not exists task_result (
     id                bigserial
-  , checklist_item_id bigint    not null
+  , task_id bigint    not null
   , is_completed      boolean   not null default false
 );
 
-alter table if exists result_item add constraint result_item_id_pk primary key (id);
-alter table if exists result_item add constraint result_item_checklist_item_id_fk foreign key (checklist_item_id) references checklist_item(id);
+alter table if exists task_result add constraint task_result_id_pk primary key (id);
+alter table if exists task_result add constraint task_result_task_id_fk foreign key (task_id) references task(id);
 
-create index if not exists result_item_id_idx on result_item(checklist_item_id);
+create index if not exists task_result_id_idx on task_result(task_id);
 
-alter sequence if exists result_item_id_seq restart with 10000;
+alter sequence if exists task_result_id_seq restart with 10000;
 
-comment on table result_item is 'Результаты выполнения';
-comment on column result_item.id                is 'Идентификатор';
-comment on column result_item.checklist_item_id is 'Элемент чек-листе';
-comment on column result_item.is_completed      is 'Признак выполнения (true - выполнен, иначе - не выполнен)';
+comment on table task_result is 'Результаты выполнения';
+comment on column task_result.id           is 'Идентификатор';
+comment on column task_result.task_id      is 'Элемент чек-листе';
+comment on column task_result.is_completed is 'Признак выполнения (true - выполнен, иначе - не выполнен)';
