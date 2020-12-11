@@ -2,10 +2,14 @@ package milovanov.stc31.innopolis.checkuper.dao;
 
 import java.util.List;
 
-public interface CrudDao<T> {
+public interface CRUD<T> {
     List<T> getAll();
-    void add(T obj);
+
+    void create(T obj);
+
     void update(T obj);
-    void getById(T id);
-    void delete(T  obj);
+
+    T getById(Long id);
+
+    void remove(T obj);
 }
