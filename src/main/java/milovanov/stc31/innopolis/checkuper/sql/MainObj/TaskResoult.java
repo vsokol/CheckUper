@@ -1,6 +1,7 @@
-package milovanov.stc31.innopolis.checkuper;
+package milovanov.stc31.innopolis.checkuper.sql.MainObj;
 
-public class ResultItem {
+public class TaskResoult {
+
     private static boolean is_completed;
 
     public static boolean isIs_completed() {
@@ -8,6 +9,6 @@ public class ResultItem {
     }
 
     public static void setIs_completed(boolean is_completed) {
-        ResultItem.is_completed = is_completed;
+        TaskResoult.is_completed = is_completed;
     }
 }

@@ -1,4 +1,4 @@
-package milovanov.stc31.innopolis.checkuper;
+package milovanov.stc31.innopolis.checkuper.sql.MainObj;
 
 public class Executor {
        private static String name;

@@ -1,6 +1,6 @@
-package milovanov.stc31.innopolis.checkuper;
+package milovanov.stc31.innopolis.checkuper.sql.MainObj;
 
-public class CheckListItemType {
+public class TaskType {
     private static String code;
     private static String   name;
     private static String   descr;
@@ -10,7 +10,7 @@ public class CheckListItemType {
     }
 
     public static void setCode(String code) {
-        CheckListItemType.code = code;
+        TaskType.code = code;
     }
 
     public static String getName() {
@@ -18,7 +18,7 @@ public class CheckListItemType {
     }
 
     public static void setName(String name) {
-        CheckListItemType.name = name;
+        TaskType.name = name;
     }
 
     public static String getDescr() {
@@ -26,6 +26,6 @@ public class CheckListItemType {
     }
 
     public static void setDescr(String descr) {
-        CheckListItemType.descr = descr;
+        TaskType.descr = descr;
     }
 }
