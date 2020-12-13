@@ -1,9 +1,9 @@
-package milovanov.stc31.innopolis.checkuper;
+package milovanov.stc31.innopolis.checkuper.sql.MainObj;
 
 import java.util.Date;
 
-public class Task {
-    private static String name;
+public class Request {
+     private static String name;
     private static String status;
     Date dt_start;
     Date dt_end;
@@ -15,7 +15,7 @@ public class Task {
     }
 
     public static void setName(String name) {
-        Task.name = name;
+        Request.name = name;
     }
 
     public static String getStatus() {
@@ -23,7 +23,7 @@ public class Task {
     }
 
     public static void setStatus(String status) {
-        Task.status = status;
+        Request.status = status;
     }
 
     public static String getDescr() {
@@ -31,6 +31,6 @@ public class Task {
     }
 
     public static void setDescr(String descr) {
-        Task.descr = descr;
+        Request.descr = descr;
     }
 }

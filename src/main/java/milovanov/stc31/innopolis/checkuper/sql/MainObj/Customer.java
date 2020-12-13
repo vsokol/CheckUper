@@ -1,8 +1,8 @@
-package milovanov.stc31.innopolis.checkuper;
+package milovanov.stc31.innopolis.checkuper.sql.MainObj;
 
 public class Customer {
     private static String name;
-    private static boolean available;
+    private static String adress;
     private static String descr;
 
     public static String getName() {
@@ -13,12 +13,12 @@ public class Customer {
         Customer.name = name;
     }
 
-    public static boolean isAvailable() {
-        return available;
+    public static String getAdress() {
+        return adress;
     }
 
-    public static void setAvailable(boolean available) {
-        Customer.available = available;
+    public static void setAdress(String adress) {
+        Customer.adress = adress;
     }
 
     public static String getDescr() {
