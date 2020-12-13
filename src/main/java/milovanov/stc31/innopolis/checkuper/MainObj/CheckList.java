@@ -1,4 +1,4 @@
-package milovanov.stc31.innopolis.checkuper.sql.MainObj;
+package milovanov.stc31.innopolis.checkuper.MainObj;
 
 public class CheckList {
 
