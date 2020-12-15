@@ -1,6 +1,6 @@
 package milovanov.stc31.innopolis.checkuper.dao;
 
-import milovanov.stc31.innopolis.checkuper.MainObj.Executor;
+import milovanov.stc31.innopolis.checkuper.pojo.Executor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

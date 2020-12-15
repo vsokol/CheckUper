@@ -1,6 +1,6 @@
 package milovanov.stc31.innopolis.checkuper.controller;
 
-import milovanov.stc31.innopolis.checkuper.MainObj.Executor;
+import milovanov.stc31.innopolis.checkuper.pojo.Executor;
 import milovanov.stc31.innopolis.checkuper.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

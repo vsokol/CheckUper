@@ -1,10 +1,18 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
 public class Executor {
+    private Long id;
     private String name;
     private boolean available;
     private String descr;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -14,7 +22,7 @@ public class Executor {
         this.name = name;
     }
 
-    public boolean getAvailable() {
+    public boolean isAvailable() {
         return available;
     }
 
