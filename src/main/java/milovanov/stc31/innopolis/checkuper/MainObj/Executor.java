@@ -1,32 +1,40 @@
 package milovanov.stc31.innopolis.checkuper.MainObj;
 
 public class Executor {
-       private static String name;
-       private static boolean available;
-       private static String descr;
+    private Long id;
+    private String name;
+    private boolean available;
+    private String descr;
 
+    public Long getId() {
+        return id;
+    }
 
-    public static String getName() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public static void setName(String name) {
-        Executor.name = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public static boolean isAvailable() {
+    public boolean isAvailable() {
         return available;
     }
 
-    public static void setAvailable(boolean available) {
-        Executor.available = available;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
-    public static String getDescr() {
+    public String getDescr() {
         return descr;
     }
 
-    public static void setDescr(String descr) {
-        Executor.descr = descr;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 }

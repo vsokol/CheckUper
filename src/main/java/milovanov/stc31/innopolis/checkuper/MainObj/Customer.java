@@ -1,31 +1,52 @@
 package milovanov.stc31.innopolis.checkuper.MainObj;
 
-public class Customer {
-    private static String name;
-    private static String adress;
-    private static String descr;
+import javax.persistence.*;
 
-    public static String getName() {
+@Entity
+@Table(name = "Customer")
+public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "descr")
+    private String descr;
+
+    protected Customer() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public static void setName(String name) {
-        Customer.name = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public static String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public static void setAdress(String adress) {
-        Customer.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public static String getDescr() {
+    public String getDescr() {
         return descr;
     }
 
-    public static void setDescr(String descr) {
-        Customer.descr = descr;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 }
