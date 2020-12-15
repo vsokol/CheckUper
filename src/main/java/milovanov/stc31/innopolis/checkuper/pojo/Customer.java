@@ -1,9 +1,30 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Customer")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "name")
     private String name;
-    private String adress;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "descr")
     private String descr;
+
+    protected Customer() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -13,12 +34,12 @@ public class Customer {
         this.name = name;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescr() {

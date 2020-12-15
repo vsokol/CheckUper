@@ -5,7 +5,7 @@ import java.util.List;
 public interface CRUD<T> {
     List<T> getAll();
 
-    void create(T obj);
+    void add(T obj);
 
     void update(T obj);
 

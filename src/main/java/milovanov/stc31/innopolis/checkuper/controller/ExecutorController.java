@@ -1,15 +1,26 @@
 package milovanov.stc31.innopolis.checkuper.controller;
 
+import milovanov.stc31.innopolis.checkuper.pojo.Executor;
+import milovanov.stc31.innopolis.checkuper.service.IService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 public class ExecutorController {
+    final private IService<Executor> service;
 
-    @RequestMapping(value = "/executors", method = RequestMethod.GET)
-    public String getAllExecutors(Model model) {
-        return "AllExecutors";
+    @Autowired
+    public ExecutorController(IService<Executor> service) {
+        this.service = service;
+    }
+
+    @GetMapping(value = "/executors")
+    public List<Executor> getAllExecutors(Model model) {
+        List<Executor> list = service.getAll();
+        return list;
     }
 }
