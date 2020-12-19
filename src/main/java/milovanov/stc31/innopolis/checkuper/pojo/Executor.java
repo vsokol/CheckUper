@@ -1,9 +1,19 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Executor")
 public class Executor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "available")
     private boolean available;
+    @Column(name = "descr")
     private String descr;
 
     public Long getId() {
