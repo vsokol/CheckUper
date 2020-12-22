@@ -7,13 +7,14 @@ import java.util.Date;
 @Table(name = "Request")
 public class Request {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
     private String name;
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private RequestStatus status;
     @Column(name = "dt_start")
     private Date intervalStartTime;
     @Column(name = "dt_end")
@@ -45,11 +46,11 @@ public class Request {
         this.name = name;
     }
 
-    public String getStatus() {
+    public RequestStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(RequestStatus status) {
         this.status = status;
     }
 
@@ -83,6 +84,14 @@ public class Request {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Executor getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(Executor executor) {
+        this.executor = executor;
     }
 
     public String getDescr() {

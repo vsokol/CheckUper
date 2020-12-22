@@ -4,8 +4,8 @@ import milovanov.stc31.innopolis.checkuper.pojo.Request;
 import milovanov.stc31.innopolis.checkuper.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -19,10 +19,11 @@ public class RequestController {
     }
 
     @GetMapping(value = "/requests")
-    public List<Request> getAllRequests(Model model) {
+    public ModelAndView getAllRequests() {
         List<Request> list = service.getAll();
-        model.addAttribute("requests", list);
-
-        return list;
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("requests", list);
+        modelAndView.setViewName("allrequests");
+        return modelAndView;
     }
 }
