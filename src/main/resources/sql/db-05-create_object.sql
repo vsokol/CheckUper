@@ -37,7 +37,7 @@ comment on column customer.descr   is 'Описание заказчика';
 create table if not exists request (
     id          bigserial
   , name        varchar(50)
-  , status      varchar(10)
+  , status      varchar(12)
   , dt_start    timestamp with time zone
   , dt_end      timestamp with time zone
   , dt_comleted timestamp with time zone

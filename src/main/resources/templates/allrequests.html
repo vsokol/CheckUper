@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Заявки</title>
+</head>
+<body>
+<h2>Заявки</h2>
+<!--<a href="/addrequest/" type="button" class="btn btn-primary">Добавить заявку</a>-->
+<!--<br>-->
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Статус</th>
+        <th>Начало</th>
+        <th>Окончание</th>
+        <th>Завершение</th>
+        <th>Заказчик</th>
+        <th>Исполнитель</th>
+        <th>Описание</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item: ${requests}">
+        <td scope="row" hidden="hidden" th:text="@{${item.id}}">
+        <td th:text="@{${item.name}}">
+        <td th:text="@{${item.status}}">
+        <td th:text="@{${item.intervalStartTime}}">
+        <td th:text="@{${item.intervalEndTime}}">
+        <td th:text="@{${item.completionTime}}">
+        <td th:if="${item.customer} == null">
+        <td th:if="${item.customer} != null" th:text="@{${item.customer.name}}">
+        <td th:if="${item.executor} == null">
+        <td th:if="${item.executor} != null" th:text="@{${item.executor.name}}">
+        <td th:text="@{${item.descr}}">
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
