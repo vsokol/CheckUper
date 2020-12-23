@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2020-12-23-03-001" author="Vladimir">
+        <comment>Тестовые данные по заказчикам</comment>
+        <insert tableName="customer">
+            <column name="id" valueNumeric="1001"/>
+            <column name="name" value="Петров Иван"/>
+            <column name="address" value="Москва"/>
+            <column name="descr" value="Плюшкин"/>
+        </insert>
+        <insert tableName="customer">
+            <column name="id" valueNumeric="1002"/>
+            <column name="name" value="Скорлупкин Петр"/>
+        </insert>
+        <insert tableName="customer">
+            <column name="id" valueNumeric="1003"/>
+            <column name="name" value="Стрельцов Никанор"/>
+            <column name="address" value="Марс 12"/>
+        </insert>
+        <rollback>
+            <delete tableName="customer">
+                <where>id in (1001, 1002, 1003)</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2020-12-23-03-002" author="Vladimir">
+        <comment>Тестовые данные по исполнителям</comment>
+        <insert tableName="executor">
+            <column name="id" valueNumeric="1001"/>
+            <column name="name" value="Крылов Степа"/>
+            <column name="available" valueBoolean="true"/>
+        </insert>
+        <insert tableName="executor">
+            <column name="id" valueNumeric="1002"/>
+            <column name="name" value="Ступин Владлен"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="descr" value="Ступин Владлен Владленович"/>
+        </insert>
+        <insert tableName="executor">
+            <column name="id" valueNumeric="1003"/>
+            <column name="name" value="Ярополк Святославич"/>
+            <column name="available" valueBoolean="false"/>
+            <column name="descr" value="князь киевский"/>
+        </insert>
+        <rollback>
+            <delete tableName="executor">
+                <where>id in (1001, 1002, 1003)</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2020-12-23-03-003" author="Vladimir">
+        <comment>Тестовые данные по заявкам</comment>
+        <insert tableName="request">
+            <column name="id" valueNumeric="1001"/>
+            <column name="name" value="Помочь по дому"/>
+            <column name="status" value="TODO"/>
+            <column name="dt_start" valueDate="TIMESTAMP WITH TIME ZONE '2021-02-10 10:00:00+03'"/>
+            <column name="dt_end" valueDate="TIMESTAMP WITH TIME ZONE '2021-02-10 19:00:00+03'"/>
+            <column name="customer_id" valueNumeric="1001"/>
+            <column name="executor_id" valueNumeric="1002"/>
+            <column name="descr" value="Помочь по дому"/>
+        </insert>
+        <insert tableName="request">
+            <column name="id" valueNumeric="1002"/>
+            <column name="name" value="Помочь по хозяйству"/>
+            <column name="status" value="TODO"/>
+            <column name="dt_start" valueDate="TIMESTAMP WITH TIME ZONE '2021-02-10 10:00:00+03'"/>
+            <column name="dt_end" valueDate="TIMESTAMP WITH TIME ZONE '2021-02-10 13:30:00+03'"/>
+            <column name="descr" value="Помочь по хозяйству"/>
+        </insert>
+        <insert tableName="request">
+            <column name="id" valueNumeric="1003"/>
+            <column name="name" value="Покупать хлеб"/>
+            <column name="status" value="IN_PROGRESS"/>
+            <column name="dt_start" valueDate="TIMESTAMP WITH TIME ZONE '2020-12-15 10:00:00+03'"/>
+            <column name="dt_end" valueDate="TIMESTAMP WITH TIME ZONE '2020-12-10 19:00:00+03'"/>
+            <column name="customer_id" valueNumeric="1003"/>
+            <column name="executor_id" valueNumeric="1002"/>
+            <column name="descr" value="Покупать каждый день булку хлеба и пакет молока"/>
+        </insert>
+        <insert tableName="request">
+            <column name="id" valueNumeric="1004"/>
+            <column name="name" value="Вынести мусор"/>
+            <column name="status" value="DONE"/>
+            <column name="dt_start" valueDate="TIMESTAMP WITH TIME ZONE '2020-12-10 10:00:00+03'"/>
+            <column name="dt_end" valueDate="TIMESTAMP WITH TIME ZONE '2020-12-15 19:00:00+03'"/>
+            <column name="dt_comleted" valueDate="TIMESTAMP WITH TIME ZONE '2020-12-13 13:48:24+03'"/>
+            <column name="customer_id" valueNumeric="1002"/>
+            <column name="executor_id" valueNumeric="1002"/>
+            <column name="descr" value="Вынести мусор и старый шкаф"/>
+        </insert>
+        <rollback>
+            <delete tableName="request">
+                <where>id between 1001 and 1004</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2020-12-23-03-100" author="Vladimir">
+        <tagDatabase tag="testData-1.0.0"/>
+    </changeSet>
+
+    <changeSet id="2020-12-23-03-200" author="liquibase-maven-plugin">
+        <tagDatabase tag="liquibase-maven-plugin-1.0.0"/>
+    </changeSet>
+</databaseChangeLog>
