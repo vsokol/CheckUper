@@ -2,9 +2,10 @@ package milovanov.stc31.innopolis.checkuper.pojo;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "Request")
+@Table(name = "request")
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,14 +22,16 @@ public class Request {
     private Date intervalEndTime;
     @Column(name = "dt_comleted")
     private Date completionTime;
-    @OneToOne()
+    @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
-    @OneToOne()
+    @ManyToOne
     @JoinColumn(name = "executor_id", referencedColumnName = "id")
     private Executor executor;
     @Column(name = "descr")
     private String descr;
+    @OneToMany(mappedBy = "request", fetch = FetchType.LAZY)
+    private List<CheckList> checkLists;
 
     public Long getId() {
         return id;
@@ -100,5 +103,13 @@ public class Request {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public List<CheckList> getCheckLists() {
+        return checkLists;
+    }
+
+    public void setCheckLists(List<CheckList> checkLists) {
+        this.checkLists = checkLists;
     }
 }

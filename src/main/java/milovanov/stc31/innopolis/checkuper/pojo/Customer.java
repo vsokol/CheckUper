@@ -1,6 +1,7 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Customer")
@@ -15,6 +16,8 @@ public class Customer {
     private String address;
     @Column(name = "descr")
     private String descr;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<Request> requestList;
 
     protected Customer() {
     }
@@ -49,5 +52,13 @@ public class Customer {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public List<Request> getRequestList() {
+        return requestList;
+    }
+
+    public void setRequestList(List<Request> requestList) {
+        this.requestList = requestList;
     }
 }

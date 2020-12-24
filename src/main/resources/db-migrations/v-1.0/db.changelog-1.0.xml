@@ -8,4 +8,5 @@
     <include file="2020-12-23--01-empty.xml" relativeToChangelogFile="true"/>
     <include file="2020-12-23--02-initial-schema.xml" relativeToChangelogFile="true"/>
     <include file="2020-12-23--03-insert_test_data.xml" relativeToChangelogFile="true"/>
+    <include file="2020-12-24--01-insert_test_checklist.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
