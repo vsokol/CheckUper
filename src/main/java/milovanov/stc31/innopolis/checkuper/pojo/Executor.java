@@ -1,9 +1,10 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "Executor")
+@Table(name = "executor")
 public class Executor {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -15,6 +16,8 @@ public class Executor {
     private boolean available;
     @Column(name = "descr")
     private String descr;
+    @OneToMany(mappedBy = "executor", fetch = FetchType.LAZY)
+    private List<Request> requestList;
 
     public Long getId() {
         return id;

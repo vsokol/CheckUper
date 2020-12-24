@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2020-12-24-01-001" author="Vladimir">
+        <comment>Тестовые данные чек-листам</comment>
+        <insert tableName="checklist">
+            <column name="id" valueNumeric="1001"/>
+            <column name="request_id" valueNumeric="1001"/>
+            <column name="name" value="Помочь по дому"/>
+        </insert>
+        <insert tableName="checklist">
+            <column name="id" valueNumeric="1002"/>
+            <column name="request_id" valueNumeric="1001"/>
+            <column name="name" value="Сходить за продуктами"/>
+            <column name="descr" value="Магазин Пятерочка"/>
+        </insert>
+        <insert tableName="checklist">
+            <column name="id" valueNumeric="1003"/>
+            <column name="request_id" valueNumeric="1002"/>
+            <column name="name" value="Помочь по хозяйству"/>
+        </insert>
+        <insert tableName="checklist">
+            <column name="id" valueNumeric="1004"/>
+            <column name="request_id" valueNumeric="1003"/>
+            <column name="name" value="Вынести мусор"/>
+        </insert>
+        <insert tableName="checklist">
+            <column name="id" valueNumeric="1005"/>
+            <column name="request_id" valueNumeric="1004"/>
+            <column name="name" value="Покупки каждый день"/>
+        </insert>
+        <rollback>
+            <delete tableName="checklist">
+                <where>id between 1001 and 1005</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2020-12-24-02-001" author="Vladimir">
+        <comment>Тестовые данные задачам</comment>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1001"/>
+            <column name="checklist_id" valueNumeric="1001"/>
+            <column name="info" value="Помыть пол"/>
+            <column name="is_required" valueBoolean="true"/>
+            <column name="descr" value="Предварительно пропылесосить"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1002"/>
+            <column name="checklist_id" valueNumeric="1001"/>
+            <column name="info" value="Помыть окна"/>
+            <column name="is_required" valueBoolean="false"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1003"/>
+            <column name="checklist_id" valueNumeric="1002"/>
+            <column name="info" value="Купить 2 булки хлеба"/>
+            <column name="is_required" valueBoolean="true"/>
+            <column name="descr" value="Белого и серого"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1004"/>
+            <column name="checklist_id" valueNumeric="1002"/>
+            <column name="info" value="Купить сметану"/>
+            <column name="is_required" valueBoolean="true"/>
+            <column name="descr" value="Не дороже 50 рублей"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1005"/>
+            <column name="checklist_id" valueNumeric="1003"/>
+            <column name="info" value="Принести воды"/>
+            <column name="is_required" valueBoolean="true"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1006"/>
+            <column name="checklist_id" valueNumeric="1003"/>
+            <column name="info" value="Нарубить дров"/>
+            <column name="is_required" valueBoolean="true"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1007"/>
+            <column name="checklist_id" valueNumeric="1004"/>
+            <column name="info" value="Вынести мусор"/>
+            <column name="is_required" valueBoolean="true"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1008"/>
+            <column name="checklist_id" valueNumeric="1004"/>
+            <column name="info" value="Разобрать старый шкаф"/>
+            <column name="is_required" valueBoolean="false"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1009"/>
+            <column name="checklist_id" valueNumeric="1005"/>
+            <column name="info" value="Купить булку хлеба"/>
+            <column name="is_required" valueBoolean="true"/>
+            <column name="descr" value="Белый батон"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1010"/>
+            <column name="checklist_id" valueNumeric="1005"/>
+            <column name="info" value="Купить пачку молока"/>
+            <column name="is_required" valueBoolean="true"/>
+        </insert>
+        <insert tableName="task">
+            <column name="id" valueNumeric="1011"/>
+            <column name="checklist_id" valueNumeric="1005"/>
+            <column name="info" value="Купить яблок"/>
+            <column name="is_required" valueBoolean="false"/>
+        </insert>
+        <rollback>
+            <delete tableName="task">
+                <where>id between 1001 and 1011</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2020-12-24-01-100" author="Vladimir">
+        <tagDatabase tag="test_checklist-1.0.0"/>
+    </changeSet>
+
+    <changeSet id="2020-12-24-01-200" author="liquibase-maven-plugin">
+        <tagDatabase tag="liquibase-maven-plugin-1.0.0"/>
+    </changeSet>
+</databaseChangeLog>
