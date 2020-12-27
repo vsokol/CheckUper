@@ -4,14 +4,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title}"/>
+    <title th:text="${title}">Заказы</title>
 </head>
 <body>
-<h2 th:text="${title}"/>
+<h2 th:text="${title}">Список заказов</h2>
 <!--<a href="/addrequest/" type="button" class="btn btn-primary">Добавить заявку</a>-->
 <!--<br>-->
 <br>
-<table class="table">
+<table class="table" th:with="df='dd.MM.yyyy hh:mm'">
     <thead>
     <tr>
         <th>Название</th>
@@ -24,19 +24,25 @@
         <th>Описание</th>
     </tr>
     </thead>
-    <tbody>
-    <tr th:each="item: ${requests}">
-        <td scope="row" hidden="hidden" th:text="${item.id}">
-        <td th:text="${item.name}">
-        <td th:text="${item.status}">
-        <td th:text="${item.intervalStartTime}">
-        <td th:text="${item.intervalEndTime}">
-        <td th:text="${item.completionTime}">
-        <td th:if="${item.customer} == null">
-        <td th:if="${item.customer} != null" th:text="${item.customer.name}">
-        <td th:if="${item.executor} == null">
-        <td th:if="${item.executor} != null" th:text="${item.executor.name}">
-        <td th:text="${item.descr}">
+    <tbody th:each="request: ${requests}">
+    <tr>
+        <td scope="row" hidden="hidden" th:text="${request.id}">100</td>
+        <td th:text="${request.name}">Помочь по дому</td>
+        <td th:text="${request.status}">TODO</td>
+        <td th:text="${#calendars.format(request.intervalStartTime,df)}">10.02.2021 10:00</td>
+        <td th:text="${#calendars.format(request.intervalEndTime,df)}">10.02.2021 15:30</td>
+        <td th:text="${#calendars.format(request.completionTime,df)}"></td>
+        <td th:text="${request.customer != null}? ${request.customer.name}: ''">Петров Иван</td>
+        <td th:text="${request.executor != null}? ${request.executor.name}: ''">Помогаев Степан</td>
+        <td th:text="${request.descr}">Нужно помочь с домашними делами</td>
+    </tr>
+    <tr th:each="checklist: ${request.checkLists}">
+        <!--        th:each="task: ${checklist.taskList}"-->
+        <td colspan="9">
+            <ul>
+                <li th:text="${checklist.name}"></li>
+            </ul>
+        </td>
     </tr>
     </tbody>
 </table>
