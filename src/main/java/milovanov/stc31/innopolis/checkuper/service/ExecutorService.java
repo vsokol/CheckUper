@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ExecutorService implements IService<Executor> {
+public class  ExecutorService implements IService<Executor> {
     private CRUD<Executor> executorCRUD;
 
     @Autowired
