@@ -24,7 +24,7 @@ public class RequestService implements IRequestService {
      */
     @Override
     public List<Request> getAllRequests() {
-        List<Request> list = (List<Request>) requestDao.findAll();
+        List<Request> list = requestDao.findAll();
         return list;
     }
 

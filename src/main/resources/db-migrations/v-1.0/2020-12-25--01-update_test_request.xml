@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2020-12-25-01-001" author="Vladimir">
+        <comment>Изменение данных по заявкам</comment>
+        <update tableName="request">
+            <column name="customer_id" valueNumeric="1001"/>
+            <where>id=1002</where>
+        </update>
+        <comment>Изменение данных по заявкам</comment>
+        <update tableName="request">
+            <column name="executor_id" valueNumeric="1001"/>
+            <where>id=1003</where>
+        </update>
+        <rollback>
+            <update tableName="request">
+                <column name="customer_id" valueNumeric="null"/>
+                <where>id=1002</where>
+            </update>
+            <comment>Изменение данных по заявкам</comment>
+            <update tableName="request">
+                <column name="executor_id" valueNumeric="1002"/>
+                <where>id=1003</where>
+            </update>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2020-12-25-01-100" author="Vladimir">
+        <tagDatabase tag="test_update_request-1.0.0"/>
+    </changeSet>
+
+    <changeSet id="2020-12-25-01-200" author="liquibase-maven-plugin">
+        <tagDatabase tag="liquibase-maven-plugin-1.0.0"/>
+    </changeSet>
+</databaseChangeLog>

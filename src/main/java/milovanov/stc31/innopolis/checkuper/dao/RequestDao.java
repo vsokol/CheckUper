@@ -3,6 +3,7 @@ package milovanov.stc31.innopolis.checkuper.dao;
 import milovanov.stc31.innopolis.checkuper.pojo.Executor;
 import milovanov.stc31.innopolis.checkuper.pojo.Request;
 import milovanov.stc31.innopolis.checkuper.pojo.RequestStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * DAO слой для работы с заказами
  */
 @Repository
-public interface RequestDao extends CrudRepository<Request, Long> {
+public interface RequestDao extends JpaRepository<Request, Long> {
     /**
      * Возвращает список заказов с указанным статусом, у которых еще не определен исполнитель
      * @param status статус заказов
