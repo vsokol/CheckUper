@@ -16,7 +16,7 @@ public class Task {
     @Column(name = "descr")
     private String descr;
     @ManyToOne
-    @JoinColumn(name = "checklist_id", referencedColumnName = "id")
+    @JoinColumn(name = "checklist_id", referencedColumnName = "id", nullable = false)
     private CheckList checkList;
 
     public Long getId() {

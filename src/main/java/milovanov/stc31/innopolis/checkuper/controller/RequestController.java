@@ -1,31 +1,56 @@
 package milovanov.stc31.innopolis.checkuper.controller;
 
+import milovanov.stc31.innopolis.checkuper.pojo.Executor;
 import milovanov.stc31.innopolis.checkuper.pojo.Request;
+import milovanov.stc31.innopolis.checkuper.service.IExecutorService;
 import milovanov.stc31.innopolis.checkuper.service.IRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/requests")
 public class RequestController {
-    final private IRequestService service;
+    final private IRequestService requestService;
+    final private IExecutorService executorService;
 
     @Autowired
-    public RequestController(IRequestService service) {
-        this.service = service;
+    public RequestController(IRequestService requestService, IExecutorService executorService) {
+        this.requestService = requestService;
+        this.executorService = executorService;
     }
 
     /**
-     * Просмотр списка всех заказов
-     * @return ModelAndView с информацией по заказам и страницей отображения
+     * Просмотр списка всех заказов для указанного исполнителя, если он указан, иначе список всех заказов всех исполнителей.
+     * @param paramExecutorId идентификатор исполнителя
+     * @return ModelAndView с информацией по заказам и страницей отображения для указанного исполнителя
      */
-    @GetMapping(value = "/requests")
-    public ModelAndView getAllRequests() {
+    @GetMapping
+    public ModelAndView getAllRequests(@RequestParam(value = "executor_id", required = false) String paramExecutorId) {
+        List<Request> requestList;
+        String title;
+        try {
+            Long executorId = Long.valueOf(paramExecutorId);
+            Executor executor = executorService.getExecutorById(executorId);
+            if (executor == null) {
+                requestList = new ArrayList<>();
+                title = "Испонитель не найден";
+            } else {
+                requestList = requestService.getAllRequestsByExecutor(executor);
+                title = executor.getName() + " (Заявки)";
+            }
+        } catch (NumberFormatException exception) {
+            requestList = requestService.getAllRequests();
+            title = "Заявки";
+        }
         ModelAndView modelAndView =
-                getModelAndView(service.getAllRequests(),"Заявки", "allrequests");
+                getModelAndView(requestList,title, "allrequests");
         return modelAndView;
     }
 
@@ -33,10 +58,10 @@ public class RequestController {
      * Просмотр списка всех доступных для выполнения заказов
      * @return ModelAndView с информацией по заказам и страницей отображения
      */
-    @GetMapping(value = "/available_requests")
+    @GetMapping(value = "/available")
     public ModelAndView getAllAvailableRequests() {
         ModelAndView modelAndView =
-                getModelAndView(service.getAllAvailableRequests(),"Доступные заявки", "allrequests");
+                getModelAndView(requestService.getAllAvailableRequests(),"Доступные заявки", "allrequests");
         return modelAndView;
     }
 
