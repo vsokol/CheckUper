@@ -36,11 +36,10 @@
         <td th:text="${request.executor != null}? ${request.executor.name}: ''">Помогаев Степан</td>
         <td th:text="${request.descr}">Нужно помочь с домашними делами</td>
     </tr>
-    <tr th:each="checklist: ${request.checkLists}">
-        <!--        th:each="task: ${checklist.taskList}"-->
+    <tr th:each="task: ${request.taskList}">
         <td colspan="9">
             <ul>
-                <li th:text="${checklist.name}"></li>
+                <li th:text="${task.info}"></li>
             </ul>
         </td>
     </tr>

@@ -8,7 +8,7 @@
     <changeSet id="2020-12-23-02-001" author="Vladimir">
         <comment>таблица исполнителей (волонтеров)</comment>
         <createTable tableName="executor" remarks="Исполнители">
-            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
+            <column name="id" type="bigint" autoIncrement="true" startWith="10000" remarks="Идентификатор">
                 <constraints primaryKeyName="executor_id_pk" primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)" remarks="ФИО">
@@ -19,10 +19,6 @@
             </column>
             <column name="descr" type="text" remarks="Описание, например, что может делать"/>
         </createTable>
-<!--        <alterSequence sequenceName="executor_id_seq" minValue="10000"/>-->
-        <sql>
-            alter sequence if exists executor_id_seq restart with 10000;
-        </sql>
         <rollback>
             <dropTable tableName="executor"/>
         </rollback>
@@ -31,7 +27,7 @@
     <changeSet id="2020-12-23-02-002" author="Vladimir">
         <comment>таблица заказчиков</comment>
         <createTable tableName="customer" remarks="Заказчики">
-            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
+            <column name="id" type="bigint" autoIncrement="true" startWith="10000" remarks="Идентификатор">
                 <constraints primaryKeyName="customer_id_pk" primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)" remarks="ФИО">
@@ -40,10 +36,6 @@
             <column name="address" type="text" remarks="Адрес"/>
             <column name="descr" type="text" remarks="Описание заказчика"/>
         </createTable>
-<!--        <alterSequence sequenceName="customer_id_seq" minValue="10000"/>-->
-        <sql>
-            alter sequence if exists customer_id_seq restart with 10000;
-        </sql>
         <rollback>
             <dropTable tableName="customer"/>
         </rollback>
@@ -52,7 +44,7 @@
     <changeSet id="2020-12-23-02-003" author="Vladimir">
         <comment>таблица заявок</comment>
         <createTable tableName="request" remarks="Заявки">
-            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
+            <column name="id" type="bigint" autoIncrement="true" startWith="10000" remarks="Идентификатор">
                 <constraints primaryKeyName="request_id_pk" primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)" remarks="Название">
@@ -82,11 +74,9 @@
         <createIndex tableName="request" indexName="request_executor_id_idx">
             <column name="executor_id"/>
         </createIndex>
-<!--        <alterSequence sequenceName="request_id_seq" minValue="10000"/>-->
         <sql>
             alter table if exists request add constraint request_status_chk check (status in ('TODO', 'IN_PROGRESS',
             'DONE'));
-            alter sequence if exists request_id_seq restart with 10000;
         </sql>
         <rollback>
             <dropTable tableName="request"/>
@@ -96,7 +86,7 @@
     <changeSet id="2020-12-23-02-004" author="Vladimir">
         <comment>таблица типов элементов чек-листов</comment>
         <createTable tableName="task_type" remarks="Типы задач">
-            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
+            <column name="id" type="bigint" autoIncrement="true" startWith="10000" remarks="Идентификатор">
                 <constraints primaryKeyName="task_type_id_pk" primaryKey="true" nullable="false"/>
             </column>
             <column name="code" type="varchar(15)" remarks="Код">
@@ -107,10 +97,6 @@
             </column>
             <column name="descr" type="text" remarks="Описание"/>
         </createTable>
-<!--        <alterSequence sequenceName="task_type_id_seq" minValue="10000"/>-->
-        <sql>
-            alter sequence if exists task_type_id_seq restart with 10000;
-        </sql>
         <rollback>
             <dropTable tableName="task_type"/>
         </rollback>
@@ -143,45 +129,18 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="2020-12-23-02-006" author="Vladimir">
-        <comment>таблица чек-листов</comment>
-        <createTable tableName="checklist" remarks="Чек-листы">
-            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
-                <constraints primaryKeyName="checklist_id_pk" primaryKey="true" nullable="false"/>
-            </column>
-            <column name="request_id" type="bigint" remarks="Заявка">
-                <constraints foreignKeyName="checklist_id_fk" referencedTableName="request"
-                             referencedColumnNames="id" nullable="false"/>
-            </column>
-            <column name="name" type="varchar(50)" remarks="Название">
-                <constraints nullable="false"/>
-            </column>
-            <column name="descr" type="text" remarks="Описание"/>
-        </createTable>
-        <createIndex tableName="checklist" indexName="checklist_id_idx">
-            <column name="request_id"/>
-        </createIndex>
-<!--        <alterSequence sequenceName="checklist_id_seq" minValue="10000"/>-->
-        <sql>
-            alter sequence if exists checklist_id_seq restart with 10000;
-        </sql>
-        <rollback>
-            <dropTable tableName="checklist"/>
-        </rollback>
-    </changeSet>
-
     <changeSet id="2020-12-23-02-007" author="Vladimir">
         <comment>таблица задач для чек-листов</comment>
         <createTable tableName="task" remarks="Задача по чек-листу">
-            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
+            <column name="id" type="bigint" autoIncrement="true" startWith="10000" remarks="Идентификатор">
                 <constraints primaryKeyName="task_id_pk" primaryKey="true" nullable="false"/>
             </column>
             <column name="type_id" type="bigint" defaultValue="10" remarks="Тип задачи (пока только один тип - LABEL)">
                 <constraints foreignKeyName="task_type_id_fk" referencedTableName="task_type"
                              referencedColumnNames="id" nullable="false"/>
             </column>
-            <column name="checklist_id" type="bigint" remarks="Чек-лис, в который входит задача">
-                <constraints foreignKeyName="task_checklist_id_fk" referencedTableName="checklist"
+            <column name="request_id" type="bigint" remarks="Заявка, в которую входит задача">
+                <constraints foreignKeyName="task_request_id_fk" referencedTableName="request"
                              referencedColumnNames="id" nullable="false"/>
             </column>
             <column name="info" type="varchar(100)"
@@ -191,18 +150,15 @@
             <column name="is_required" type="boolean" defaultValue="true" remarks="Обязательность выполнения задачи">
                 <constraints nullable="false"/>
             </column>
+            <column name="index_number" type="bigint" remarks="Порядковый номер"/>
             <column name="descr" type="text" remarks="Комментарии к задачи"/>
         </createTable>
         <createIndex tableName="task" indexName="task_type_id_idx">
             <column name="type_id"/>
         </createIndex>
-        <createIndex tableName="task" indexName="task_checklist_id_idx">
-            <column name="checklist_id"/>
+        <createIndex tableName="task" indexName="task_request_id_idx">
+            <column name="request_id"/>
         </createIndex>
-<!--        <alterSequence sequenceName="task_id_seq" minValue="10000"/>-->
-        <sql>
-            alter sequence if exists task_id_seq restart with 10000;
-        </sql>
         <rollback>
             <dropTable tableName="task"/>
         </rollback>
@@ -211,7 +167,7 @@
     <changeSet id="2020-12-23-02-008" author="Vladimir">
         <comment>таблица результатов выполнения задач в разрезе элементов</comment>
         <createTable tableName="task_result" remarks="Результаты выполнения">
-            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
+            <column name="id" type="bigint" autoIncrement="true" startWith="10000" remarks="Идентификатор">
                 <constraints primaryKeyName="task_result_id_pk" primaryKey="true" nullable="false"/>
             </column>
             <column name="task_id" type="bigint" remarks="Элемент чек-листе">
@@ -225,10 +181,6 @@
         <createIndex tableName="task_result" indexName="task_result_id_idx">
             <column name="task_id"/>
         </createIndex>
-<!--        <alterSequence sequenceName="task_result_id_seq" minValue="10000"/>-->
-        <sql>
-            alter sequence if exists task_result_id_seq restart with 10000;
-        </sql>
         <rollback>
             <dropTable tableName="task_result"/>
         </rollback>
