@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name = "executor")
 public class Executor {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
