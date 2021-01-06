@@ -40,7 +40,7 @@ public class RequestController {
             Executor executor = executorService.getExecutorById(executorId);
             if (executor == null) {
                 requestList = new ArrayList<>();
-                title = "Испонитель не найден";
+                title = "Исполнитель не найден";
             } else {
                 requestList = requestService.getAllRequestsByExecutor(executor);
                 title = executor.getName() + " (Заявки)";
@@ -50,7 +50,35 @@ public class RequestController {
             title = "Заявки";
         }
         ModelAndView modelAndView =
-                getModelAndView(requestList,title, "allrequests");
+                getModelAndView(requestList, title, "allrequests");
+        return modelAndView;
+    }
+
+    /**
+     * Просмотр указанного в <tt>request_id</tt> заказа.
+     * @param paramRequestId идентификатор исполнителя
+     * @return ModelAndView с информацией по заказу и страницей отображения
+     */
+    @GetMapping("/show")
+    public ModelAndView getRequest(@RequestParam(value = "id", required = false) String paramRequestId) {
+        Request request;
+        String title;
+        try {
+            Long requestId = Long.valueOf(paramRequestId);
+            request = requestService.getRequestById(requestId);
+            if (request == null) {
+                title = "Заказ не найден";
+            } else {
+                title = request.getName();
+            }
+        } catch (NumberFormatException exception) {
+            request = null;
+            title = "Заказ не найден";
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("title", title);
+        modelAndView.addObject("request", request);
+        modelAndView.setViewName("show_request");
         return modelAndView;
     }
 

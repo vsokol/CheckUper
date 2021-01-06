@@ -27,4 +27,11 @@ public interface IRequestService {
      * @return список всех заказов для указанного исполнителя
      */
     List<Request> getAllRequestsByExecutor(Executor executor);
+
+    /**
+     * Возварщает заказ по его идентификтору
+     * @param id идентификатор заказа
+     * @return заказ
+     */
+    Request getRequestById(Long id);
 }
