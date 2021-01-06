@@ -48,4 +48,15 @@ public class RequestService implements IRequestService {
         List<Request> list = requestDao.findByExecutor(executor);
         return list;
     }
+
+    /**
+     * Возвращает заказ по указанному идентификтору
+     * @param id идентификатор заказа
+     * @return заказ
+     */
+    @Override
+    public Request getRequestById(Long id) {
+        Request request = requestDao.findRequestById(id);
+        return request;
+    }
 }

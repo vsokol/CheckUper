@@ -27,4 +27,11 @@ public interface RequestDao extends JpaRepository<Request, Long> {
      * @return список всех заказов указанного исполнителя
      */
     List<Request> findByExecutor(Executor executor);
+
+    /**
+     * Возвбращает заказ по его уникльному идентификатору
+     * @param id идентификатор заказа
+     * @return заказ
+     */
+    Request findRequestById(Long id);
  }

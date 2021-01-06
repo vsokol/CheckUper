@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2021-01-06-01-001" author="Vladimir">
+        <comment>Изменение привязки задач к заявку</comment>
+        <update tableName="task">
+            <column name="request_id" valueNumeric="1003"/>
+            <where>id in (1009, 1010, 1011)</where>
+        </update>
+        <update tableName="task">
+            <column name="request_id" valueNumeric="1004"/>
+            <where>id in (1007, 1008)</where>
+        </update>
+        <rollback>
+            <update tableName="task">
+                <column name="request_id" valueNumeric="1004"/>
+                <where>id in (1009, 1010, 1011)</where>
+            </update>
+            <update tableName="task">
+                <column name="request_id" valueNumeric="1003"/>
+                <where>id in (1007, 1008)</where>
+            </update>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2020-12-25-01-100" author="Vladimir">
+        <tagDatabase tag="test_update_request-1.0.0"/>
+    </changeSet>
+
+    <changeSet id="2020-12-25-01-200" author="liquibase-maven-plugin">
+        <tagDatabase tag="liquibase-maven-plugin-1.0.0"/>
+    </changeSet>
+</databaseChangeLog>
