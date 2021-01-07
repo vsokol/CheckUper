@@ -18,6 +18,8 @@ public class Executor {
     private String descr;
     @OneToMany(mappedBy = "executor", fetch = FetchType.LAZY)
     private List<Request> requestList;
+    @OneToOne(mappedBy = "executor")
+    private User user;
 
     public Long getId() {
         return id;
@@ -49,5 +51,21 @@ public class Executor {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public List<Request> getRequestList() {
+        return requestList;
+    }
+
+    public void setRequestList(List<Request> requestList) {
+        this.requestList = requestList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
