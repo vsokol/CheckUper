@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2021-01-07-01-001" author="Vladimir">
+        <comment>Пользователи</comment>
+        <createTable tableName="users" remarks="Пользователи">
+            <column name="id" type="bigint" remarks="Идентификатор" autoIncrement="true" startWith="10000">
+                <constraints primaryKeyName="users_id_pk" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(20)" remarks="Логин">
+                <constraints uniqueConstraintName="users_login" unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(50)" remarks="Пароль">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)" remarks="ФИО">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="bigint" remarks="Заказчик">
+                <constraints foreignKeyName="users_customer_id_fk" referencedTableName="customer"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="executor_id" type="bigint" remarks="Исполнитель">
+                <constraints foreignKeyName="users_executor_id_fk" referencedTableName="executor"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="descr" type="text" remarks="Описание"/>
+        </createTable>
+        <createIndex tableName="users" indexName="users_customer_id_idx">
+            <column name="customer_id"/>
+        </createIndex>
+        <createIndex tableName="users" indexName="users_executor_id_idx">
+            <column name="executor_id"/>
+        </createIndex>
+        <rollback>
+            <dropTable tableName="users"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2021-01-07-01-002" author="Vladimir">
+        <comment>изменение таблица результатов выполнения задач в разрезе элементов</comment>
+        <dropColumn tableName="task_result" columnName="id"/>
+        <dropIndex tableName="task_result" indexName="task_result_id_idx"/>
+        <addUniqueConstraint tableName="task_result" columnNames="task_id" constraintName="task_result_task_id_uk"/>
+
+        <rollback>
+            <addColumn tableName="task_result">
+                <column name="id" type="bigint" autoIncrement="true" startWith="1000000" remarks="Идентификатор">
+                    <constraints primaryKeyName="task_result_id_pk" primaryKey="true" nullable="false"/>
+                </column>
+            </addColumn>
+            <dropUniqueConstraint tableName="task_result" constraintName="task_result_task_id_uk"/>
+            <createIndex tableName="task_result" indexName="task_result_id_idx">
+                <column name="task_id"/>
+            </createIndex>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2021-01-07-01-100" author="Vladimir">
+        <tagDatabase tag="version-1.0.1"/>
+    </changeSet>
+</databaseChangeLog>

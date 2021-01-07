@@ -11,4 +11,5 @@
     <include file="2020-12-24--01-insert_test_request.xml" relativeToChangelogFile="true"/>
     <include file="2020-12-25--01-update_test_request.xml" relativeToChangelogFile="true"/>
     <include file="2021-01-06--01-update_test_task.xml" relativeToChangelogFile="true"/>
+    <include file="2021-01-07--01-schema_user.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
