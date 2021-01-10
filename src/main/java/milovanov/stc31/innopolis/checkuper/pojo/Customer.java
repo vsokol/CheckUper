@@ -1,6 +1,5 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.List;
 

@@ -33,6 +33,6 @@ public class AddRequestController {
         request.setDescr(descr);
         request.setStatus(RequestStatus.TODO);
         requestDao.save(request);
-        return "allrequests";
+        return "show_request";
     }
 }
