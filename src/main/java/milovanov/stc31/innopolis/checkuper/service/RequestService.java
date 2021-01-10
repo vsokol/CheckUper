@@ -18,6 +18,14 @@ public class RequestService implements IRequestService {
         this.requestDao = requestDao;
     }
 
+    @Override
+    public List<Request> createRequest(Request request) {
+        Request req = new Request();
+        req.setName(request.getName());
+        req.setDescr(request.getDescr());
+        return (List<Request>) requestDao.save(req);
+    }
+
     /**
      * Возвращает список всех заказов
      * @return список заказов

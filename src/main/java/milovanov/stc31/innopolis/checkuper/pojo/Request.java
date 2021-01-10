@@ -33,6 +33,9 @@ public class Request {
     @OneToMany(mappedBy = "request", fetch = FetchType.LAZY)
     private List<CheckList> checkLists;
 
+    public Request() {
+    }
+
     public Long getId() {
         return id;
     }
