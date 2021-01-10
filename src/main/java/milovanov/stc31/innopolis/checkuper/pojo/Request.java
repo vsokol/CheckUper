@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "request")
 public class Request {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
@@ -31,7 +31,7 @@ public class Request {
     @Column(name = "descr")
     private String descr;
     @OneToMany(mappedBy = "request", fetch = FetchType.LAZY)
-    private List<CheckList> checkLists;
+    private List<Task> taskList;
 
     public Request() {
     }
@@ -108,11 +108,11 @@ public class Request {
         this.descr = descr;
     }
 
-    public List<CheckList> getCheckLists() {
-        return checkLists;
+    public List<Task> getTaskList() {
+        return taskList;
     }
 
-    public void setCheckLists(List<CheckList> checkLists) {
-        this.checkLists = checkLists;
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 }

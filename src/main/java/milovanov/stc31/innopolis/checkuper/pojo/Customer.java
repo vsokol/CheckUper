@@ -1,5 +1,6 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
 @Table(name = "Customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
@@ -18,6 +19,8 @@ public class Customer {
     private String descr;
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Request> requestList;
+    @OneToOne(mappedBy = "customer")
+    private User user;
 
     protected Customer() {
     }
