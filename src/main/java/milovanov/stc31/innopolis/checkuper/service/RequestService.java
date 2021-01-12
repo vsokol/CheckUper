@@ -61,10 +61,7 @@ public class RequestService implements IRequestService {
      */
     @Override
     public List<Request> createRequest(Request request) {
-        Request req = new Request();
-        req.setName(request.getName());
-        req.setDescr(request.getDescr());
-        return (List<Request>) requestDao.save(req);
+        return (List<Request>) requestDao.save(request);
     }
 
     /**
