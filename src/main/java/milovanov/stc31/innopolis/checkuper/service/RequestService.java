@@ -59,4 +59,10 @@ public class RequestService implements IRequestService {
         Request request = requestDao.findRequestById(id);
         return request;
     }
+
+    @Override
+    public void takeExecutor(Request request, Executor executor) {
+        request.setExecutor(executor);
+        requestDao.save(request);
+    }
 }

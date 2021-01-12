@@ -34,4 +34,6 @@ public interface IRequestService {
      * @return заказ
      */
     Request getRequestById(Long id);
+
+    void takeExecutor(Request request, Executor executor);
 }
