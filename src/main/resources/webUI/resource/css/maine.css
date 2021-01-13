@@ -1,0 +1,205 @@
+li.uk-active>a:before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: -25px;
+  width: 15px;
+  border-top: 1px solid #1e87f0;
+}
+
+li.uk-active>a {
+  position: relative;
+}
+.menu{
+  position: fixed;
+      top: 50px;
+      bottom: 0;
+      box-sizing: border-box;
+      width: 240px !important;
+      border-right: 1px #e5e5e5 solid;
+      padding-left: 40px;
+      padding-top: 20px;
+      padding-right: 20px;
+      padding-right: 20px;
+      overflow: auto; 
+}
+.contentbox{
+  margin-left: 240px;
+}
+
+.paging-mini{
+  padding-top: 0px !important; 
+  padding-bottom: 0px !important;
+  min-height: 0px !important;
+}
+
+.paging-minimal{
+  padding-top: 0px !important; 
+  padding-bottom: 0px !important;
+  padding-left: 0px;
+  padding-right: 0px;
+  min-height: 0px !important;
+}
+
+.header-line{
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 8px;
+    padding-left: 0px;
+    
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(229, 229, 229);
+}
+
+.border::before{
+  border-left: none;
+}
+
+.footer {
+  position: fixed; /* Фиксированное положение */
+  left: 0; bottom: 0; /* Левый нижний угол */
+
+  background: #39b54a; /* Цвет фона */
+ 
+  width: 100%; /* Ширина слоя */
+ }
+
+ .fff{
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+ }
+
+ .pad20{
+  padding-top: 20px;
+ }
+
+ .contpadding{
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+ }
+
+ .rel{
+   position: relative !important;
+ }
+
+ .font7{
+  font-size: .7rem !important;
+ }
+
+ .pad0{
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+ }
+
+ .margincard{
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+ }
+
+ .tablesupersmall{
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+ }
+ 
+
+ /*//////////////////*/
+ .table_ {
+            border-collapse: collapse;
+            border: 1px solid #e5e5e5;
+            line-height: 0.5; 
+        }
+
+        .table_ td {
+            border: 1px solid #e5e5e5;
+        }
+
+
+
+
+
+
+.textcentr{
+  text-align: center;
+}
+
+.inputheight  td input{
+  height: 25px !important;
+}
+
+.textcentrtabl td input{
+  text-align: center;
+}
+
+.tablepadding td input{
+  padding: 0px;
+}
+
+.tablepadding2 td {
+  padding: 0px;
+}
+
+.tab_base_col_id0{
+  background-color:#F0E882;
+}
+.tab_base_col_id1{
+  background-color:#D7E3BC;
+}
+.tab_base_col_id2{
+  background-color:#E5B7B6;
+} 
+
+.tab_base_col_ids0m{
+  background-color:#F0E882;
+}
+.tab_base_col_ids1m{
+  background-color:#D7E3BC;
+}
+.tab_base_col_ids2m{
+  background-color:#E5B7B6;
+}
+
+.shadowBOX{
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32);
+}
+
+.gridtab{
+  margin-left: 5px;margin-right: 5px;margin-top: 15px;
+}
+
+.conteiner{
+  min-width: 1024px !important;
+}
+
+.hiderow td{
+display: none;
+
+}
+.hide2 td{
+padding: 0px;
+}
+
+
+.cole1r{
+  background-color:#F0E882;
+}
+.cole2r{
+  background-color:#D7E3BC;
+}
+.cole3r{
+  background-color:#E5B7B6;
+}
+
+
+.unselectable {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}

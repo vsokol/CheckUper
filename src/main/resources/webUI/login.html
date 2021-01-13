@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Авторизация</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="resource/css/uikit.min.css"/>
+        <link rel="stylesheet" href="resource/css/maine.css"/>
+        <script src="resource/js/uikit.min.js"></script>
+        <script src="resource/js/uikit-icons.min.js"></script>
+
+        <link rel="shortcut icon" href="resource/ico/favicon.png" type="image/png">
+
+    </head>
+    <body class="conteiner">
+        <div class=" uk-background-muted uk-position-cover "  >
+            <form method="POST" action="j_security_check">
+                <div class=" uk-card-default uk-width-1-3@m uk-align-center uk-position-center"  style="width: 458px;">
+                    <div class="uk-card-header uk-text-primary ">
+                        <div class="uk-inline uk-width-1-1 ">
+                            <span class="uk-margin-small-right uk-icon" uk-icon="icon: thumbnails; ratio: 2"></span>
+                            <span class="uk-text-middle uk-text-lead ">CheckUPer</span>
+                        </div>
+
+                    </div>
+                    <div class="uk-card-body">
+                        <div class="uk-margin">
+                            <div class="uk-form-controls ">
+                                <div class="uk-inline uk-width-1-1 ">
+                                    <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                    <input class="uk-input uk-text-primary" id="form-stacked-text-user" type="text" name="j_username" placeholder="Логин">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="uk-margin">
+                            <div class="uk-form-controls">
+                                <div class="uk-inline uk-width-1-1">
+                                    <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                                    <input class="uk-input uk-text-primary" id="form-stacked-text-pass" type="password" name="j_password" placeholder="Пароль">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <p><span class="uk-label ">Важно</span> Логин это ваш E-Mail</p>
+
+
+                    </div>
+
+                    <div class="uk-card-footer ">
+
+                        <div class="uk-align-right " >
+                            <div uk-form-custom="target: true">
+
+                                <button  class="uk-button uk-button-text " type="submit">
+                                    <span class="uk-text-middle">Войти</span>
+                                    <span uk-icon="icon: sign-in"></span>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+
+            </form>
+        </div>
+    </body>
+</html>
