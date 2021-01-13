@@ -82,6 +82,34 @@ public class RequestController {
         return modelAndView;
     }
 
+    @GetMapping("/take")
+    public ModelAndView takeRequest(@RequestParam(value = "id", required = false) String paramRequestId) {
+        Request request;
+        String title;
+        try {
+            Long requestId = Long.valueOf(paramRequestId);
+            request = requestService.getRequestById(requestId);
+            if (request == null) {
+                title = "Заказ не найден";
+            } else {
+                title = request.getName();
+            }
+        } catch (NumberFormatException exception) {
+            request = null;
+            title = "Заказ не найден";
+        }
+        Executor executor = executorService.getExecutorById(1001L);
+        requestService.takeExecutor(request, executor);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("title", title);
+        modelAndView.addObject("request", request);
+
+        modelAndView.setViewName("show_request");
+        return modelAndView;
+    }
+
+
     /**
      * Просмотр списка всех доступных для выполнения заказов
      * @return ModelAndView с информацией по заказам и страницей отображения
