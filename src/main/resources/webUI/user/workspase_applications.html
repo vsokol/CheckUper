@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Мои заявки</title>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+
+    <link rel="stylesheet" href="../resource/css/uikit.min.css" />
+    <link rel="stylesheet" href="../resource/css/maine.css" />
+    <script src="../resource/js/uikit.min.js"></script>
+    <script src="../resource/js/uikit-icons.min.js"></script>
+
+
+    <link rel="shortcut icon" href="../resource/ico/favicon.png" type="image/png">
+
+</head>
+
+<body class="conteiner unselectable">
+
+    <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
+
+        <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
+
+            <div class="uk-navbar-left ">
+
+                <div class="uk-padding-small paging-mini uk-text-primary">
+                    <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
+                    <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
+                </div>
+            </div>
+
+            <div class="uk-navbar-right ">
+
+                <div class="uk-navbar-item paging-mini">
+                    <a class="uk-icon-button uk-icon" href="../setting" uk-icon="icon: cog; ratio: 1.5"></a>
+                </div>
+
+                <div class="uk-navbar-item paging-mini">
+                    <span id="UserName" class="uk-text-middle">User Usersky</span>
+                </div>
+
+                <div id="UserPhoto" class="uk-navbar-item paging-mini">
+                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+                </div>
+
+                <div class="uk-navbar-item paging-mini">
+                    <a class="uk-icon-button uk-icon" href="../logoff" uk-icon="icon: sign-out; ratio: 1.5"></a>
+                </div>
+
+            </div>
+
+        </nav>
+
+    </div>
+
+    <div class="uk-container uk-container-expand contpadding pad0">
+
+        <div>
+            <div class="uk-width-auto@m uk-background-muted menu">
+                <div>
+                    <ul class="uk-nav uk-nav-default">
+                        <li class=""><a href="/">Статистика</a></li>
+                        <li class="uk-active"><a href="/">Мои заявки</a></li>
+                        <li class=""><a href="/">Заявки в работе</a></li>
+                </div>
+            </div>
+
+            <div class="contentbox">
+                <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
+                    Список моих заявок (которые создал я)
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

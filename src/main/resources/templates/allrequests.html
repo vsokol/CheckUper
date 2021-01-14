@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:jsp="http://java.sun.com/JSP/Page" >
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -17,11 +17,12 @@
     </style>
 </head>
 <body>
+<jsp:useBean id="executorService" class="milovanov.stc31.innopolis.checkuper.service.ExecutorService" scope="page"/>
 <h2 th:text="${title}">Список заказов</h2>
 <!--<a href="/addrequest/" type="button" class="btn btn-primary">Добавить заявку</a>-->
 <!--<br>-->
 <br>
-<table class="table" th:with="df='dd.MM.yyyy hh:mm'">
+<table table border="1" class="table" th:with="df='dd.MM.yyyy hh:mm'">
     <thead>
     <tr>
         <th>Название</th>
@@ -32,6 +33,10 @@
         <th>Заказчик</th>
         <th>Исполнитель</th>
         <th>Описание</th>
+        <th>Просмотр заявок</th>
+        <th>Взять в работу</th>
+
+
     </tr>
     </thead>
     <tbody th:each="request: ${requests}">
@@ -46,6 +51,7 @@
         <td th:text="${request.getExecutor() != null}? ${request.getExecutor().getName()}: ''">Помогаев Степан</td>
         <td th:text="${request.getDescr()}">Нужно помочь с домашними делами</td>
         <td><a href="allrequests.html" th:href="@{/requests/show(id=${request.id})}">Просмотр</a></td>
+        <td th:if="${request.getExecutor() == null}"><a th:href="@{/requests/take(id=${request.id})}">Назначить на себя</a></td>
     </tr>
     <tr th:each="task: ${request.getTaskList()}">
         <td colspan="9">
