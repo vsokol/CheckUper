@@ -1,32 +1,27 @@
 package milovanov.stc31.innopolis.checkuper.controller;
 
 import milovanov.stc31.innopolis.checkuper.pojo.User;
-import milovanov.stc31.innopolis.checkuper.service.UserService;
+import milovanov.stc31.innopolis.checkuper.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = {"/registration", "/j_security_check"})
+@RequestMapping(value = {"/registration"})
 public class RegistrationController {
-    UserService userService;
+    IUserService userService;
 
     @Autowired
-    public RegistrationController(UserService userService) {
+    public RegistrationController(IUserService userService) {
         this.userService = userService;
     }
-
-//    @GetMapping
-//    public ModelAndView registration() {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("user", new User());
-//        modelAndView.setViewName("registration");
-//        return modelAndView;
-//    }
 
     @GetMapping
     public String registration(Model model) {
@@ -34,14 +29,8 @@ public class RegistrationController {
         return "registration";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String renderHost( @ModelAttribute("user") User user ) {
-        String s = user.getUsername();
-        return s;
-    }
-
     @PostMapping
-    public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -49,7 +38,11 @@ public class RegistrationController {
             model.addAttribute("passwordError", "Пароли не совпадают");
             return "registration";
         }
+        if (!userService.saveUser(user)) {
+            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+            return "registration";
+        }
 
-        return "redirect:/";
+        return "redirect:/user/stats";
     }
 }

@@ -30,11 +30,16 @@
         </insert>
         <insert tableName="roles">
             <column name="id" valueNumeric="2"/>
+            <column name="name" value="USER_ROLE"/>
+            <column name="descr" value="Пользователь"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" valueNumeric="3"/>
             <column name="name" value="CUSTOMER_ROLE"/>
             <column name="descr" value="Заказчик"/>
         </insert>
         <insert tableName="roles">
-            <column name="id" valueNumeric="3"/>
+            <column name="id" valueNumeric="4"/>
             <column name="name" value="EXECUTOR_ROLE"/>
             <column name="descr" value="Исполнитель"/>
         </insert>
@@ -67,6 +72,14 @@
         </createIndex>
         <rollback>
             <dropTable tableName="crs_users_roles"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2021-01-15-01-030" author="Vladimir">
+        <comment>Изменение длины пароля</comment>
+        <modifyDataType tableName="users" columnName="password" newDataType="varchar(256)"/>
+        <rollback>
+            <modifyDataType tableName="users" columnName="password" newDataType="varchar(50)"/>
         </rollback>
     </changeSet>
 

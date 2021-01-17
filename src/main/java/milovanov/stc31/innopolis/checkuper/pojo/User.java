@@ -4,6 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
@@ -14,9 +16,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @NotBlank
+    @Size(min = 3, max = 20)
     @Column(name = "login", length = 20, nullable = false, unique = true)
     private String username;
-    @Column(name = "password", length = 50, nullable = false)
+    @NotBlank
+    @Size(min = 5, max = 256)
+    @Column(name = "password", length = 256, nullable = false)
     private String password;
     @Transient
     private String passwordConfirm;

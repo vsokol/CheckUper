@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:jsp="http://java.sun.com/JSP/Page">
+      xmlns:th="http://www.thymeleaf.org" xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:form="http://www.w3.org/1999/html">
 
 <head>
     <title>Регистрация</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resource/css/uikit.min.css" />
-    <link rel="stylesheet" href="resource/css/maine.css" />
+    <link rel="stylesheet" href="resource/css/uikit.min.css"/>
+    <link rel="stylesheet" href="resource/css/maine.css"/>
     <script src="resource/js/uikit.min.js"></script>
     <script src="resource/js/uikit-icons.min.js"></script>
 
@@ -16,84 +17,88 @@
 
 </head>
 
-<body class="conteiner">
-    <div class=" uk-background-muted uk-position-cover ">
-        <form method="POST" th:object="${user}">
-            <div class=" uk-card-default uk-width-1-3@m uk-align-center uk-position-center" style="width: 500px;">
-                <div class="uk-card-header uk-text-primary ">
-                    <div class="uk-inline uk-width-1-1 ">
-                        <span class="uk-margin-small-right uk-icon" uk-icon="icon: thumbnails; ratio: 2"></span>
-                        <span class="uk-text-middle uk-text-lead ">CheckUPer</span>
-                    </div>
-
-                </div>
-                <div class="uk-card-body" style="padding-bottom: 20px; ">
-                    <h3 class="uk-heading-line uk-text-center" style="margin-bottom: 40px;"><span>Регистрация</span>
-                    </h3>
-                    <div class="uk-margin">
-                        <div class="uk-form-controls ">
-                            <div class="uk-inline uk-width-1-1 ">
-                                <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                <input class="uk-input uk-text-primary" id="form-stacked-text-user" type="text"
-                                    name="user.username" placeholder="E-Mail">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="uk-margin">
-                        <div class="uk-form-controls">
-                            <div class="uk-inline uk-width-1-1">
-                                <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
-                                <input class="uk-input uk-text-primary" id="form-stacked-text-pass" type="password"
-                                    name="j_password" placeholder="Пароль">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="uk-margin">
-                        <div class="uk-form-controls">
-                            <div class="uk-inline uk-width-1-1">
-                                <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
-                                <input class="uk-input uk-text-primary" id="form-stacked-text-pass-confirm" type="password"
-                                    name="j_password_confirm" placeholder="Подтверждение пароля">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <p><span class="uk-label ">Важно</span> Логин это ваш E-Mail</p>
-
-
+<body class="uk-container">
+<div class=" uk-background-muted uk-position-cover ">
+    <form method="POST" th:action="@{/registration}" th:object="${user}">
+        <div class=" uk-card-default uk-width-1-3@m uk-align-center uk-position-center" style="width: 500px;">
+            <div class="uk-card-header uk-text-primary ">
+                <div class="uk-inline uk-width-1-1 ">
+                    <span class="uk-margin-small-right uk-icon" uk-icon="icon: thumbnails; ratio: 2"></span>
+                    <span class="uk-text-middle uk-text-lead ">CheckUPer</span>
                 </div>
 
-                <div class="uk-card-footer ">
+            </div>
+            <div class="uk-card-body" style="padding-bottom: 20px; ">
+                <h3 class="uk-heading-line uk-text-center" style="margin-bottom: 40px;">
+                    <span>Регистрация</span>
+                </h3>
 
-                    <div class="uk-align-left uk-margin-remove">
-                        <div uk-form-custom="target: true">
-
-                            <button class="uk-button uk-button-text " type="reset">
-                                <span uk-icon="icon: close"></span>
-                                <span class="uk-text-middle">Отмена</span>
-
-                            </button>
-
+                <div class="uk-margin">
+                    <div class="uk-form-controls ">
+                        <div class="uk-inline uk-width-1-1 ">
+                            <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                            <input class="uk-input uk-text-primary" id="form-stacked-text-user" type="text"
+                                   th:field="*{username}" name="j_username" placeholder="E-Mail">
                         </div>
+                        <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                              style="color:red;font-style: italic">неверное имя пользователя</span>
                     </div>
+                </div>
 
-                    <div class="uk-align-right uk-margin-remove">
-                        <div uk-form-custom="target: true">
-
-                            <button class="uk-button uk-button-text " type="submit">
-                                <span class="uk-text-middle">Зарегистрировать</span>
-                                <span uk-icon="icon: sign-in"></span>
-                            </button>
-
+                <div class="uk-margin">
+                    <div class="uk-form-controls">
+                        <div class="uk-inline uk-width-1-1">
+                            <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                            <input class="uk-input uk-text-primary" id="form-stacked-text-pass" type="password"
+                                   th:field="*{password}" name="j_password" placeholder="Пароль">
                         </div>
+                        <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                              style="color:red;font-style: italic">пароль не должен быть пустым</span>
+                        <span class="error" th:if="${usernameError}" th:utext="${usernameError}"
+                              style="color:red;font-style: italic">пользователь с таким именем уже существует</span>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <div class="uk-form-controls">
+                        <div class="uk-inline uk-width-1-1">
+                            <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                            <input class="uk-input uk-text-primary" id="form-stacked-text-pass-confirm" type="password"
+                                   th:field="*{passwordConfirm}" name="j_password_confirm"
+                                   placeholder="Подтверждение пароля">
+                        </div>
+                        <span class="error" th:if="${passwordError}" th:utext="${passwordError}"
+                              style="color:red;font-style: italic">пароли не совпадают</span>
+                    </div>
+                </div>
+
+                <p><span class="uk-label">Важно</span> Логин это ваш E-Mail</p>
+            </div>
+
+            <div class="uk-card-footer ">
+
+                <div class="uk-align-left uk-margin-remove">
+                    <div uk-form-custom="target: true">
+                        <button class="uk-button uk-button-text " type="reset">
+                            <span uk-icon="icon: close"></span>
+                            <span class="uk-text-middle">Отмена</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="uk-align-right uk-margin-remove">
+                    <div uk-form-custom="target: true">
+                        <button class="uk-button uk-button-text " type="submit">
+                            <span class="uk-text-middle">Зарегистрировать</span>
+                            <span uk-icon="icon: sign-in"></span>
+                        </button>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
+
+        </div>
+    </form>
+</div>
 </body>
 
 </html>

@@ -1,28 +1,47 @@
 package milovanov.stc31.innopolis.checkuper.service;
 
 import milovanov.stc31.innopolis.checkuper.dao.UserDao;
+import milovanov.stc31.innopolis.checkuper.pojo.Role;
 import milovanov.stc31.innopolis.checkuper.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.Set;
+
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements IUserService {
     UserDao userDao;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+    IRoleService roleService;
 
     @Autowired
-    public UserService(UserDao userDao) {
+    public UserService(UserDao userDao, BCryptPasswordEncoder bCryptPasswordEncoder, IRoleService roleService) {
         this.userDao = userDao;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.roleService = roleService;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Пользователь '" + username + "' не найден");
+    public User findUserById(Long id) {
+        Optional<User> user = userDao.findById(id);
+        return user.get();
+    }
+
+    @Override
+    public boolean saveUser(User user) {
+        User findUser = userDao.findByUsername(user.getUsername());
+        if (findUser != null) {
+            return false;
         }
-        return user;
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        Set<Role> roles = roleService.findByName("USER_ROLE");
+        user.setRoles(roles);
+        if (user.getFullName() == null) {
+            user.setFullName(user.getUsername());
+        }
+        userDao.save(user);
+        return true;
     }
 }

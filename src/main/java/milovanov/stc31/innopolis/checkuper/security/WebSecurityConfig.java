@@ -1,6 +1,6 @@
 package milovanov.stc31.innopolis.checkuper.security;
 
-import milovanov.stc31.innopolis.checkuper.service.UserService;
+import milovanov.stc31.innopolis.checkuper.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,30 +21,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
                 .authorizeRequests()
                     //Доступ разрешен всем пользователей
-                    .antMatchers("/", "/resource/**", "/login**", "/registration", "/j_security_check").permitAll()
+                    .antMatchers("/", "/resource/**", "/welcome").permitAll()
                     // доступ только для незарегистрированных пользователей
-//                    .antMatchers("/registration").not().fullyAuthenticated()
+                    .antMatchers("/registration").not().fullyAuthenticated()
                     // все остальные страницы требуют аутентификации
-                    .anyRequest().authenticated();
-//                    .and()
-//                // настройка для входа в систему
-//                .formLogin()
-//                    .loginPage("/login")
-//                    // перенаправление на главную страницу после успешного входа
-//                    .defaultSuccessUrl("/")
-//                    .permitAll()
-//                    .and()
-//                .logout()
-//                    .permitAll()
-//                    .logoutSuccessUrl("/");
+                    .anyRequest().authenticated()
+                    .and()
+                // настройка для входа в систему
+                .formLogin()
+                    .loginPage("/login")
+                    // логин и пароль с формы логина
+                    .usernameParameter("j_username")
+                    .passwordParameter("j_password")
+                    // перенаправление на главную страницу после успешного входа
+                    .defaultSuccessUrl("/user/stats")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .permitAll()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+                    .invalidateHttpSession(true);
     }
 
     @Autowired
-    protected void configurePasswordEncoder(AuthenticationManagerBuilder auth
-            , UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
+    protected void configurePasswordEncoder(AuthenticationManagerBuilder auth, UserDetailsServiceImpl userDetailsService) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 }
