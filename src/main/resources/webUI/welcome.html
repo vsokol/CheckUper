@@ -1,147 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:form="http://www.w3.org/1999/html">
 
 <head>
     <title>Добро пожаловать</title>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-
-    <link rel="stylesheet" href="resource/css/uikit.min.css" />
-    <link rel="stylesheet" href="resource/css/maine.css" />
+    <link rel="stylesheet" href="resource/css/uikit.min.css"/>
+    <link rel="stylesheet" href="resource/css/maine.css"/>
     <script src="resource/js/uikit.min.js"></script>
     <script src="resource/js/uikit-icons.min.js"></script>
 
-
     <link rel="shortcut icon" href="resource/ico/favicon.png" type="image/png">
-
 </head>
 
 <body class="conteiner unselectable">
 
-    <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
+<div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
 
-        <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
+    <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
 
-            <div class="uk-navbar-left ">
-
-                <div class="uk-padding-small paging-mini uk-text-primary">
-                    <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
-                    <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
-                </div>
+        <div class="uk-navbar-left ">
+            <div class="uk-padding-small paging-mini uk-text-primary">
+                <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
+                <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
             </div>
-
-            <div class="uk-navbar-right ">
-                <div class="uk-navbar-item paging-mini">
-                    <a class="uk-icon-button uk-icon" href="../logon" uk-icon="icon: sign-in; ratio: 1.5" uk-tooltip="title: Войти; pos: bottom"></a>
-                </div>
-
-            </div>
-
-        </nav>
-
-    </div>
-
-    <div class="uk-container uk-container-expand contpadding pad0">
-
-        <div class="uk-sticky  uk-sticky-below">
-
-            <div id="box" class="uk-container "style="margin-top: 40px;">
-
-                <blockquote cite="#">
-                    <p class="uk-margin-small-bottom uk-text-large uk-text-primary uk-text-center">Добро пожаловать в систему учета заявок CheckUPer</p>
-                </blockquote>
-
-                <hr class="uk-divider-icon">
-
-                <div class="uk-slider-container-offset " uk-slider >
-
-                    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
-                
-                        <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
-                            <li>
-                                <div class="uk-card uk-card-default">
-                                    <div class="uk-card-media-top">
-                                        <img src="resource/img/photo.jpg" alt="">
-                                    </div>
-                                    <div class="uk-card-body">
-                                        <h3 class="uk-card-title">Text</h3>
-                                        <p>text</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="uk-card uk-card-default">
-                                    <div class="uk-card-media-top">
-                                        <img src="resource/img/dark.jpg" alt="">
-                                    </div>
-                                    <div class="uk-card-body">
-                                        <h3 class="uk-card-title">Text</h3>
-                                        <p>text.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="uk-card uk-card-default">
-                                    <div class="uk-card-media-top">
-                                        <img src="resource/img/light.jpg" alt="">
-                                    </div>
-                                    <div class="uk-card-body">
-                                        <h3 class="uk-card-title">Text</h3>
-                                        <p>text.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="uk-card uk-card-default">
-                                    <div class="uk-card-media-top">
-                                        <img src="resource/img/photo2.jpg" alt="">
-                                    </div>
-                                    <div class="uk-card-body">
-                                        <h3 class="uk-card-title">Text</h3>
-                                        <p>text.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="uk-card uk-card-default">
-                                    <div class="uk-card-media-top">
-                                        <img src="resource/img/photo3.jpg" alt="">
-                                    </div>
-                                    <div class="uk-card-body">
-                                        <h3 class="uk-card-title">Text</h3>
-                                        <p>text.</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                
-                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-                
-                    </div>
-                
-                    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
-                
-                </div>
-
-               
-
-                <h1 class="uk-heading-line uk-text-center"><span>
-                    <button class="uk-button uk-button-primary uk-width-medium ">Зарегистрироваться</button>
-                    <button class="uk-button uk-button-primary uk-width-medium ">Войти</button>
-                </span></h1>
-                <span class="uk-align-center">
-
-                    
-                </span>
-        
-
-            </div>
-
         </div>
 
+        <div class="uk-navbar-right ">
+            <div class="uk-navbar-item paging-mini">
+                <a class="uk-icon-button uk-icon" href="../logon" uk-icon="icon: sign-in; ratio: 1.5"
+                   uk-tooltip="title: Войти; pos: bottom"></a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="uk-container uk-container-expand contpadding pad0">
+    <div class="uk-sticky  uk-sticky-below">
+        <div id="box" class="uk-container " style="margin-top: 40px;">
+            <blockquote cite="#">
+                <p class="uk-margin-small-bottom uk-text-large uk-text-primary uk-text-center">Добро пожаловать в
+                    систему учета заявок CheckUPer</p>
+            </blockquote>
+
+            <hr class="uk-divider-icon">
+
+            <div class="uk-slider-container-offset " uk-slider>
+                <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+                    <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
+                        <li>
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-media-top">
+                                    <img src="resource/img/photo.jpg" alt="">
+                                </div>
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">Text</h3>
+                                    <p>text</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-media-top">
+                                    <img src="resource/img/dark.jpg" alt="">
+                                </div>
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">Text</h3>
+                                    <p>text.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-media-top">
+                                    <img src="resource/img/light.jpg" alt="">
+                                </div>
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">Text</h3>
+                                    <p>text.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-media-top">
+                                    <img src="resource/img/photo2.jpg" alt="">
+                                </div>
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">Text</h3>
+                                    <p>text.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-media-top">
+                                    <img src="resource/img/photo3.jpg" alt="">
+                                </div>
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">Text</h3>
+                                    <p>text.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+                       uk-slider-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+                       uk-slider-item="next"></a>
+
+                </div>
+
+                <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+
+            </div>
+
+            <h1 class="uk-heading-line uk-text-center">
+                <span>
+                    <button class="uk-button uk-button-primary uk-width-medium" onclick="location.href='/registration'">Зарегистрироваться</button>
+                    <button class="uk-button uk-button-primary uk-width-medium" onclick="location.href='/login'">Войти</button>
+                </span>
+            </h1>
+            <span class="uk-align-center"/>
+
+        </div>
     </div>
+</div>
 
 
 </body>
