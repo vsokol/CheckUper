@@ -78,7 +78,6 @@ public class RequestService implements IRequestService {
 
     @Override
     public void takeExecutor(Request request, Executor executor) {
-        request.setExecutor(executor);
-        requestDao.save(request);
+
     }
 }

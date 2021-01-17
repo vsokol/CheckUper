@@ -9,6 +9,13 @@ import java.util.List;
  * Интерфейс по работе с заказами
  */
 public interface IRequestService {
+
+    /**
+     * Создает новый заказ
+     *
+     * @return список заказов
+     */
+    List<Request> createRequest(Request request);
     /**
      * Возвращает список всех заказов
      * @return список заказов
@@ -34,4 +41,6 @@ public interface IRequestService {
      * @return заказ
      */
     Request getRequestById(Long id);
+
+    void takeExecutor(Request request, Executor executor);
 }

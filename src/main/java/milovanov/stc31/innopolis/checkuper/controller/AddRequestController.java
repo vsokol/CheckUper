@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class AddRequestController {
     @Autowired
@@ -25,12 +27,7 @@ public class AddRequestController {
     }
 
     @PostMapping(value = "/addrequest")
-    public String createRequest(
-            @ModelAttribute("name") String name,
-            @ModelAttribute("descr") String descr,
-            Request request) {
-        request.setName(name);
-        request.setDescr(descr);
+    public String createRequest(@ModelAttribute Request request) {
         request.setStatus(RequestStatus.TODO);
         requestDao.save(request);
         return "show_request";

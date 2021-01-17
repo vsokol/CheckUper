@@ -1,6 +1,9 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +20,10 @@ public class Request {
     @Column(name = "status")
     private RequestStatus status;
     @Column(name = "dt_start")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date intervalStartTime;
     @Column(name = "dt_end")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date intervalEndTime;
     @Column(name = "dt_comleted")
     private Date completionTime;
