@@ -38,7 +38,7 @@
                         <div class="uk-inline uk-width-1-1 ">
                             <span class="uk-form-icon" uk-icon="icon: mail"></span>
                             <input class="uk-input uk-text-primary" id="form-stacked-text-user" type="text"
-                                   th:field="*{username}" name="j_username" placeholder="E-Mail">
+                                   th:field="*{username}" name="j_username" placeholder="E-Mail" autofocus="autofocus">
                         </div>
                         <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                               style="color:red;font-style: italic">неверное имя пользователя</span>
@@ -69,6 +69,18 @@
                         </div>
                         <span class="error" th:if="${passwordError}" th:utext="${passwordError}"
                               style="color:red;font-style: italic">пароли не совпадают</span>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <div class="uk-form-controls">
+                        <div class="uk-inline uk-width-1-1">
+                            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                <label><input class="uk-checkbox" type="checkbox" name="isCustomer" checked> Как заказчик</label>
+                                <label><input class="uk-checkbox" type="checkbox" name="isExecutor"> Как исполнитель</label>
+                            </div>
+                        <span class="error" th:if="${roleError}" th:utext="${roleError}"
+                              style="color:red;font-style: italic">не определен способ регистрации</span>
                     </div>
                 </div>
 

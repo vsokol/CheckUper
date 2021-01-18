@@ -28,4 +28,10 @@ public class RoleService implements IRoleService {
         Set<Role> roles = roleDao.findByName(roleName);
         return roles;
     }
+
+    @Override
+    public Role findRoleById(Long id) {
+        Optional<Role> role = roleDao.findById(id);
+        return role.get();
+    }
 }

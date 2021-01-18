@@ -6,4 +6,5 @@ import java.util.Set;
 
 public interface IRoleService {
     Set<Role> findByName(String roleName);
+    Role findRoleById(Long id);
 }

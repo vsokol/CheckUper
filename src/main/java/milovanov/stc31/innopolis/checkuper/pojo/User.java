@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
@@ -17,8 +18,9 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
     @NotBlank
-    @Size(min = 3, max = 20)
-    @Column(name = "login", length = 20, nullable = false, unique = true)
+    @Email
+    @Size(min = 3, max = 30)
+    @Column(name = "login", length = 30, nullable = false, unique = true)
     private String username;
     @NotBlank
     @Size(min = 5, max = 256)
@@ -34,10 +36,10 @@ public class User implements UserDetails {
     private Set<Role> roles;
     @Column(name = "name", length = 50, nullable = false)
     private String fullName;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "executor_id", referencedColumnName = "id")
     private Executor executor;
     @Column(name = "descr")
