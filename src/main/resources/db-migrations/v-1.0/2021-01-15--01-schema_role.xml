@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2021-01-15-01-001" author="Vladimir">
+        <comment>Роли</comment>
+        <createTable tableName="roles" remarks="Роли">
+            <column name="id" type="bigint" remarks="Идентификатор" autoIncrement="true" startWith="10000">
+                <constraints primaryKeyName="roles_id_pk" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(15)" remarks="Название">
+                <constraints uniqueConstraintName="roles_name" unique="true" nullable="false"/>
+            </column>
+            <column name="descr" type="text" remarks="Описание"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="roles"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2021-01-15-01-010" author="Vladimir">
+        <comment>Список ролей</comment>
+        <insert tableName="roles">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="ADMIN_ROLE"/>
+            <column name="descr" value="Администратор"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="USER_ROLE"/>
+            <column name="descr" value="Пользователь"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="CUSTOMER_ROLE"/>
+            <column name="descr" value="Заказчик"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="EXECUTOR_ROLE"/>
+            <column name="descr" value="Исполнитель"/>
+        </insert>
+        <rollback>
+            <delete tableName="roles">
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2021-01-15-01-020" author="Vladimir">
+        <comment>Связь пользователей с ролями</comment>
+        <createTable tableName="crs_users_roles" remarks="Связь пользователей с ролями">
+            <column name="id" type="bigint" remarks="Идентификатор" autoIncrement="true" startWith="10000">
+                <constraints primaryKeyName="crs_users_roles_id_pk" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint" remarks="Пользователь">
+                <constraints foreignKeyName="crs_users_roles_user_id_fk" referencedTableName="users"
+                             referencedColumnNames="id" nullable="false"/>
+            </column>
+            <column name="role_id" type="bigint" remarks="Пользователь">
+                <constraints foreignKeyName="crs_users_roles_role_id_fk" referencedTableName="roles"
+                             referencedColumnNames="id" nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="crs_users_roles" indexName="crs_users_roles_user_id_idx">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex tableName="crs_users_roles" indexName="crs_users_roles_role_id_idx">
+            <column name="role_id"/>
+        </createIndex>
+        <rollback>
+            <dropTable tableName="crs_users_roles"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2021-01-15-01-030" author="Vladimir">
+        <comment>Изменение длины пароля</comment>
+        <modifyDataType tableName="users" columnName="password" newDataType="varchar(256)"/>
+        <rollback>
+            <modifyDataType tableName="users" columnName="password" newDataType="varchar(50)"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2021-01-15-01-900" author="Vladimir">
+        <tagDatabase tag="version-1.0.2"/>
+    </changeSet>
+</databaseChangeLog>
