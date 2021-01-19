@@ -48,11 +48,8 @@
                 <div class="uk-navbar-item paging-mini">
                     <a class="uk-icon-button uk-icon" href="../logoff" uk-icon="icon: sign-out; ratio: 1.5"></a>
                 </div>
-
             </div>
-
         </nav>
-
     </div>
 
     <div class="uk-container uk-container-expand contpadding pad0">
@@ -69,7 +66,100 @@
 
             <div class="contentbox">
                 <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-                    Настройки данных пользователя (фио, дата рождения и.т.д.)
+                    <h3 class="uk-heading-line uk-text-center"><span>Настройки пльзователя</span></h3>
+
+                    <form class="uk-form-horizontal uk-margin-large uk-align-center" style="width: 800px;">
+
+                        <h4 class="uk-heading-bullet">Аватар</h4>
+
+                        <div class="uk-flex uk-flex-column ">
+                            <img class="uk-border-circle uk-background-muted uk-align-center"
+                                src="../resource/ico/user.png" width="128" height="128" alt="Border circle">
+
+
+                            <div uk-form-custom class="uk-align-center" style="
+                                margin-top: 0px;
+                                margin-bottom: 0px;">
+                                <input type="file">
+                                <button class="uk-button uk-button-default uk-button-small" type="button"
+                                    tabindex="-1">Загрузить аватар</button>
+                            </div>
+                        </div>
+
+
+                        <hr>
+
+                        <h4 class="uk-heading-bullet">Общие данные</h4>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Логин пользователя</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-horizontal-text" type="text"
+                                    placeholder="Логин пользователя...">
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">ФИО</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-horizontal-text" type="text"
+                                    placeholder="ФИО...">
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Роль пользователя</label>
+                            <div class="uk-form-controls">
+                                <div class="uk-margin"><label><input class="uk-checkbox" type="checkbox">
+                                        Испалнитель</label></div>
+                                <div class="uk-margin"> <label><input class="uk-checkbox" type="checkbox">
+                                        Заказчик</label></div>
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+
+                            <button class="uk-button uk-button-danger uk-button-small" type="submit">
+                                <span class="uk-text-middle">Удалить акаунт</span>
+                                <span uk-icon="icon: trash"></span>
+                            </button>
+
+                        </div>
+                        <hr>
+
+                        <h4 class="uk-heading-bullet">Пароль</h4>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Новый пароль</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-horizontal-text" type="text"
+                                    placeholder="Пароль...">
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Подтверждение пароля</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-horizontal-text" type="text"
+                                    placeholder="Пароль...">
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+
+                            <button class="uk-button uk-button-primary uk-button-small" type="submit">
+                                <span class="uk-text-middle">Обновить пароль</span>
+                                <span uk-icon="icon: trash"></span>
+                            </button>
+
+                        </div>
+                        <hr>
+
+
+                        <span class="uk-align-right">
+                            <button class="uk-button uk-button-primary uk-button-small" type="submit">
+                                <span class="uk-text-middle">Отмена</span>
+                                <span uk-icon="icon: history"></span>
+                            </button>
+                            <button class="uk-button uk-button-primary uk-button-small" type="submit">
+                                <span class="uk-text-middle">Сохранить</span>
+                                <span uk-icon="icon: check"></span>
+                            </button></span>
+
+                    </form>
 
                 </div>
             </div>
