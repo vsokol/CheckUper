@@ -21,6 +21,12 @@ public class Executor {
     @OneToOne(mappedBy = "executor")
     private User user;
 
+    public Executor() {}
+
+    public Executor(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

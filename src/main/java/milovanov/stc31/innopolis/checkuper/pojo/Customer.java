@@ -21,7 +21,11 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     private User user;
 
-    protected Customer() {
+    public Customer() {
+    }
+
+    public Customer(String name) {
+        this.name = name;
     }
 
     public Long getId() {
