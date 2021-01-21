@@ -7,8 +7,8 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
 
-    <link rel="stylesheet" href="../resource/css/uikit.min.css"/>
-    <link rel="stylesheet" href="../resource/css/maine.css"/>
+    <link rel="stylesheet" href="../resource/css/uikit.min.css" />
+    <link rel="stylesheet" href="../resource/css/maine.css" />
     <script src="../resource/js/uikit.min.js"></script>
     <script src="../resource/js/uikit-icons.min.js"></script>
 
@@ -19,69 +19,96 @@
 
 <body class="container unselectable">
 
-<div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
+    <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
 
-    <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
+        <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
 
-        <div class="uk-navbar-left ">
+            <div class="uk-navbar-left ">
 
-            <div class="uk-padding-small paging-mini uk-text-primary">
-                <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
-                <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
-            </div>
-        </div>
-
-        <div class="uk-navbar-right ">
-
-            <div class="uk-navbar-item paging-mini">
-                <a class="uk-icon-button uk-icon" href="../setting" uk-icon="icon: cog; ratio: 1.5"></a>
+                <div class="uk-padding-small paging-mini uk-text-primary">
+                    <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
+                    <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
+                </div>
             </div>
 
-            <div class="uk-navbar-item paging-mini">
-                <span id="UserName" class="uk-text-middle">[[${#httpServletRequest.remoteUser}]]</span>
+            <div class="uk-navbar-right ">
+
+                <div class="uk-navbar-item paging-mini">
+                    <a class="uk-icon-button uk-icon" href="../setting" uk-icon="icon: cog; ratio: 1.5"></a>
+                </div>
+
+                <div class="uk-navbar-item paging-mini">
+                    <span id="UserName" class="uk-text-middle">[[${#httpServletRequest.remoteUser}]]</span>
+                </div>
+
+                <div id="UserPhoto" class="uk-navbar-item paging-mini">
+                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+                </div>
+
+                <div class="uk-navbar-item paging-mini">
+                    <a class="uk-icon-button uk-icon" href="/logout" uk-icon="icon: sign-out; ratio: 1.5"></a>
+                </div>
+
             </div>
 
-            <div id="UserPhoto" class="uk-navbar-item paging-mini">
-                <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
-            </div>
+        </nav>
 
-            <div class="uk-navbar-item paging-mini">
-                <a class="uk-icon-button uk-icon" href="/logout" uk-icon="icon: sign-out; ratio: 1.5"></a>
-            </div>
-
-        </div>
-
-    </nav>
-
-</div>
-
-<div class="uk-container uk-container-expand contpadding pad0">
-
-    <div>
-        <div class="uk-width-auto@m uk-background-muted menu">
-            <div>
-                <ul class="uk-nav uk-nav-default">
-                    <li class="uk-active"><a href="/">Статистика</a></li>
-                    <li class=""><a href="/">Мои заявки</a></li>
-                    <li class=""><a href="/">Заявки в работе</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="contentbox">
-            <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-                Статистика
-                <br>
-                кол-во заявок в работе
-                <br>
-                Кол-во моих заявок в ожидании
-                <br>
-                и.т.д.
-            </div>
-        </div>
     </div>
 
-</div>
+    <div class="uk-container uk-container-expand contpadding pad0">
+
+        <div>
+            <div class="uk-width-auto@m uk-background-muted menu">
+                <div>
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="/">Статистика</a></li>
+                        <li class=""><a href="/">Мои заявки</a></li>
+                        <li class=""><a href="/">Заявки в работе</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="contentbox">
+                <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
+                    <div class="uk-card uk-card-default uk-card-small uk-width-xlarge uk-align-center" style="
+                             padding-right: 10px;
+                             padding-left: 10px;
+                             padding-top: 10px;
+                             padding-bottom: 10px;">
+
+                        <span class="uk-label" style="margin-bottom: 10px;">Статистика</span>
+                        <div class="uk-grid-small uk-grid" uk-grid="">
+                            <div class="uk-width-expand uk-leader uk-first-column" uk-leader=""><span
+                                    class="uk-leader-fill">Количество выполненных заявок</span></div>
+                            <div name="val_1">0 шт.</div>
+                        </div>
+                        <div class="uk-grid-small uk-grid" uk-grid="">
+                            <div class="uk-width-expand uk-leader uk-first-column" uk-leader=""><span
+                                    class="uk-leader-fill">Подано заявок</span></div>
+                            <div name="val_2">0 шт.</div>
+                        </div>
+                        <div class="uk-grid-small uk-grid" uk-grid="">
+                            <div class="uk-width-expand uk-leader uk-first-column" uk-leader=""><span
+                                    class="uk-leader-fill">Количество доступных заявок для выполнения</span></div>
+                            <div name="val_3">0 шт.</div>
+                        </div>
+                        <div class="uk-grid-small uk-grid" uk-grid="">
+                            <div class="uk-width-expand uk-leader uk-first-column" uk-leader=""><span
+                                    class="uk-leader-fill">Количество заявок в работе</span></div>
+                            <div name="val_4">0 шт.</div>
+                        </div>
+                        <div class="uk-grid-small uk-grid" uk-grid="">
+                            <div class="uk-width-expand uk-leader uk-first-column" uk-leader=""><span
+                                    class="uk-leader-fill">Количество моих заявок в работе у исполнителей</span></div>
+                            <div name="val_5">0 шт.</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 
