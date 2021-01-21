@@ -15,6 +15,21 @@
 
     <link rel="shortcut icon" href="../resource/ico/favicon.png" type="image/png">
 
+    <script>
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                let img = document.getElementById('imgava');
+                img.src= e.target.result;
+                img.style.width='128px';
+                img.style.height='128px';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
 </head>
 
 <body class="conteiner unselectable">
@@ -73,14 +88,14 @@
                         <h4 class="uk-heading-bullet">Аватар</h4>
 
                         <div class="uk-flex uk-flex-column ">
-                            <img class="uk-border-circle uk-background-muted uk-align-center"
-                                src="../resource/ico/user.png" width="128" height="128" alt="Border circle">
+                            <img id="imgava" class="uk-border-pill uk-background-muted uk-align-center"
+                                src="../resource/ico/user.png" width="128" height="128" alt="IMG">
 
 
                             <div uk-form-custom class="uk-align-center" style="
                                 margin-top: 0px;
                                 margin-bottom: 0px;">
-                                <input type="file">
+                                <input type="file"  onchange="readURL(this);">
                                 <button class="uk-button uk-button-default uk-button-small" type="button"
                                     tabindex="-1">Загрузить аватар</button>
                             </div>
