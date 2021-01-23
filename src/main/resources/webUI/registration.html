@@ -76,38 +76,40 @@
                     <div class="uk-form-controls">
                         <div class="uk-inline uk-width-1-1">
                             <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                                <label><input class="uk-checkbox" type="checkbox" name="isCustomer" checked> Как заказчик</label>
-                                <label><input class="uk-checkbox" type="checkbox" name="isExecutor"> Как исполнитель</label>
+                                <label><input class="uk-checkbox" type="checkbox" name="isExecutor" checked> Как
+                                    исполнитель</label>
+                                <label><input class="uk-checkbox" type="checkbox" name="isCustomer"> Как
+                                    заказчик</label>
                             </div>
-                        <span class="error" th:if="${roleError}" th:utext="${roleError}"
-                              style="color:red;font-style: italic">не определен способ регистрации</span>
+                            <span class="error" th:if="${roleError}" th:utext="${roleError}"
+                                  style="color:red;font-style: italic">не определен способ регистрации</span>
+                        </div>
                     </div>
+
+                    <p><span class="uk-label">Важно</span> Логин это ваш E-Mail</p>
                 </div>
 
-                <p><span class="uk-label">Важно</span> Логин это ваш E-Mail</p>
+                <div class="uk-card-footer ">
+
+                    <div class="uk-align-left uk-margin-remove">
+                        <div uk-form-custom="target: true">
+                            <button class="uk-button uk-button-text " type="reset">
+                                <span uk-icon="icon: close"></span>
+                                <span class="uk-text-middle">Отмена</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="uk-align-right uk-margin-remove">
+                        <div uk-form-custom="target: true">
+                            <button class="uk-button uk-button-text " type="submit">
+                                <span class="uk-text-middle">Зарегистрировать</span>
+                                <span uk-icon="icon: sign-in"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="uk-card-footer ">
-
-                <div class="uk-align-left uk-margin-remove">
-                    <div uk-form-custom="target: true">
-                        <button class="uk-button uk-button-text " type="reset">
-                            <span uk-icon="icon: close"></span>
-                            <span class="uk-text-middle">Отмена</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="uk-align-right uk-margin-remove">
-                    <div uk-form-custom="target: true">
-                        <button class="uk-button uk-button-text " type="submit">
-                            <span class="uk-text-middle">Зарегистрировать</span>
-                            <span uk-icon="icon: sign-in"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </form>
 </div>

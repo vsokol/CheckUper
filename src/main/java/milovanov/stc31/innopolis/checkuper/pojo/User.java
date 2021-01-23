@@ -36,10 +36,10 @@ public class User implements UserDetails {
     private Set<Role> roles;
     @Column(name = "name", length = 50, nullable = false)
     private String fullName;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "executor_id", referencedColumnName = "id")
     private Executor executor;
     @Column(name = "descr")
