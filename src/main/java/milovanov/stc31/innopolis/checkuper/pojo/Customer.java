@@ -1,7 +1,7 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -11,6 +11,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @NotBlank
     @Column(name = "name")
     private String name;
     @Column(name = "address")
