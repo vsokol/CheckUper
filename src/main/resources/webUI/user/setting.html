@@ -114,7 +114,7 @@
                         <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                               style="color:red;font-style: italic">неверное имя пользователя</span>
                         <span class="error" th:if="${usernameError}" th:utext="${usernameError}"
-                              style="color:red;font-style: italic">пользователь с таким именем уже существует</span>
+                              style="color:#ff0000;font-style: italic">пользователь с таким именем уже существует</span>
                     </div>
                     <div class="uk-margin">
                         <label class="uk-form-label" for="form-horizontal-text">ФИО</label>
