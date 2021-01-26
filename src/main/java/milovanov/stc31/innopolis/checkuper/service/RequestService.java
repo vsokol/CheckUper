@@ -18,8 +18,10 @@ public class RequestService implements IRequestService {
         this.requestDao = requestDao;
     }
 
+
     /**
      * Возвращает список всех заказов
+     *
      * @return список заказов
      */
     @Override
@@ -30,6 +32,7 @@ public class RequestService implements IRequestService {
 
     /**
      * Возвращает список всех доступных для выполнения заказов
+     *
      * @return список всех доступных для выполнения заказов
      */
     @Override
@@ -40,6 +43,7 @@ public class RequestService implements IRequestService {
 
     /**
      * Возвращает список всех заказов для указанного исполнителя
+     *
      * @param executor исполнитель
      * @return список всех заказов для указанного исполнителя
      */
@@ -50,7 +54,19 @@ public class RequestService implements IRequestService {
     }
 
     /**
+     * Создает новый заказ
+     *
+     * @param request заказ
+     * @return сохраняет новый заказ
+     */
+    @Override
+    public List<Request> createRequest(Request request) {
+        return (List<Request>) requestDao.save(request);
+    }
+
+    /**
      * Возвращает заказ по указанному идентификтору
+     *
      * @param id идентификатор заказа
      * @return заказ
      */
@@ -62,7 +78,6 @@ public class RequestService implements IRequestService {
 
     @Override
     public void takeExecutor(Request request, Executor executor) {
-        request.setExecutor(executor);
-        requestDao.save(request);
+
     }
 }
