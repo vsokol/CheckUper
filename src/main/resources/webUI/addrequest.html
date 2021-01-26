@@ -14,24 +14,25 @@
 </head>
     <h1 th:text="${title}">Create request!</h1>
 <div class="container">
-    <form action="/addrequest" th:object="${request}" method="post">
+    <form action="/addrequest"  method="post">
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Опишите коротко чем вам помочь!</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" th:field="*{name}">
+        <label for="exampleFormControlInput1" class="form-label">Опишите коротко какая вам нужна помощь!</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" th:field="${request.name}">
     </div>
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Напишите, чем вам помочь!</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{descr}"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="${request.descr}"></textarea>
     </div>
- <!--   <div class="mb-0">
-        <input type="text" class="form-control" placeholder="Customer name" aria-label="name" th:text="${{request.customer}}">
+    <div class="mb-2">
+        <label for="text" class="form-label">Список задач для заявки</label>
+        <input type="text" class="form-control" id="text" placeholder="Задание" th:field="${task.info}" aria-label="name"/>
     </div>
-    -->
+
     <div class="input-group mb-3">
         <label for="date" class="form-label">Выбрать дату начала заявки!</label>
-        <input type="datetime-local" class="form-control" id="date" th:field="*{intervalStartTime}" aria-label="Дата начала задачи"/>
+        <input type="datetime-local" class="form-control" id="date" th:field="${request.intervalStartTime}" aria-label="Дата начала задачи"/>
         <label for="date1" class="form-label">Выбрать дату завершения заявки!</label>
-        <input type="datetime-local" class="form-control" id="date1" th:field="*{intervalEndTime}" aria-label="Дата когда закончить"/>
+        <input type="datetime-local" class="form-control" id="date1" th:field="${request.intervalEndTime}" aria-label="Дата когда закончить"/>
     </div>
 
     <button type="submit" class="btn btn-primary">Создать</button>

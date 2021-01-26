@@ -34,7 +34,7 @@ public class Request {
     private Executor executor;
     @Column(name = "descr")
     private String descr;
-    @OneToMany(mappedBy = "request", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "request", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Task> taskList;
 
     public Request() {
