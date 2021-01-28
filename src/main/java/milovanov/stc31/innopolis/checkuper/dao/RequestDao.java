@@ -1,5 +1,6 @@
 package milovanov.stc31.innopolis.checkuper.dao;
 
+import milovanov.stc31.innopolis.checkuper.pojo.Customer;
 import milovanov.stc31.innopolis.checkuper.pojo.Executor;
 import milovanov.stc31.innopolis.checkuper.pojo.Request;
 import milovanov.stc31.innopolis.checkuper.pojo.RequestStatus;
@@ -34,4 +35,11 @@ public interface RequestDao extends JpaRepository<Request, Long> {
      * @return заказ
      */
     Request findRequestById(Long id);
+
+    /**
+     * Возвращает список всех заказов указанного заказчика
+     * @param customer заказчик
+     * @return список всех заказов указанного заказчика
+     */
+    List<Request> findByCustomer(Customer customer);
  }
