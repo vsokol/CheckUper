@@ -4,14 +4,18 @@ import milovanov.stc31.innopolis.checkuper.dto.UserDto;
 import milovanov.stc31.innopolis.checkuper.pojo.User;
 import milovanov.stc31.innopolis.checkuper.service.ISecurityService;
 import milovanov.stc31.innopolis.checkuper.service.IUserService;
+import milovanov.stc31.innopolis.checkuper.utils.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
@@ -34,6 +38,8 @@ public class UserController {
     @GetMapping("/setting")
     public String userSetting(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("user", userService.getUserDto(user));
+        model.addAttribute("viewAvatar", user.getAvatar());
+        model.addAttribute("imgUtil", new ImageUtils());
         return "/user/setting";
     }
 
@@ -44,7 +50,8 @@ public class UserController {
             , @AuthenticationPrincipal User user
             , @RequestParam("action") String action
             , @RequestParam("passwordNew") String passwordNew
-            , @RequestParam("passwordConfirm") String passwordConfirm) {
+            , @RequestParam("passwordConfirm") String passwordConfirm
+            , @RequestParam("avatar") MultipartFile avatar) throws IOException {
         String urlSetting = "/user/setting";
 
         if ("ChangePassword".equals(action)) {
@@ -88,12 +95,16 @@ public class UserController {
                 return urlSetting;
             }
 
+            if (avatar != null && !avatar.getOriginalFilename().isEmpty()) {
+                user.setAvatar(avatar.getBytes());
+            }
+
             if (!userService.saveUser(userDto, user)) {
                 model.addAttribute("usernameError", "Ошибка при сохранении данных");
                 return urlSetting;
             }
-            securityService.reLogin();
-            // TODO: нужно перечиать пользователя
+            //securityService.reLogin();
+            // TODO: нужно перечитать пользователя
         }
         return "redirect:/user/stats";
     }
