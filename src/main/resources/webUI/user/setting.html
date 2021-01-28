@@ -86,17 +86,18 @@
             <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
                 <h3 class="uk-heading-line uk-text-center"><span>Настройки пользователя</span></h3>
 
-                <form method="POST" th:action="@{/user/setting}" th:object="${user}"
+                <form method="POST" th:action="@{/user/setting}" th:object="${user}" enctype="multipart/form-data"
                       class="uk-form-horizontal uk-margin-large uk-align-center" style="width: 800px;">
                     <h4 class="uk-heading-bullet">Аватар</h4>
                     <div class="uk-flex uk-flex-column ">
-                        <img id="imgava" class="uk-border-pill uk-background-muted uk-align-center"
-                             src="../resource/ico/user.png" width="128" height="128" alt="IMG">
+                        <img id="imgava" class="uk-border-pill uk-background-muted uk-align-center img-thumbnail"
+                             width="128" height="128" alt="IMG"
+                             th:src="${viewAvatar} == null ? '../resource/ico/user.png' : 'data:image/jpeg;base64,' + ${imgUtil.getImgData(viewAvatar)}">
 
                         <div uk-form-custom class="uk-align-center" style="
                                 margin-top: 0px;
                                 margin-bottom: 0px;">
-                            <input type="file" onchange="readURL(this);">
+                            <input type="file" onchange="readURL(this);" name="avatar" accept="image/jpeg, image/png">
                             <button class="uk-button uk-button-default uk-button-small" type="button"
                                     tabindex="-1">Загрузить аватар
                             </button>
