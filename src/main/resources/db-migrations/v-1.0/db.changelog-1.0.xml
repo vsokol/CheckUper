@@ -15,4 +15,5 @@
     <include file="2021-01-15--01-schema_role.xml" relativeToChangelogFile="true"/>
     <include file="2021-01-18--01-change_len_user_login.xml" relativeToChangelogFile="true"/>
     <include file="2021-01-28--01-schema_user_add_avatar.xml" relativeToChangelogFile="true"/>
+    <include file="2021-01-30--01-update_role.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

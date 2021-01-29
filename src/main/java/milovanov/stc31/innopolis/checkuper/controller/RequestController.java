@@ -172,7 +172,7 @@ public class RequestController {
             Long requestId = Long.valueOf(paramRequestId);
             requestService.deleteRequestById(requestId);
         } catch (NumberFormatException exception) {
-            // TODO: отобразить форму с ошибкой
+            return "redirect:/errors/error";
         }
         return "redirect:/requests/my";
     }

@@ -31,11 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                     //Доступ разрешен всем пользователей
-                    .antMatchers("/", "/resource/**", "/welcome").permitAll()
+                    .antMatchers("/", "/resource/**", "/welcome", "/errors/**").permitAll()
                     // доступ только для незарегистрированных пользователей
                     .antMatchers("/registration").not().fullyAuthenticated()
+                    .antMatchers("/requests/my").hasRole("CUSTOMER")
+                    .antMatchers("/requests/available", "/requests/progress").hasRole("EXECUTOR")
                     // все остальные страницы требуют аутентификации
                     .anyRequest().authenticated()
+                    .and()
+                .exceptionHandling().accessDeniedPage("/errors/403")
                     .and()
                 // настройка для входа в систему
                 .formLogin()

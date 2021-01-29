@@ -60,12 +60,12 @@ public class UserService implements IUserService {
         Set<Role> roles = new HashSet<>();
         if (isCustomer) {
             // заказчик
-            roles.addAll(roleService.findByName("CUSTOMER_ROLE"));
+            roles.addAll(roleService.findByName("ROLE_CUSTOMER"));
             user.setCustomer(new Customer(user.getUsername()));
         }
         if (isExecutor) {
             // исполнитель
-            roles.addAll(roleService.findByName("EXECUTOR_ROLE"));
+            roles.addAll(roleService.findByName("ROLE_EXECUTOR"));
             user.setExecutor(new Executor(user.getUsername()));
         }
         user.setRoles(roles);
@@ -109,11 +109,11 @@ public class UserService implements IUserService {
             // изменились роль Исполнитель
             if (userIs) {
                 // убираем роль Исполнитель
-                removeRole(roles, "EXECUTOR_ROLE");
+                removeRole(roles, "ROLE_EXECUTOR");
                 user.setExecutor(null);
             } else {
                 // добавляем роль Исполнитель
-                roles.addAll(roleService.findByName("EXECUTOR_ROLE"));
+                roles.addAll(roleService.findByName("ROLE_EXECUTOR"));
                 user.setExecutor(new Executor(user.getFullName()));
             }
         }
@@ -125,11 +125,11 @@ public class UserService implements IUserService {
             // изменились роль Заказчика
             if (userIs) {
                 // убираем роль Заказчик
-                removeRole(roles, "CUSTOMER_ROLE");
+                removeRole(roles, "ROLE_CUSTOMER");
                 user.setCustomer(null);
             } else {
                 // добавляем роль Заказчик
-                roles.addAll(roleService.findByName("CUSTOMER_ROLE"));
+                roles.addAll(roleService.findByName("ROLE_CUSTOMER"));
                 user.setCustomer(new Customer(user.getFullName()));
             }
         }

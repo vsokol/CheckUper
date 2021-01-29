@@ -24,6 +24,6 @@ public class UserAccessDeniedHandler implements AccessDeniedHandler {
         if (auth != null) {
             logger.info("Пользователь '{}' попытался получить доступ к защищенному URL:{}", auth.getName(), httpServletRequest.getRequestURI());
         }
-        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/errors/401");
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/errors/403");
     }
 }
