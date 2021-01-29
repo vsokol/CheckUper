@@ -50,5 +50,7 @@ public interface IRequestService {
      */
     List<Request> getAllRequestsByCustomer(Customer customer);
 
+    public void deleteRequestById(Long id);
+
     void takeExecutor(Request request, Executor executor);
 }

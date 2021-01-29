@@ -162,6 +162,22 @@ public class RequestController {
     }
 
     /**
+     * Удаление указанного в <tt>request_id</tt> заказа.
+     * @param paramRequestId идентификатор удаляемой заявки
+     * @return ModelAndView с информацией по заказу и страницей отображения
+     */
+    @GetMapping("/delete")
+    public String deleteRequest(@RequestParam(value = "id", required = false) String paramRequestId) {
+        try {
+            Long requestId = Long.valueOf(paramRequestId);
+            requestService.deleteRequestById(requestId);
+        } catch (NumberFormatException exception) {
+            // TODO: отобразить форму с ошибкой
+        }
+        return "redirect:/requests/my";
+    }
+
+    /**
      * Возвращает ModelAndView с установленными необходимыми значениями
      * @param requestList список заявок
      * @param title название закладки

@@ -89,6 +89,11 @@ public class RequestService implements IRequestService {
     }
 
     @Override
+    public void deleteRequestById(Long id) {
+        requestDao.deleteById(id);
+    }
+
+    @Override
     public void takeExecutor(Request request, Executor executor) {
 
     }

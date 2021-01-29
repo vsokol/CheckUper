@@ -84,7 +84,8 @@
                                     <div>
                                         <span class="uk-card-title" th:text="${request.getName()}">Помочь по дому</span>
                                         <p class="uk-text-meta uk-margin-remove-top"
-                                           th:text="${#calendars.format(request.getIntervalStartTime(),df)} + ' - ' + ${#calendars.format(request.getIntervalEndTime(),df)}">
+                                           th:text="${#strings.concat(request.getIntervalStartTime() != null ? #calendars.format(request.getIntervalStartTime(),df) : ' '
+                                           , ' - ', request.getIntervalEndTime() != null ? #calendars.format(request.getIntervalEndTime(),df) : '')}">
                                             10.02.2021 10:00 - 10.02.2021 15:30</p>
                                     </div>
                                     <div>
