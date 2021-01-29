@@ -70,8 +70,121 @@
 
             <div class="contentbox">
                 <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-                    Список живых заявок (кнопки действий над ними)
+                    <table class="uk-table uk-table-hover uk-table-divider uk-align-center"
+                        th:with="df='dd.MM.yyyy hh:mm'" style="width: 1100px;">
+                        <thead>
+                            <tr>
+                                <th class="">Список активных заявок</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="request: ${requests}">
+                                <td>
+                                    <div
+                                        class="uk-card uk-card-default uk-card-body uk-width-expand uk-background-muted">
+                                        <div class="uk-grid-divider uk-child-width-expand@s" uk-grid>
 
+                                            <div>
+                                                <span class="uk-card-title" th:text="${request.getName()}">Помочь по
+                                                    дому</span>
+                                                <span class="uk-label uk-align-right"
+                                                    th:unless="${request.getStatus() == T(milovanov.stc31.innopolis.checkuper.pojo.RequestStatus).TODO}">В
+                                                    работе</span>
+                                                <span class="uk-label uk-align-right uk-label-success"
+                                                    th:if="${request.getStatus() == T(milovanov.stc31.innopolis.checkuper.pojo.RequestStatus).TODO}">Не
+                                                    начата</span>
+                                                <p class="uk-text-meta uk-margin-remove-top"
+                                                    th:text="${#calendars.format(request.getIntervalStartTime(),df)} + ' - ' + ${#calendars.format(request.getIntervalEndTime(),df)}">
+                                                    10.02.2021 10:00 - 10.02.2021 15:30</p>
+                                            </div>
+                                            <div>
+                                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                                    <div class="uk-width-auto">
+                                                        <!-- <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg"> -->
+                                                        <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+                                                    </div>
+                                                    <div class="uk-width-expand">
+                                                        <h3 class="uk-card-title uk-margin-remove-bottom"
+                                                            th:text="${request.getExecutor() != null}? ${request.getExecutor().getName()}: ''">
+                                                            Василий Пупкин
+                                                        </h3>
+                                                        <p class="uk-text-meta uk-margin-remove-top">Заказчик</p>
+
+                                                    </div>
+                                                </div>
+                                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                                    <div class="uk-width-auto">
+                                                        <!-- <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg"> -->
+                                                        <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+                                                    </div>
+                                                    <div class="uk-width-expand">
+                                                        <h3 class="uk-card-title uk-margin-remove-bottom"
+                                                            th:text="${request.getExecutor() != null}? ${request.getExecutor().getName()}: ''">
+                                                            Василий Пупкин
+                                                        </h3>
+                                                        <p class="uk-text-meta uk-margin-remove-top">Исполнитель</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="uk-heading-line uk-text-center" style=" margin-top: 20px; ">
+                                            <span>Данные по задаче</span>
+                                        </h4>
+                                        <ul uk-accordion="multiple: true" style="width: 870px;">
+                                            <li>
+                                                <a class="uk-accordion-title" href="#">Описание задачи</a>
+                                                <div class="uk-accordion-content">
+                                                    <p class="uk-text-muted" th:text="${request.getDescr()}">Нужно
+                                                        помочь с домашними делами</p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a class="uk-accordion-title" href="#">Список задач</a>
+                                                <div class="uk-accordion-content">
+                                                    <div>
+                                                        <ul class="uk-list uk-list-collapse uk-list-striped"
+                                                            th:each="task: ${request.getTaskList()}">
+                                                            <li th:text="${task.getInfo()}">Помыть пол</li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="uk-position-top-right uk-margin-small-right">
+                                            <ul class=" uk-iconnav" style=" margin-left: 0px; margin-top: 20px; ">
+                                                <li>
+                                                    <a href="#">
+                                                        <span uk-tooltip="title: Редактировать заявку; pos: left"
+                                                            class="uk-background-muted  uk-margin uk-icon-button uk-margin-small-right uk-icon"
+                                                            uk-icon="icon: pencil; ratio: 1" title=""
+                                                            aria-expanded="false" style=" margin-bottom: 10px;"></span>
+                                                    </a>
+                                                    <a href="#">
+                                                        <span uk-tooltip="title: Удалить заявку; pos: left"
+                                                            class="uk-background-muted  uk-margin uk-icon-button uk-margin-small-right uk-icon"
+                                                            uk-icon="icon: trash; ratio: 1" title=""
+                                                            aria-expanded="false" style=" margin-bottom: 10px;"></span>
+                                                    </a>
+                                                    <a href="#">
+                                                        <span uk-tooltip="title: Завершить заявку; pos: left"
+                                                            class="uk-background-muted  uk-margin uk-icon-button uk-margin-small-right uk-icon"
+                                                            uk-icon="icon: check; ratio: 1" title=""
+                                                            aria-expanded="false" style=" margin-bottom: 10px;"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                   
                 </div>
             </div>
         </div>
