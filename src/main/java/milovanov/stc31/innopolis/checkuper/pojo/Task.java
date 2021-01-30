@@ -1,10 +1,12 @@
 package milovanov.stc31.innopolis.checkuper.pojo;
 
+import org.springframework.data.domain.Persistable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "task")
-public class Task {
+public class Task implements Persistable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,7 +19,7 @@ public class Task {
     private Long indexNumber;
     @Column(name = "descr")
     private String descr;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id", referencedColumnName = "id", nullable = false)
     private Request request;
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)
@@ -25,6 +27,11 @@ public class Task {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return false;
     }
 
     public void setId(Long id) {

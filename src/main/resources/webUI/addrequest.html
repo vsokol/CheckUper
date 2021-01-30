@@ -2,45 +2,223 @@
 <html lang="ru"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <!-- Required meta tags -->
+    <title>Заявка</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-    <title th:text="${title}">Request</title>
+    <link rel="stylesheet" href="resource/css/uikit.min.css" />
+    <link rel="stylesheet" href="resource/css/maine.css" />
+    <script src="resource/js/uikit.min.js"></script>
+    <script src="resource/js/uikit-icons.min.js"></script>
+
+
+    <link rel="shortcut icon" href="resource/ico/favicon.png" type="image/png">
+
+    <script>
+        var DATA = {
+            COUNTROW: 1
+        }
+
+        function _CreateRowTemplate(COUNTROW) {
+            var template = `<tr id="row_${COUNTROW}">
+        <td class="uk-table-shrink uk-text-nowrap tablesupersmall uk-text-middle">${COUNTROW}</td>
+        <td class=" uk-table-expand" style="padding: 0px;">
+            <input id="data_row"
+                class="uk-input uk-width-expand uk-form-small uk-form-blank textcentr" name="info" type="text"
+                placeholder="Подзадача...">
+        </td>
+        </tr>`;
+            return template;
+        }
+        function addrow() {
+            DATA.COUNTROW = DATA.COUNTROW + 1;
+            _addrow(DATA.COUNTROW);
+        }
+        function _addrow(num) {
+            var template = _CreateRowTemplate(num);
+            _addContent('table', template);
+            _setValueCountUI(num);
+        }
+        function delrow() {
+            if (DATA.COUNTROW == 1) {
+                return;
+            }
+            _delRow(DATA.COUNTROW);
+            DATA.COUNTROW--;
+            _setValueCountUI(DATA.COUNTROW);
+        }
+        function _addContent(id, templat) {
+            var tbody = document.getElementById(id);
+            var template = document.createElement('template')
+            template.innerHTML = templat;
+            var fragment = template.content;
+            tbody.appendChild(fragment);
+        }
+        function _delRow(id) {
+            var t1 = document.getElementById('row_' + id);
+            var tr = t1.parentNode;
+            tr.removeChild(t1);
+        }
+        function _setValueCountUI(COUNTROW) {
+            var body = document.getElementById("count");
+            body.innerHTML = COUNTROW;
+        }
+        function _getValue(id) {
+            var body = document.getElementById(id);
+            return body.value;
+        }
+
+    </script>
 </head>
-    <h1 th:text="${title}">Create request!</h1>
-<div class="container">
-    <form action="/addrequest"  method="post">
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Опишите коротко какая вам нужна помощь!</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" th:field="${request.name}">
-    </div>
-    <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Напишите, чем вам помочь!</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="${request.descr}"></textarea>
-    </div>
-    <div class="mb-2">
-        <label for="text" class="form-label">Список задач для заявки</label>
-        <input type="text" class="form-control" id="text" placeholder="Задание" th:field="${task.info}" aria-label="name"/>
+
+<body class="conteiner unselectable">
+
+    <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
+
+        <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
+
+            <div class="uk-navbar-left ">
+
+                <div class="uk-padding-small paging-mini uk-text-primary">
+                    <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
+                    <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
+                </div>
+            </div>
+
+            <div class="uk-navbar-right ">
+
+                <div class="uk-navbar-item paging-mini">
+                    <a class="uk-icon-button uk-icon" href="../setting" uk-icon="icon: cog; ratio: 1.5"></a>
+                </div>
+
+                <div class="uk-navbar-item paging-mini">
+                    <span id="UserName" class="uk-text-middle">User Usersky</span>
+                </div>
+
+                <div id="UserPhoto" class="uk-navbar-item paging-mini">
+                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+                </div>
+
+                <div class="uk-navbar-item paging-mini">
+                    <a class="uk-icon-button uk-icon" href="../logoff" uk-icon="icon: sign-out; ratio: 1.5"></a>
+                </div>
+
+            </div>
+
+        </nav>
+
     </div>
 
-    <div class="input-group mb-3">
-        <label for="date" class="form-label">Выбрать дату начала заявки!</label>
-        <input type="datetime-local" class="form-control" id="date" th:field="${request.intervalStartTime}" aria-label="Дата начала задачи"/>
-        <label for="date1" class="form-label">Выбрать дату завершения заявки!</label>
-        <input type="datetime-local" class="form-control" id="date1" th:field="${request.intervalEndTime}" aria-label="Дата когда закончить"/>
+    <div class="uk-container uk-container-expand contpadding pad0">
+
+        <div>
+            <div class="uk-width-auto@m uk-background-muted menu">
+                <div>
+                    <ul class="uk-nav uk-nav-default">
+                        <li class=""><a href="/">Статистика</a></li>
+                        <li class="uk-active"><a href="/">Мои заявки</a></li>
+                        <li class=""><a href="/">Заявки в работе</a></li>
+                </div>
+            </div>
+
+            <div class="contentbox">
+                <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
+                    <h3 class="uk-heading-line uk-text-center"><span>Заявка</span></h3>
+
+                    <form method="POST" action="/addrequest" class="uk-form-horizontal uk-margin-large uk-align-center"
+                        style="width: 800px;">
+
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Название заявки</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="" type="text" th:field="${request.name}"
+                                    placeholder="Название заявки...">
+                            </div>
+
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Описание заявки</label>
+                            <div class="uk-form-controls">
+                                <textarea class="uk-form-small uk-textarea" rows="5" th:field="${request.descr}"
+                                          placeholder="Описание..." style="resize: none;"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Количество подзадач</label>
+                            <div class="">
+                                <div class="uk-form-controls" style="margin-left: 705px;">
+                                    <button onclick="addrow()" onmouseout="this.blur();" type="button"
+                                        class="uk-button  uk-form-small uk-button-text" style="color: #1e87f0;">
+                                        <span uk-icon="icon: plus-circle" class="uk-icon"></span>
+                                        <span class="uk-text-middle"></span>
+                                    </button>
+                                    <span id="count" class="uk-text-middle">1</span>
+                                    <button onclick="delrow()" onmouseout="this.blur();" type="button"
+                                        class="uk-button uk-form-small uk-button-text" style="color: #1e87f0;">
+                                        <span uk-icon="icon: minus-circle" class="uk-icon"></span>
+                                        <span class="uk-text-middle"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Плановая дата начала задачи</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-s-datetimelocal" th:field="${request.intervalStartTime}"
+                                       type="datetime-local" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Действительно до</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-s-datetimelocal" th:field="${request.intervalEndTime}"
+                                       type="datetime-local" placeholder="">
+                            </div>
+                        </div>
+
+                        <table class="uk-table uk-table-auto uk-margin-remove tablesupersmall table_">
+                            <tbody id="table">
+                                <tr id="row_1">
+                                    <td class="uk-table-shrink uk-text-nowrap tablesupersmall uk-text-middle">1</td>
+                                    <td class=" uk-table-expand" style="padding: 0px;">
+                                        <input id="data_row" th:field="${task.info}"
+                                            class="uk-input uk-width-expand uk-form-small uk-form-blank textcentr"
+                                            type="text" placeholder="Подзадача...">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div class="uk-margin">
+
+                            <span class="uk-align-right">
+                                <button class="uk-button uk-button-primary uk-button-small" type="reset">
+                                    <span class="uk-text-middle">Отмена</span>
+                                    <span uk-icon="icon: history"></span>
+                                </button>
+                                <button class="uk-button uk-button-primary uk-button-small" type="submit">
+                                    <span class="uk-text-middle">Сохранить</span>
+                                    <span uk-icon="icon: check"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <button type="submit" class="btn btn-primary">Создать</button>
-    </form>
-</div>
-<!-- Optional JavaScript; choose one of the two! -->
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
 
 </html>
