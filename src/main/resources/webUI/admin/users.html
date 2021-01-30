@@ -77,11 +77,6 @@
                                 <span uk-icon="icon: plus" class="uk-icon"></span>
                                 <span class="uk-text-middle">Добавить пользоателя</span>
                             </button>
-                            <button class="uk-button uk-button-primary uk-button-small" onclick="">
-                                <span uk-icon="icon: check" class="uk-icon"></span>
-                                <span class="uk-text-middle">Сохранить</span>
-                            </button>
-
 
                         </div>
 
@@ -94,6 +89,8 @@
                                         <th class=" ">Ф.И.О.</th>
                                         <th class="uk-table-expand uk-text-center">Фото</th>
                                         <th class="uk-text-center">Администратор</th>
+                                        <th class="uk-text-center">Исполнитель</th>
+                                        <th class="uk-text-center">Заказчик</th>
                                         <th class="uk-text-center">Действия</th>
 
                                     </tr>
@@ -104,12 +101,22 @@
                                         <td class="tablesupersmall">garnagaaa@energomera.ru</td>
                                         <td class="tablesupersmall">Гарнага Алексей Анатольевич</td>
                                         <td class="tablesupersmall uk-table-shrink uk-text-center">
-                                            <img class="uk-border-rounded " src="../resource/ico/user.png" width="40" height="40">
+                                            <img class="uk-border-rounded " src="../resource/ico/user.png" width="40"
+                                                height="40">
                                         </td>
                                         <td class="tablesupersmall uk-table-shrink uk-text-center"> <input
-                                                class="uk-checkbox" type="checkbox" checked="true">
+                                                class="uk-checkbox" type="checkbox" checked="true"
+                                                onclick="return false;">
                                         </td>
-    
+                                        <td class="tablesupersmall uk-table-shrink uk-text-center"> <input
+                                                class="uk-checkbox" type="checkbox" checked="false"
+                                                onclick="return false;">
+                                        </td>
+                                        <td class="tablesupersmall uk-table-shrink uk-text-center"> <input
+                                                class="uk-checkbox" type="checkbox" checked="true"
+                                                onclick="return false;">
+                                        </td>
+
                                         <td class="tablesupersmall uk-table-shrink uk-text-nowrap uk-text-center">
                                             <a uk-tooltip="Редактировать" class="uk-icon-button uk-icon"
                                                 uk-icon="pencil" onclick="" title="" aria-expanded="false"></a>
