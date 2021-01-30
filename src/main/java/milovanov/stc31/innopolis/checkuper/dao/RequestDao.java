@@ -23,6 +23,20 @@ public interface RequestDao extends JpaRepository<Request, Long> {
     List<Request> findByStatusAndExecutorIsNull(RequestStatus status);
 
     /**
+     * Возвращает список заказов, у которых не установлен указанный статус
+     * @param status статус заказов
+     * @return список заказов с указанным статусом, у которых еще не определен исполнитель
+     */
+    List<Request> findByStatusIsNot(RequestStatus status);
+
+    /**
+     * Возвращает список заказов, у которых установлен указанный статус
+     * @param status статус заказов
+     * @return список заказов с указанным статусом, у которых еще не определен исполнитель
+     */
+    List<Request> findByStatusIs(RequestStatus status);
+
+    /**
      * Возвращает список всех заказов указанного исполнителя
      * @param executor исполнитель
      * @return список всех заказов указанного исполнителя

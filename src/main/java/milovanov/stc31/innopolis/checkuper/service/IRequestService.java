@@ -3,6 +3,7 @@ package milovanov.stc31.innopolis.checkuper.service;
 import milovanov.stc31.innopolis.checkuper.pojo.Customer;
 import milovanov.stc31.innopolis.checkuper.pojo.Executor;
 import milovanov.stc31.innopolis.checkuper.pojo.Request;
+import milovanov.stc31.innopolis.checkuper.pojo.RequestStatus;
 
 import java.util.List;
 
@@ -22,6 +23,19 @@ public interface IRequestService {
      * @return список заказов
      */
     List<Request> getAllRequests();
+
+    /**
+     * Возвращает список всех незавершенных заказов
+     *
+     * @return список заказов
+     */
+    List<Request> getAllNotDoneRequests();
+
+    /**
+     * Возвращает список завершенных заказов
+     * @return список завершенных заказов
+     */
+    List<Request> getAllClosedRequests();
 
     /**
      * Возвращает список всех доступных для выполнения заказов

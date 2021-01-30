@@ -1,143 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Пользователи</title>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-
-    <link rel="stylesheet" href="../resource/css/uikit.min.css" />
-    <link rel="stylesheet" href="../resource/css/maine.css" />
+    <link rel="stylesheet" href="../resource/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../resource/css/maine.css"/>
     <script src="../resource/js/uikit.min.js"></script>
     <script src="../resource/js/uikit-icons.min.js"></script>
 
-
     <link rel="shortcut icon" href="../resource/ico/favicon.png" type="image/png">
-
 </head>
 
-<body class="conteiner unselectable">
-
-    <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
-
-        <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
-
-            <div class="uk-navbar-left ">
-
-                <div class="uk-padding-small paging-mini uk-text-primary">
-                    <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
-                    <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
-                </div>
+<body class="container unselectable">
+<div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
+    <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
+        <div class="uk-navbar-left ">
+            <div class="uk-padding-small paging-mini uk-text-primary">
+                <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
+                <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
             </div>
-
-            <div class="uk-navbar-right ">
-
-                <div class="uk-navbar-item paging-mini uk-active">
-                    <a class="uk-icon-button uk-icon" href="../setting" uk-icon="icon: cog; ratio: 1.5"></a>
-                </div>
-
-                <div class="uk-navbar-item paging-mini">
-                    <span id="UserName" class="uk-text-middle">Admin</span>
-                </div>
-
-                <div id="UserPhoto" class="uk-navbar-item paging-mini">
-                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
-                </div>
-
-                <div class="uk-navbar-item paging-mini">
-                    <a class="uk-icon-button uk-icon" href="../logoff" uk-icon="icon: sign-out; ratio: 1.5"></a>
-                </div>
-
+        </div>
+        <div class="uk-navbar-right ">
+            <div class="uk-navbar-item paging-mini uk-active">
+                <a class="uk-icon-button uk-icon" href="/user/stats" uk-icon="icon: cog; ratio: 1.5"></a>
             </div>
-
-        </nav>
-
-    </div>
-
-    <div class="uk-container uk-container-expand contpadding pad0">
-
-        <div>
-            <div class="uk-width-auto@m uk-background-muted menu">
-                <div>
-                    <ul class="uk-nav uk-nav-default">
-                        <li class=""><a href="/">Все заявки</a></li>
-                        <li class="uk-active"><a href="/">Пользователи</a></li>
-                        <li class=""><a href="/">История заявок</a></li>
-                        <li class=""><a href="/">Профиль</a></li>
-                </div>
+            <div class="uk-navbar-item paging-mini">
+                <span id="UserName" class="uk-text-middle">[[${#httpServletRequest.remoteUser}]]</span>
             </div>
+            <div id="UserPhoto" class="uk-navbar-item paging-mini">
+                <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+            </div>
+            <div class="uk-navbar-item paging-mini">
+                <a class="uk-icon-button uk-icon" href="/logout" uk-icon="icon: sign-out; ratio: 1.5"></a>
+            </div>
+        </div>
+    </nav>
+</div>
 
-            <div class="contentbox">
-                <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-                    <div>
-                        <div class=" uk-align-right" style="margin-bottom: 5px;">
-
-                            <button class="uk-button uk-button-primary uk-button-small" onclick="">
-                                <span uk-icon="icon: plus" class="uk-icon"></span>
-                                <span class="uk-text-middle">Добавить пользоателя</span>
-                            </button>
-
-                        </div>
-
-                        <div>
-                            <table id="user_tab"
-                                class="uk-table-hover uk-table  uk-table-small uk-text-small uk-text-primary uk-table-middle uk-table-divider">
-                                <thead>
-                                    <tr>
-                                        <th class=" ">Логин</th>
-                                        <th class=" ">Ф.И.О.</th>
-                                        <th class="uk-table-expand uk-text-center">Фото</th>
-                                        <th class="uk-text-center">Администратор</th>
-                                        <th class="uk-text-center">Исполнитель</th>
-                                        <th class="uk-text-center">Заказчик</th>
-                                        <th class="uk-text-center">Действия</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr>
-                                        <td class="tablesupersmall">garnagaaa@energomera.ru</td>
-                                        <td class="tablesupersmall">Гарнага Алексей Анатольевич</td>
-                                        <td class="tablesupersmall uk-table-shrink uk-text-center">
-                                            <img class="uk-border-rounded " src="../resource/ico/user.png" width="40"
-                                                height="40">
-                                        </td>
-                                        <td class="tablesupersmall uk-table-shrink uk-text-center"> <input
-                                                class="uk-checkbox" type="checkbox" checked="true"
-                                                onclick="return false;">
-                                        </td>
-                                        <td class="tablesupersmall uk-table-shrink uk-text-center"> <input
-                                                class="uk-checkbox" type="checkbox" checked="false"
-                                                onclick="return false;">
-                                        </td>
-                                        <td class="tablesupersmall uk-table-shrink uk-text-center"> <input
-                                                class="uk-checkbox" type="checkbox" checked="true"
-                                                onclick="return false;">
-                                        </td>
-
-                                        <td class="tablesupersmall uk-table-shrink uk-text-nowrap uk-text-center">
-                                            <a uk-tooltip="Редактировать" class="uk-icon-button uk-icon"
-                                                uk-icon="pencil" onclick="" title="" aria-expanded="false"></a>
-                                            <a uk-tooltip="Удалить" class="uk-icon-button uk-icon" uk-icon="trash"
-                                                onclick="" title="" aria-expanded="false"></a>
-
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-
-
-                        </div>
-
-                    </div>
-                </div>
+<div class="uk-container uk-container-expand contpadding pad0">
+    <div>
+        <div class="uk-width-auto@m uk-background-muted menu">
+            <div>
+                <ul class="uk-nav uk-nav-default">
+                    <li class=""><a href="/requests/all">Все заявки</a></li>
+                    <li class="uk-active"><a href="/admin/users">Пользователи</a></li>
+                    <li class=""><a href="/requests/closed">История заявок</a></li>
+                    <li class=""><a href="/admin/setting">Профиль</a></li>
+                </ul>
             </div>
         </div>
 
+        <div class="contentbox">
+            <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
+                <div>
+                    <div class=" uk-align-right" style="margin-bottom: 5px;">
+                        <button class="uk-button uk-button-primary uk-button-small" onclick="location.href='/admin/adduser'">
+                            <span uk-icon="icon: plus" class="uk-icon"></span>
+                            <span class="uk-text-middle">Добавить пользователя</span>
+                        </button>
+                    </div>
+
+                    <div>
+                        <table id="user_tab"
+                               class="uk-table-hover uk-table  uk-table-small uk-text-small uk-text-primary uk-table-middle uk-table-divider">
+                            <thead>
+                            <tr>
+                                <th class=" ">Логин</th>
+                                <th class=" ">Ф.И.О.</th>
+                                <th class="uk-table-expand uk-text-center">Фото</th>
+                                <th class="uk-text-center">Администратор</th>
+                                <th class="uk-text-center">Исполнитель</th>
+                                <th class="uk-text-center">Заказчик</th>
+                                <th class="uk-text-center">Действия</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="user: ${users}">
+                                <td class="tablesupersmall" th:text="${user.getUsername()}">garnagaaa@energomera.ru</td>
+                                <td class="tablesupersmall" th:text="${user.getFullName()}">Гарнага Алексей
+                                    Анатольевич
+                                </td>
+                                <td class="tablesupersmall uk-table-shrink uk-text-center">
+                                    <img class="uk-border-rounded " src="../resource/ico/user.png" width="40"
+                                         height="40">
+                                </td>
+                                <td class="tablesupersmall uk-table-shrink uk-text-center"><input
+                                        class="uk-checkbox" type="checkbox" checked="true"
+                                        onclick="return false;"
+                                        th:checked="${user.isAdmin == 'on' ? true : false}">
+                                </td>
+                                <td class="tablesupersmall uk-table-shrink uk-text-center"><input
+                                        class="uk-checkbox" type="checkbox" checked="false"
+                                        onclick="return false;"
+                                        th:checked="${user.isExecutor == 'on' ? true : false}">
+                                </td>
+                                <td class="tablesupersmall uk-table-shrink uk-text-center"><input
+                                        class="uk-checkbox" type="checkbox" checked="true"
+                                        onclick="return false;"
+                                        th:checked="${user.isCustomer == 'on' ? true : false}">
+                                </td>
+
+                                <td class="tablesupersmall uk-table-shrink uk-text-nowrap uk-text-center">
+                                    <a uk-tooltip="Редактировать" class="uk-icon-button uk-icon"
+                                       uk-icon="pencil" onclick="" title="" aria-expanded="false"
+                                       th:href="@{/admin/setting(user_id=${user.getUserId()})}"></a>
+                                    <a uk-tooltip="Удалить" class="uk-icon-button uk-icon" uk-icon="trash"
+                                       onclick="" title="" aria-expanded="false"
+                                       th:href="@{/admin/deleteuser(user_id=${user.getUserId()})}"></a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
+
+</div>
 
 </body>
 

@@ -1,168 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>История заявок</title>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-
-    <link rel="stylesheet" href="../resource/css/uikit.min.css" />
-    <link rel="stylesheet" href="../resource/css/maine.css" />
+    <link rel="stylesheet" href="../resource/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../resource/css/maine.css"/>
     <script src="../resource/js/uikit.min.js"></script>
     <script src="../resource/js/uikit-icons.min.js"></script>
 
-
     <link rel="shortcut icon" href="../resource/ico/favicon.png" type="image/png">
-
 </head>
 
 <body class="conteiner unselectable">
-
-    <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
-
-        <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
-
-            <div class="uk-navbar-left ">
-
-                <div class="uk-padding-small paging-mini uk-text-primary">
-                    <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
-                    <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
-                </div>
+<div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
+    <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
+        <div class="uk-navbar-left ">
+            <div class="uk-padding-small paging-mini uk-text-primary">
+                <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
+                <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
             </div>
-
-            <div class="uk-navbar-right ">
-
-                <div class="uk-navbar-item paging-mini uk-active">
-                    <a class="uk-icon-button uk-icon" href="../setting" uk-icon="icon: cog; ratio: 1.5"></a>
-                </div>
-
-                <div class="uk-navbar-item paging-mini">
-                    <span id="UserName" class="uk-text-middle">Admin</span>
-                </div>
-
-                <div id="UserPhoto" class="uk-navbar-item paging-mini">
-                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
-                </div>
-
-                <div class="uk-navbar-item paging-mini">
-                    <a class="uk-icon-button uk-icon" href="../logoff" uk-icon="icon: sign-out; ratio: 1.5"></a>
-                </div>
-
+        </div>
+        <div class="uk-navbar-right ">
+            <div class="uk-navbar-item paging-mini uk-active">
+                <a class="uk-icon-button uk-icon" href="/user/stats" uk-icon="icon: cog; ratio: 1.5"></a>
             </div>
-
-        </nav>
-
-    </div>
-
-    <div class="uk-container uk-container-expand contpadding pad0">
-
-        <div>
-            <div class="uk-width-auto@m uk-background-muted menu">
-                <div>
-                    <ul class="uk-nav uk-nav-default">
-                        <li class=""><a href="/">Все заявки</a></li>
-                        <li class=""><a href="/">Пользователи</a></li>
-                        <li class="uk-active"><a href="/">История заявок</a></li>
-                        <li class=""><a href="/">Профиль</a></li>
-                </div>
+            <div class="uk-navbar-item paging-mini">
+                <span id="UserName" class="uk-text-middle">[[${#httpServletRequest.remoteUser}]]</span>
             </div>
+            <div id="UserPhoto" class="uk-navbar-item paging-mini">
+                <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+            </div>
+            <div class="uk-navbar-item paging-mini">
+                <a class="uk-icon-button uk-icon" href="/logout" uk-icon="icon: sign-out; ratio: 1.5"></a>
+            </div>
+        </div>
+    </nav>
+</div>
 
-            <div class="contentbox">
-                <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-                    <table class="uk-table uk-table-hover uk-table-divider uk-align-center"
-                    th:with="df='dd.MM.yyyy hh:mm'" style="width: 1100px;">
+<div class="uk-container uk-container-expand contpadding pad0">
+    <div>
+        <div class="uk-width-auto@m uk-background-muted menu">
+            <div>
+                <ul class="uk-nav uk-nav-default">
+                    <li class=""><a href="/requests/all">Все заявки</a></li>
+                    <li class=""><a href="/admin/users">Пользователи</a></li>
+                    <li class="uk-active"><a href="/requests/closed">История заявок</a></li>
+                    <li class=""><a href="/admin/setting">Профиль</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contentbox">
+            <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
+                <table class="uk-table uk-table-hover uk-table-divider uk-align-center"
+                       th:with="df='dd.MM.yyyy hh:mm'" style="width: 1100px;">
                     <thead>
-                        <tr>
-                            <th class="">История заявок</th>
-                        </tr>
+                    <tr>
+                        <th class="">История заявок</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="request: ${requests}">
-                            <td>
-                                <div
+                    <tr th:each="request: ${requests}">
+                        <td>
+                            <div
                                     class="uk-card uk-card-default uk-card-body uk-width-expand uk-background-muted">
-                                    <div class="uk-grid-divider uk-child-width-expand@s" uk-grid>
-
-                                        <div>
-                                            <span class="uk-card-title" th:text="${request.getName()}">Помочь по
-                                                дому</span>
-                                            <span class="uk-label uk-align-right uk-label-warning"
-                                                th:unless="">Закрыто</span>
-                                            <p class="uk-text-meta uk-margin-remove-top"
-                                                th:text="${#calendars.format(request.getIntervalStartTime(),df)} + ' - ' + ${#calendars.format(request.getIntervalEndTime(),df)}">
-                                                10.02.2021 10:00 - 10.02.2021 15:30</p>
-                                        </div>
-                                        <div>
-                                            <div class="uk-grid-small uk-flex-middle" uk-grid>
-                                                <div class="uk-width-auto">
-                                                    <!-- <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg"> -->
-                                                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
-                                                </div>
-                                                <div class="uk-width-expand">
-                                                    <h3 class="uk-card-title uk-margin-remove-bottom"
-                                                        th:text="${request.getExecutor() != null}? ${request.getExecutor().getName()}: ''">
-                                                        Василий Пупкин
-                                                    </h3>
-                                                    <p class="uk-text-meta uk-margin-remove-top">Заказчик</p>
-
-                                                </div>
+                                <div class="uk-grid-divider uk-child-width-expand@s" uk-grid>
+                                    <div>
+                                            <span class="uk-card-title" th:text="${request.getName()}">Помочь по дому</span>
+                                        <span class="uk-label uk-align-right uk-label-warning">Закрыто</span>
+                                        <p class="uk-text-meta uk-margin-remove-top"
+                                           th:text="${#strings.concat(request.getIntervalStartTime() != null ? #calendars.format(request.getIntervalStartTime(),df) : ' '
+                                           , ' - ', request.getIntervalEndTime() != null ? #calendars.format(request.getIntervalEndTime(),df) : '')}">
+                                            10.02.2021 10:00 - 10.02.2021 15:30</p>
+                                    </div>
+                                    <div>
+                                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                            <div class="uk-width-auto">
+                                                <!-- <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg"> -->
+                                                <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
                                             </div>
-                                            <div class="uk-grid-small uk-flex-middle" uk-grid>
-                                                <div class="uk-width-auto">
-                                                    <!-- <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg"> -->
-                                                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
-                                                </div>
-                                                <div class="uk-width-expand">
-                                                    <h3 class="uk-card-title uk-margin-remove-bottom"
-                                                        th:text="${request.getExecutor() != null}? ${request.getExecutor().getName()}: ''">
-                                                        Василий Пупкин
-                                                    </h3>
-                                                    <p class="uk-text-meta uk-margin-remove-top">Исполнитель</p>
+                                            <div class="uk-width-expand">
+                                                <h3 class="uk-card-title uk-margin-remove-bottom"
+                                                    th:text="${request.getCustomer() != null}? ${request.getCustomer().getName()}: ''">
+                                                    Василий Пупкин
+                                                </h3>
+                                                <p class="uk-text-meta uk-margin-remove-top">Заказчик</p>
 
-                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                            <div class="uk-width-auto">
+                                                <!-- <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg"> -->
+                                                <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                                <h3 class="uk-card-title uk-margin-remove-bottom"
+                                                    th:text="${request.getExecutor() != null}? ${request.getExecutor().getName()}: ''">
+                                                    Василий Пупкин
+                                                </h3>
+                                                <p class="uk-text-meta uk-margin-remove-top">Исполнитель</p>
+
                                             </div>
                                         </div>
                                     </div>
-
-                                    <h4 class="uk-heading-line uk-text-center" style=" margin-top: 20px; ">
-                                        <span>Данные по задаче</span>
-                                    </h4>
-                                    <ul uk-accordion="multiple: true" style="width: 870px;">
-                                        <li>
-                                            <a class="uk-accordion-title" href="#">Описание задачи</a>
-                                            <div class="uk-accordion-content">
-                                                <p class="uk-text-muted" th:text="${request.getDescr()}">Нужно
-                                                    помочь с домашними делами</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a class="uk-accordion-title" href="#">Список задач</a>
-                                            <div class="uk-accordion-content">
-                                                <div>
-                                                    <ul class="uk-list uk-list-collapse uk-list-striped"
-                                                        th:each="task: ${request.getTaskList()}">
-                                                        <li th:text="${task.getInfo()}">Помыть пол</li>
-
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                   
                                 </div>
-                            </td>
-                        </tr>
+
+                                <h4 class="uk-heading-line uk-text-center" style=" margin-top: 20px; ">
+                                    <span>Данные по задаче</span>
+                                </h4>
+                                <ul uk-accordion="multiple: true" style="width: 870px;">
+                                    <li>
+                                        <a class="uk-accordion-title" href="#">Описание задачи</a>
+                                        <div class="uk-accordion-content">
+                                            <p class="uk-text-muted" th:text="${request.getDescr()}">Нужно
+                                                помочь с домашними делами</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="uk-accordion-title" href="#">Список задач</a>
+                                        <div class="uk-accordion-content">
+                                            <div>
+                                                <ul class="uk-list uk-list-collapse uk-list-striped"
+                                                    th:each="task: ${request.getTaskList()}">
+                                                    <li th:text="${task.getInfo()}">Помыть пол</li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </td>
+                    </tr>
 
                     </tbody>
                 </table>
 
-               
-                </div>
+
             </div>
         </div>
-
     </div>
+
+</div>
 
 </body>
 

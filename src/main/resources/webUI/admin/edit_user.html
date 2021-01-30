@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Профиль пользователя</title>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-
-    <link rel="stylesheet" href="../resource/css/uikit.min.css" />
-    <link rel="stylesheet" href="../resource/css/maine.css" />
+    <link rel="stylesheet" href="../resource/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../resource/css/maine.css"/>
     <script src="../resource/js/uikit.min.js"></script>
     <script src="../resource/js/uikit-icons.min.js"></script>
-
 
     <link rel="shortcut icon" href="../resource/ico/favicon.png" type="image/png">
     <script>
@@ -32,180 +31,169 @@
 </head>
 
 <body class="conteiner unselectable">
-
-    <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
-
-        <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
-
-            <div class="uk-navbar-left ">
-
-                <div class="uk-padding-small paging-mini uk-text-primary">
-                    <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
-                    <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
-                </div>
+<div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
+    <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
+        <div class="uk-navbar-left ">
+            <div class="uk-padding-small paging-mini uk-text-primary">
+                <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
+                <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
             </div>
-
-            <div class="uk-navbar-right ">
-
-                <div class="uk-navbar-item paging-mini uk-active">
-                    <a class="uk-icon-button uk-icon" href="../setting" uk-icon="icon: cog; ratio: 1.5"></a>
-                </div>
-
-                <div class="uk-navbar-item paging-mini">
-                    <span id="UserName" class="uk-text-middle">Admin</span>
-                </div>
-
-                <div id="UserPhoto" class="uk-navbar-item paging-mini">
-                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
-                </div>
-
-                <div class="uk-navbar-item paging-mini">
-                    <a class="uk-icon-button uk-icon" href="../logoff" uk-icon="icon: sign-out; ratio: 1.5"></a>
-                </div>
-
+        </div>
+        <div class="uk-navbar-right ">
+            <div class="uk-navbar-item paging-mini uk-active">
+                <a class="uk-icon-button uk-icon" href="/user/stats" uk-icon="icon: cog; ratio: 1.5"></a>
             </div>
-
-        </nav>
-
-    </div>
-
-    <div class="uk-container uk-container-expand contpadding pad0">
-
-        <div>
-            <div class="uk-width-auto@m uk-background-muted menu">
-                <div>
-                    <ul class="uk-nav uk-nav-default">
-                        <li class=""><a href="/">Все заявки</a></li>
-                        <li class="uk-active"><a href="/">Пользователи</a></li>
-                        <li class=""><a href="/">История заявок</a></li>
-                        <li class=""><a href="/">Профиль</a></li>
-                </div>
+            <div class="uk-navbar-item paging-mini">
+                <span id="UserName" class="uk-text-middle">[[${#httpServletRequest.remoteUser}]]</span>
             </div>
+            <div id="UserPhoto" class="uk-navbar-item paging-mini">
+                <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+            </div>
+            <div class="uk-navbar-item paging-mini">
+                <a class="uk-icon-button uk-icon" href="/logout" uk-icon="icon: sign-out; ratio: 1.5"></a>
+            </div>
+        </div>
+    </nav>
+</div>
 
-            <div class="contentbox">
-                <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-                    <h3 class="uk-heading-line uk-text-center"><span>Просмотр и редактирования выбранного профиля
+<div class="uk-container uk-container-expand contpadding pad0">
+    <div>
+        <div class="uk-width-auto@m uk-background-muted menu">
+            <div>
+                <ul class="uk-nav uk-nav-default">
+                    <li class=""><a href="/requests/all">Все заявки</a></li>
+                    <li class="uk-active"><a href="/admin/users">Пользователи</a></li>
+                    <li class=""><a href="/requests/closed">История заявок</a></li>
+                    <li class=""><a href="/admin/setting">Профиль</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contentbox">
+            <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
+                <h3 class="uk-heading-line uk-text-center"><span>Просмотр и редактирования выбранного профиля
                             пользователя </span></h3>
+                <form method="POST" th:action="@{/admin/setting}" th:object="${user}" enctype="multipart/form-data"
+                      class="uk-form-horizontal uk-margin-large uk-align-center" style="width: 800px;">
+                    <h4 class="uk-heading-bullet">Аватар</h4>
+                    <div class="uk-flex uk-flex-column ">
+                        <img id="imgava" class="uk-border-pill uk-background-muted uk-align-center img-thumbnail"
+                             width="128" height="128" alt="IMG"
+                             th:src="${viewAvatar} == null ? '../resource/ico/user.png' : 'data:image/jpeg;base64,' + ${imgUtil.getImgData(viewAvatar)}">
 
-                    <form method="POST" th:action="" th:object="${user}" enctype="multipart/form-data"
-                        class="uk-form-horizontal uk-margin-large uk-align-center" style="width: 800px;">
-                        <h4 class="uk-heading-bullet">Аватар</h4>
-                        <div class="uk-flex uk-flex-column ">
-                            <img id="imgava" class="uk-border-pill uk-background-muted uk-align-center img-thumbnail"
-                                width="128" height="128" alt="IMG"
-                                th:src="${viewAvatar} == null ? '../resource/ico/user.png' : 'data:image/jpeg;base64,' + ${imgUtil.getImgData(viewAvatar)}">
-
-                            <div uk-form-custom class="uk-align-center" style="
+                        <div uk-form-custom class="uk-align-center" style="
                                 margin-top: 0px;
                                 margin-bottom: 0px;">
-                                <input type="file" onchange="readURL(this);" name="avatar"
-                                    accept="image/jpeg, image/png">
-                                <button class="uk-button uk-button-default uk-button-small" type="button"
+                            <input type="file" onchange="readURL(this);" name="avatar"
+                                   accept="image/jpeg, image/png">
+                            <button class="uk-button uk-button-default uk-button-small" type="button"
                                     tabindex="-1">Загрузить аватар
-                                </button>
-                            </div>
+                            </button>
                         </div>
-                        <hr>
+                    </div>
+                    <hr>
 
-                        <h4 class="uk-heading-bullet">Общие данные</h4>
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-text">Логин пользователя</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input uk-form-small" id="form-horizontal-text-login" type="text"
-                                    th:field="*{username}" placeholder="Логин пользователя...">
-                            </div>
-                            <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-                                style="color:red;font-style: italic">неверное имя пользователя</span>
-                            <span class="error" th:if="${usernameError}" th:utext="${usernameError}"
-                                style="color:#ff0000;font-style: italic">пользователь с таким именем уже
+                    <h4 class="uk-heading-bullet">Общие данные</h4>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">Логин пользователя</label>
+                        <input class="uk-input uk-form-small" id="form-horizontal-user-id" type="text"
+                               th:field="*{userId}" placeholder="Идентификатор" hidden="hidden">
+                        <div class="uk-form-controls">
+                            <input class="uk-input uk-form-small" id="form-horizontal-text-login" type="text"
+                                   th:field="*{username}" placeholder="Логин пользователя...">
+                        </div>
+                        <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                              style="color:red;font-style: italic">неверное имя пользователя</span>
+                        <span class="error" th:if="${usernameError}" th:utext="${usernameError}"
+                              style="color:#ff0000;font-style: italic">пользователь с таким именем уже
                                 существует</span>
+                    </div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">ФИО</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input uk-form-small" id="form-horizontal-text-name" type="text"
+                                   th:field="*{fullName}" placeholder="ФИО...">
                         </div>
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-text">ФИО</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input uk-form-small" id="form-horizontal-text-name" type="text"
-                                    th:field="*{fullName}" placeholder="ФИО...">
+                        <span class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"
+                              style="color:red;font-style: italic">ФИО не должно быть пустым</span>
+                    </div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">Роль пользователя</label>
+                        <div class="uk-form-controls">
+                            <div class="uk-margin">
+                                <label><input class="uk-checkbox" type="checkbox" th:checked="*{isExecutor}"
+                                              name="isExecutor"> Исполнитель</label>
                             </div>
-                            <span class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"
-                                style="color:red;font-style: italic">ФИО не должно быть пустым</span>
-                        </div>
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-text">Роль пользователя</label>
-                            <div class="uk-form-controls">
-                                <div class="uk-margin">
-                                    <label><input class="uk-checkbox" type="checkbox" th:checked="*{isExecutor}"
-                                            name="isExecutor"> Исполнитель</label>
-                                </div>
-                                <div class="uk-margin">
-                                    <label><input class="uk-checkbox" type="checkbox" th:checked="*{isCustomer}"
-                                            name="isCustomer"> Заказчик</label>
-                                </div>
-                                <div class="uk-margin">
-                                    <label><input class="uk-checkbox" type="checkbox" th:checked="*{isCustomer}"
-                                            name="isCustomer"> Админ</label>
-                                </div>
-                                <span class="error" th:if="${roleError}" th:utext="${roleError}"
-                                    style="color:red;font-style: italic">не задана роль</span>
+                            <div class="uk-margin">
+                                <label><input class="uk-checkbox" type="checkbox" th:checked="*{isCustomer}"
+                                              name="isCustomer"> Заказчик</label>
                             </div>
+                            <div class="uk-margin">
+                                <label><input class="uk-checkbox" type="checkbox" th:checked="*{isAdmin}"
+                                              name="isAdmin"> Админ</label>
+                            </div>
+                            <span class="error" th:if="${roleError}" th:utext="${roleError}"
+                                  style="color:red;font-style: italic">не задана роль</span>
                         </div>
-                        <div class="uk-margin">
-                            <button class="uk-button uk-button-danger uk-button-small" type="submit" name="action"
+                    </div>
+                    <div class="uk-margin">
+                        <button class="uk-button uk-button-danger uk-button-small" type="submit" name="action"
                                 value="DeleteAccount">
-                                <span class="uk-text-middle">Удалить аккаунт</span>
-                                <span uk-icon="icon: trash"></span>
-                            </button>
-                        </div>
-                        <hr>
+                            <span class="uk-text-middle">Удалить аккаунт</span>
+                            <span uk-icon="icon: trash"></span>
+                        </button>
+                    </div>
+                    <hr>
 
-                        <h4 class="uk-heading-bullet">Пароль</h4>
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-text">Новый пароль</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input uk-form-small" id="form-horizontal-text-pass" type="password"
-                                    name="passwordNew" placeholder="Пароль...">
-                            </div>
-                            <span class="error" th:if="${passwordNewError}" th:utext="${passwordNewError}"
-                                style="color:red;font-style: italic">пароль не должен быть пустым</span>
+                    <h4 class="uk-heading-bullet">Пароль</h4>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">Новый пароль</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input uk-form-small" id="form-horizontal-text-pass" type="password"
+                                   name="passwordNew" placeholder="Пароль...">
                         </div>
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-text">Подтверждение пароля</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input uk-form-small" id="form-horizontal-text" type="password"
-                                    name="passwordConfirm" placeholder="Пароль...">
-                            </div>
-                            <span class="error" th:if="${passwordConfirmError}" th:utext="${passwordConfirmError}"
-                                style="color:red;font-style: italic">пароль не должен быть пустым</span>
+                        <span class="error" th:if="${passwordNewError}" th:utext="${passwordNewError}"
+                              style="color:red;font-style: italic">пароль не должен быть пустым</span>
+                    </div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">Подтверждение пароля</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input uk-form-small" id="form-horizontal-text" type="password"
+                                   name="passwordConfirm" placeholder="Пароль...">
                         </div>
+                        <span class="error" th:if="${passwordConfirmError}" th:utext="${passwordConfirmError}"
+                              style="color:red;font-style: italic">пароль не должен быть пустым</span>
+                    </div>
 
-                        <span class="error" th:if="${passwordError}" th:utext="${passwordError}"
-                            style="color:red;font-style: italic">пароли не совпадают</span>
-                        <div class="uk-margin">
-                            <button class="uk-button uk-button-primary uk-button-small" type="submit" name="action"
+                    <span class="error" th:if="${passwordError}" th:utext="${passwordError}"
+                          style="color:red;font-style: italic">пароли не совпадают</span>
+                    <div class="uk-margin">
+                        <button class="uk-button uk-button-primary uk-button-small" type="submit" name="action"
                                 value="ChangePassword">
-                                <span class="uk-text-middle">Обновить пароль</span>
-                                <span uk-icon="icon: trash"></span>
-                            </button>
-                        </div>
+                            <span class="uk-text-middle">Обновить пароль</span>
+                            <span uk-icon="icon: trash"></span>
+                        </button>
+                    </div>
 
-                        <hr>
+                    <hr>
 
-                        <span class="uk-align-right">
+                    <span class="uk-align-right">
                             <button class="uk-button uk-button-primary uk-button-small" type="reset">
                                 <span class="uk-text-middle">Отмена</span>
                                 <span uk-icon="icon: history"></span>
                             </button>
                             <button class="uk-button uk-button-primary uk-button-small" type="submit" name="action"
-                                value="Save">
+                                    value="Save">
                                 <span class="uk-text-middle">Сохранить</span>
                                 <span uk-icon="icon: check"></span>
                             </button>
                         </span>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
-
     </div>
+
+</div>
 
 </body>
 

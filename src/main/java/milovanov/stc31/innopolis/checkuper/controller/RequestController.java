@@ -9,12 +9,12 @@ import milovanov.stc31.innopolis.checkuper.service.IRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,39 +31,23 @@ public class RequestController {
 
     /**
      * Просмотр списка всех заказов для указанного исполнителя, если он указан, иначе список всех заказов всех исполнителей.
-     * @param paramExecutorId идентификатор исполнителя
      * @return ModelAndView с информацией по заказам и страницей отображения для указанного исполнителя
      */
-    @GetMapping
-    public ModelAndView getAllRequests(@RequestParam(value = "executor_id", required = false) String paramExecutorId) {
-        List<Request> requestList;
-        String title, viewType;
-        try {
-            Long executorId = Long.valueOf(paramExecutorId);
-            Executor executor = executorService.getExecutorById(executorId);
-            if (executor == null) {
-                requestList = new ArrayList<>();
-                title = "Исполнитель не найден";
-                viewType = "all";
-            } else {
-                requestList = requestService.getAllRequestsByExecutor(executor);
-                title = executor.getName() + " (Заявки)";
-                viewType = "executor";
-            }
-        } catch (NumberFormatException exception) {
-            requestList = requestService.getAllRequests();
-            title = "Заявки";
-            viewType = "all";
-        }
-        ModelAndView modelAndView =
-                getModelAndView(requestList
-                        , title
-                        , viewType
-                        , "allrequests");
-        return modelAndView;
+    @GetMapping("/all")
+    public String getAllNotClosedRequests(Model model) {
+        model.addAttribute("requests", requestService.getAllNotDoneRequests());
+        return "/admin/applications";
     }
 
-
+    /**
+     * Просмотр списка всех заказов для указанного исполнителя, если он указан, иначе список всех заказов всех исполнителей.
+     * @return ModelAndView с информацией по заказам и страницей отображения для указанного исполнителя
+     */
+    @GetMapping("/closed")
+    public String getAllClosedRequests(Model model) {
+        model.addAttribute("requests", requestService.getAllClosedRequests());
+        return "/admin/history";
+    }
 
     /**
      * Просмотр указанного в <tt>request_id</tt> заказа.

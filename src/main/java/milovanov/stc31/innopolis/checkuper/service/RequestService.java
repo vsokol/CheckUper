@@ -27,8 +27,26 @@ public class RequestService implements IRequestService {
      */
     @Override
     public List<Request> getAllRequests() {
-        List<Request> list = requestDao.findAll();
-        return list;
+        return requestDao.findAll();
+    }
+
+    /**
+     * Возвращает список завершенных заказов
+     * @return список завершенных заказов
+     */
+    @Override
+    public List<Request> getAllClosedRequests() {
+        return requestDao.findByStatusIs(RequestStatus.DONE);
+    }
+
+    /**
+     * Возвращает список всех незавершенных заказов
+     *
+     * @return список заказов
+     */
+    @Override
+    public List<Request> getAllNotDoneRequests() {
+        return requestDao.findByStatusIsNot(RequestStatus.DONE);
     }
 
     /**
