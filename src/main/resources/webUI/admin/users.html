@@ -70,8 +70,62 @@
 
             <div class="contentbox">
                 <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-                    Список пользователей системы 
+                    <div>
+                        <div class=" uk-align-right" style="margin-bottom: 5px;">
 
+                            <button class="uk-button uk-button-primary uk-button-small" onclick="">
+                                <span uk-icon="icon: plus" class="uk-icon"></span>
+                                <span class="uk-text-middle">Добавить пользоателя</span>
+                            </button>
+                            <button class="uk-button uk-button-primary uk-button-small" onclick="">
+                                <span uk-icon="icon: check" class="uk-icon"></span>
+                                <span class="uk-text-middle">Сохранить</span>
+                            </button>
+
+
+                        </div>
+
+                        <div>
+                            <table id="user_tab"
+                                class="uk-table-hover uk-table  uk-table-small uk-text-small uk-text-primary uk-table-middle uk-table-divider">
+                                <thead>
+                                    <tr>
+                                        <th class=" ">Логин</th>
+                                        <th class=" ">Ф.И.О.</th>
+                                        <th class="uk-table-expand uk-text-center">Фото</th>
+                                        <th class="uk-text-center">Администратор</th>
+                                        <th class="uk-text-center">Действия</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td class="tablesupersmall">garnagaaa@energomera.ru</td>
+                                        <td class="tablesupersmall">Гарнага Алексей Анатольевич</td>
+                                        <td class="tablesupersmall uk-table-shrink uk-text-center">
+                                            <img class="uk-border-rounded " src="../resource/ico/user.png" width="40" height="40">
+                                        </td>
+                                        <td class="tablesupersmall uk-table-shrink uk-text-center"> <input
+                                                class="uk-checkbox" type="checkbox" checked="true">
+                                        </td>
+    
+                                        <td class="tablesupersmall uk-table-shrink uk-text-nowrap uk-text-center">
+                                            <a uk-tooltip="Редактировать" class="uk-icon-button uk-icon"
+                                                uk-icon="pencil" onclick="" title="" aria-expanded="false"></a>
+                                            <a uk-tooltip="Удалить" class="uk-icon-button uk-icon" uk-icon="trash"
+                                                onclick="" title="" aria-expanded="false"></a>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

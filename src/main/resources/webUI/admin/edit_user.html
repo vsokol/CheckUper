@@ -14,7 +14,21 @@
 
 
     <link rel="shortcut icon" href="../resource/ico/favicon.png" type="image/png">
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
+                reader.onload = function (e) {
+                    let img = document.getElementById('imgava');
+                    img.src = e.target.result;
+                    img.style.width = '128px';
+                    img.style.height = '128px';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </head>
 
 <body class="conteiner unselectable">
@@ -70,8 +84,123 @@
 
             <div class="contentbox">
                 <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-                    Просмотр и редактирования выбранного профиля пользователя 
+                    <h3 class="uk-heading-line uk-text-center"><span>Просмотр и редактирования выбранного профиля
+                            пользователя </span></h3>
 
+                    <form method="POST" th:action="" th:object="${user}" enctype="multipart/form-data"
+                        class="uk-form-horizontal uk-margin-large uk-align-center" style="width: 800px;">
+                        <h4 class="uk-heading-bullet">Аватар</h4>
+                        <div class="uk-flex uk-flex-column ">
+                            <img id="imgava" class="uk-border-pill uk-background-muted uk-align-center img-thumbnail"
+                                width="128" height="128" alt="IMG"
+                                th:src="${viewAvatar} == null ? '../resource/ico/user.png' : 'data:image/jpeg;base64,' + ${imgUtil.getImgData(viewAvatar)}">
+
+                            <div uk-form-custom class="uk-align-center" style="
+                                margin-top: 0px;
+                                margin-bottom: 0px;">
+                                <input type="file" onchange="readURL(this);" name="avatar"
+                                    accept="image/jpeg, image/png">
+                                <button class="uk-button uk-button-default uk-button-small" type="button"
+                                    tabindex="-1">Загрузить аватар
+                                </button>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <h4 class="uk-heading-bullet">Общие данные</h4>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Логин пользователя</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-horizontal-text-login" type="text"
+                                    th:field="*{username}" placeholder="Логин пользователя...">
+                            </div>
+                            <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                                style="color:red;font-style: italic">неверное имя пользователя</span>
+                            <span class="error" th:if="${usernameError}" th:utext="${usernameError}"
+                                style="color:#ff0000;font-style: italic">пользователь с таким именем уже
+                                существует</span>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">ФИО</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-horizontal-text-name" type="text"
+                                    th:field="*{fullName}" placeholder="ФИО...">
+                            </div>
+                            <span class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"
+                                style="color:red;font-style: italic">ФИО не должно быть пустым</span>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Роль пользователя</label>
+                            <div class="uk-form-controls">
+                                <div class="uk-margin">
+                                    <label><input class="uk-checkbox" type="checkbox" th:checked="*{isExecutor}"
+                                            name="isExecutor"> Исполнитель</label>
+                                </div>
+                                <div class="uk-margin">
+                                    <label><input class="uk-checkbox" type="checkbox" th:checked="*{isCustomer}"
+                                            name="isCustomer"> Заказчик</label>
+                                </div>
+                                <div class="uk-margin">
+                                    <label><input class="uk-checkbox" type="checkbox" th:checked="*{isCustomer}"
+                                            name="isCustomer"> Админ</label>
+                                </div>
+                                <span class="error" th:if="${roleError}" th:utext="${roleError}"
+                                    style="color:red;font-style: italic">не задана роль</span>
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <button class="uk-button uk-button-danger uk-button-small" type="submit" name="action"
+                                value="DeleteAccount">
+                                <span class="uk-text-middle">Удалить аккаунт</span>
+                                <span uk-icon="icon: trash"></span>
+                            </button>
+                        </div>
+                        <hr>
+
+                        <h4 class="uk-heading-bullet">Пароль</h4>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Новый пароль</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-horizontal-text-pass" type="password"
+                                    name="passwordNew" placeholder="Пароль...">
+                            </div>
+                            <span class="error" th:if="${passwordNewError}" th:utext="${passwordNewError}"
+                                style="color:red;font-style: italic">пароль не должен быть пустым</span>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Подтверждение пароля</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-small" id="form-horizontal-text" type="password"
+                                    name="passwordConfirm" placeholder="Пароль...">
+                            </div>
+                            <span class="error" th:if="${passwordConfirmError}" th:utext="${passwordConfirmError}"
+                                style="color:red;font-style: italic">пароль не должен быть пустым</span>
+                        </div>
+
+                        <span class="error" th:if="${passwordError}" th:utext="${passwordError}"
+                            style="color:red;font-style: italic">пароли не совпадают</span>
+                        <div class="uk-margin">
+                            <button class="uk-button uk-button-primary uk-button-small" type="submit" name="action"
+                                value="ChangePassword">
+                                <span class="uk-text-middle">Обновить пароль</span>
+                                <span uk-icon="icon: trash"></span>
+                            </button>
+                        </div>
+
+                        <hr>
+
+                        <span class="uk-align-right">
+                            <button class="uk-button uk-button-primary uk-button-small" type="reset">
+                                <span class="uk-text-middle">Отмена</span>
+                                <span uk-icon="icon: history"></span>
+                            </button>
+                            <button class="uk-button uk-button-primary uk-button-small" type="submit" name="action"
+                                value="Save">
+                                <span class="uk-text-middle">Сохранить</span>
+                                <span uk-icon="icon: check"></span>
+                            </button>
+                        </span>
+                    </form>
                 </div>
             </div>
         </div>
