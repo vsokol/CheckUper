@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +31,7 @@ public class UserController {
     @GetMapping("/stats")
     public String userStats(Model model) {
         // заполняем статистику, устанавливаем как атрибут модели и передаем на страницу
-        return "user/workspase_stats";
+        return "/user/workspase_stats";
     }
 
     @GetMapping("/setting")
@@ -40,7 +39,11 @@ public class UserController {
         model.addAttribute("user", userService.getUserDto(user));
         model.addAttribute("viewAvatar", user.getAvatar());
         model.addAttribute("imgUtil", new ImageUtils());
-        return "/user/setting";
+        if (userService.userIsAdmin(user)) {
+            return "/admin/edit_user";
+        } else {
+            return "/user/setting";
+        }
     }
 
     @PostMapping("/setting")

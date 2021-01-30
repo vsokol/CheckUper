@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserDto {
+    private Long userId;
     @NotBlank
     @Email
     @Size(min = 3, max = 30)
@@ -16,6 +17,15 @@ public class UserDto {
     private String isCustomer;
     //@Pattern(regexp = "''|on")
     private String isExecutor;
+    private String isAdmin;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getUsername() {
         return username;
@@ -47,5 +57,13 @@ public class UserDto {
 
     public void setIsExecutor(String isExecutor) {
         this.isExecutor = isExecutor;
+    }
+
+    public String getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(String isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }

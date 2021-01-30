@@ -2,19 +2,15 @@ package milovanov.stc31.innopolis.checkuper.service;
 
 import milovanov.stc31.innopolis.checkuper.dao.UserDao;
 import milovanov.stc31.innopolis.checkuper.dto.UserDto;
-import milovanov.stc31.innopolis.checkuper.pojo.Customer;
-import milovanov.stc31.innopolis.checkuper.pojo.Executor;
-import milovanov.stc31.innopolis.checkuper.pojo.Role;
-import milovanov.stc31.innopolis.checkuper.pojo.User;
+import milovanov.stc31.innopolis.checkuper.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class UserService implements IUserService {
@@ -33,6 +29,11 @@ public class UserService implements IUserService {
     public User findUserById(Long id) {
         Optional<User> user = userDao.findById(id);
         return user.get();
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDao.findAll();
     }
 
     @Override
@@ -77,6 +78,11 @@ public class UserService implements IUserService {
         return true;
     }
 
+    @Override
+    public boolean saveUser(UserDto userDto, User user) {
+        return saveUser(userDto, user, false);
+    }
+
     /**
      * Обновляет данные по User на основании UserDto
      *
@@ -86,11 +92,13 @@ public class UserService implements IUserService {
      */
     @Transactional
     @Override
-    public boolean saveUser(UserDto userDto, User user) {
-        if (!user.getUsername().equals(userDto.getUsername())) {
+    public boolean saveUser(UserDto userDto, User user, boolean withAdminOption) {
+        if (user.getUsername() == null
+                || !user.getUsername().equals(userDto.getUsername())) {
             user.setUsername(userDto.getUsername());
         }
-        if (!user.getFullName().equals(userDto.getFullName())) {
+        if (user.getFullName() == null
+                || !user.getFullName().equals(userDto.getFullName())) {
             user.setFullName(userDto.getFullName());
             if (user.getExecutor() != null) {
                 user.getExecutor().setName(userDto.getFullName());
@@ -100,6 +108,13 @@ public class UserService implements IUserService {
             }
         }
 
+        if (user.getId() == null) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
+
+        if (user.getRoles() == null) {
+            user.setRoles(new HashSet<>());
+        }
         Set<Role> roles = user.getRoles();
 
         // выравниваем роль Исполнитель
@@ -134,8 +149,32 @@ public class UserService implements IUserService {
             }
         }
 
+        // выравниваем роль Админ
+        if (withAdminOption) {
+            userIs = userIsAdmin(user);
+            userDtoIs = (userDto.getIsAdmin() != null);
+            if (userIs != userDtoIs) {
+                // изменились роль Админа
+                if (userIs) {
+                    // убираем роль Админа
+                    removeRole(roles, "ROLE_ADMIN");
+                } else {
+                    // добавляем роль Админа
+                    roles.addAll(roleService.findByName("ROLE_ADMIN"));
+                }
+            }
+        }
+
         userDao.saveAndFlush(user);
         return true;
+    }
+
+    @Override
+    public boolean saveUser(UserDto userDto, User user, boolean withAdminOption, MultipartFile avatar) throws IOException {
+        if (avatar != null && !avatar.getOriginalFilename().isEmpty()) {
+            user.setAvatar(avatar.getBytes());
+        }
+        return saveUser(userDto, user, withAdminOption);
     }
 
     /**
@@ -147,10 +186,12 @@ public class UserService implements IUserService {
     @Override
     public UserDto getUserDto(User user) {
         UserDto userDto = new UserDto();
+        userDto.setUserId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setFullName(user.getFullName());
         userDto.setIsCustomer(user.getCustomer() != null ? "on" : null);
         userDto.setIsExecutor(user.getExecutor() != null ? "on" : null);
+        userDto.setIsAdmin(userIsAdmin(user) ? "on" : null);
         return userDto;
     }
 
@@ -176,5 +217,41 @@ public class UserService implements IUserService {
     @Override
     public void delete(User user) {
         userDao.delete(user);
+    }
+
+    @Override
+    public List<UserDto> getAllUserDto() {
+        List<UserDto> list = new ArrayList<>();
+        List<User> usersList = getAllUsers();
+        if (usersList != null & !usersList.isEmpty()) {
+            for (User user : usersList) {
+                list.add(getUserDto(user));
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public boolean userIsAdmin(User user) {
+        for (Role role : user.getRoles()) {
+            if ("ROLE_ADMIN".equals(role.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public ResultCheck checkUserBeforeSave(UserDto userDto, User user) {
+        if (userDto.getIsCustomer() == null
+                & userDto.getIsExecutor() == null
+                & userDto.getIsAdmin() == null) {
+            return new ResultCheck(false, "roleError", "Не задана роль. Необходимо отметить 'Заказчик' и/или 'Исполнитель'");
+        }
+        if (!userDto.getUsername().equals(user.getUsername())
+                && isExistsUser(userDto.getUsername())) {
+            return new ResultCheck(false, "usernameError", "Пользователь с таким именем уже существует");
+        }
+        return new ResultCheck(true);
     }
 }
