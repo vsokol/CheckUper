@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
 @Controller
 public class AddRequestController {
     @Autowired
@@ -33,14 +35,21 @@ public class AddRequestController {
     }
 
     @PostMapping(value = "/addrequest")
-    public String createRequest(@ModelAttribute Request request, Task task, @AuthenticationPrincipal User user) {
+    public String createRequest(
+            @ModelAttribute Request request,
+            @Valid Task task,
+            @AuthenticationPrincipal User user) {
+
         request.setCustomer(user.getCustomer());
-        request.setTaskList(request.getTaskList());
-        task.setInfo(task.getInfo());
-        task.setRequest(request);
         request.setStatus(RequestStatus.TODO);
         requestDao.save(request);
-        taskDao.save(task);
+
+        String[] arrStr = task.getInfo().split(",");
+        for (String info : arrStr) {
+            task.setInfo(info);
+            task.setRequest(request);
+            taskDao.save(task);
+        }
         return "redirect:/user/stats";
     }
 }
