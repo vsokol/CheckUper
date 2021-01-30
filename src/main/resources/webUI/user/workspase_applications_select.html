@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Выбор заявки на исполнение</title>
@@ -7,8 +9,8 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
 
-    <link rel="stylesheet" href="../resource/css/uikit.min.css" />
-    <link rel="stylesheet" href="../resource/css/maine.css" />
+    <link rel="stylesheet" href="../resource/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../resource/css/maine.css"/>
     <script src="../resource/js/uikit.min.js"></script>
     <script src="../resource/js/uikit-icons.min.js"></script>
 
@@ -17,174 +19,175 @@
 
 </head>
 
-<body class="conteiner unselectable">
+<body class="container unselectable">
 
-    <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
+<div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
 
-        <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
-
-            <div class="uk-navbar-left ">
-
-                <div class="uk-padding-small paging-mini uk-text-primary">
-                    <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
-                    <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
-                </div>
+    <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
+        <div class="uk-navbar-left ">
+            <div class="uk-padding-small paging-mini uk-text-primary">
+                <span uk-icon="icon: thumbnails; ratio: 2" class="uk-icon"></span>
+                <span class="uk-text-middle uk-text-large uk-margin-small-left">CheckUPer</span>
             </div>
-
-            <div class="uk-navbar-right ">
-
-                <div class="uk-navbar-item paging-mini">
-                    <a class="uk-icon-button uk-icon" href="../setting" uk-icon="icon: cog; ratio: 1.5"></a>
-                </div>
-
-                <div class="uk-navbar-item paging-mini">
-                    <span id="UserName" class="uk-text-middle">User Usersky</span>
-                </div>
-
-                <div id="UserPhoto" class="uk-navbar-item paging-mini">
-                    <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
-                </div>
-
-                <div class="uk-navbar-item paging-mini">
-                    <a class="uk-icon-button uk-icon" href="../logoff" uk-icon="icon: sign-out; ratio: 1.5"></a>
-                </div>
-
+        </div>
+        <div class="uk-navbar-right ">
+            <div class="uk-navbar-item paging-mini">
+                <a class="uk-icon-button uk-icon" href="/user/setting" uk-icon="icon: cog; ratio: 1.5"></a>
             </div>
-
-        </nav>
-
-    </div>
-
-    <div class="uk-container uk-container-expand contpadding pad0">
-
-        <div>
-            <div class="uk-width-auto@m uk-background-muted menu">
-                <div>
-                    <ul class="uk-nav uk-nav-default">
-                        <li class=""><a href="/">Статистика</a></li>
-                        <li class=""><a href="/">Мои заявки</a></li>
-                        <li class="uk-active"><a href="/">Заявки в работе</a></li>
-                </div>
+            <div class="uk-navbar-item paging-mini">
+                <span id="UserName" class="uk-text-middle">[[${#httpServletRequest.remoteUser}]]</span>
             </div>
+            <div id="UserPhoto" class="uk-navbar-item paging-mini">
+                <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+            </div>
+            <div class="uk-navbar-item paging-mini">
+                <a class="uk-icon-button uk-icon" href="/logout" uk-icon="icon: sign-out; ratio: 1.5"></a>
+            </div>
+        </div>
+    </nav>
+</div>
 
-            <div class="contentbox">
-                <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
+<div class="uk-container uk-container-expand contpadding pad0">
 
-                    <table class="uk-table uk-table-hover uk-table-divider uk-align-center" style="width: 1100px;">
-                        <thead>
-                            <tr>
-                                <th class="">Выбор заявки в работу (список заявок)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div
-                                        class="uk-card uk-card-default uk-card-body uk-width-expand uk-background-muted" style="
-                                        padding-top: 20px;
-                                        padding-left: 20px;
-                                        padding-right: 20px;
-                                        padding-bottom: 20px; ">
-                                        <div class="uk-grid-divider uk-child-width-expand@s" uk-grid>
-                                            <div>
-                                                <span class="uk-card-title">Помочь по дому</span>
-                                                <p class="uk-text-meta uk-margin-remove-top">10.02.2021 10:00 -
-                                                    10.02.2021 15:30</p>
-                                            </div>
-                                        </div>
-
-                                        <h5 class="uk-heading-line uk-text-center" style="margin-top: 5px;margin-bottom: 5px;">
-                                            <span>Данные по задаче</span>
-                                        </h5>
-                                        <ul uk-accordion="multiple: true" style="width: 870px;margin-top: 0px;margin-bottom: 0px;">
-                                            <li>
-                                                <a class="uk-accordion-title" href="#">Описание задачи</a>
-                                                <div class="uk-accordion-content">
-                                                    <p class="uk-text-muted" style="padding-left: 10px; ">Нужно помочь с домашними делами</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <a class="uk-accordion-title" href="#">Список задач</a>
-                                                <div class="uk-accordion-content">
-                                                    <div>
-                                                        <ul class="uk-list uk-list-collapse uk-list-striped">
-                                                            <li>Помыть пол</li>
-                                                            <li>Вынести мусор</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="uk-position-top-right uk-margin-small-right">
-                                            <ul class=" uk-iconnav" style=" margin-left: 0px; margin-top: 20px; ">
-                                                <li>
-                                                    <button class="uk-button uk-button-primary uk-button-small">Взять
-                                                        заявку в работу</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div
-                                        class="uk-card uk-card-default uk-card-body uk-width-expand uk-background-muted" style="
-                                        padding-top: 20px;
-                                        padding-left: 20px;
-                                        padding-right: 20px;
-                                        padding-bottom: 20px; ">
-                                        <div class="uk-grid-divider uk-child-width-expand@s" uk-grid>
-                                            <div>
-                                                <span class="uk-card-title">Хавка</span>
-                                                <p class="uk-text-meta uk-margin-remove-top">10.02.2021 10:00 -
-                                                    10.02.2021 15:30</p>
-                                            </div>
-                                        </div>
-
-                                        <h5 class="uk-heading-line uk-text-center" style="margin-top: 5px;margin-bottom: 5px;">
-                                            <span>Данные по задаче</span>
-                                        </h5>
-                                        <ul uk-accordion="multiple: true" style="width: 870px;margin-top: 0px;margin-bottom: 0px;">
-                                            <li>
-                                                <a class="uk-accordion-title" href="#">Описание задачи</a>
-                                                <div class="uk-accordion-content">
-                                                    <p class="uk-text-muted" style="padding-left: 10px; ">Купить еды</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <a class="uk-accordion-title" href="#">Список задач</a>
-                                                <div class="uk-accordion-content">
-                                                    <div>
-                                                        <ul class="uk-list uk-list-collapse uk-list-striped">
-                                                            <li>Пивас 0.5л</li>
-                                                            <li>Закусь</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="uk-position-top-right uk-margin-small-right">
-                                            <ul class=" uk-iconnav" style=" margin-left: 0px; margin-top: 20px; ">
-                                                <li>
-                                                    <button class="uk-button uk-button-primary uk-button-small">Взять
-                                                        заявку в работу</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
-                </div>
+    <div>
+        <div class="uk-width-auto@m uk-background-muted menu">
+            <div>
+                <ul class="uk-nav uk-nav-default">
+                    <li class=""><a href="/">Статистика</a></li>
+                    <li class="" th:class="${viewType} == 'my' ? 'uk-active' : ''"><a href="/requests/my">Мои заявки</a></li>
+                    <li class="uk-active" th:class="${viewType} == 'available' ? 'uk-active' : ''"><a href="/requests/available">Взять в работу</a></li>
+                    <li class="" th:class="${viewType} == 'progress' ? 'uk-active' : ''"><a href="/requests/progress">У меня в работе</a></li>
+                </ul>
             </div>
         </div>
 
+        <div class="contentbox">
+            <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
+
+                <table class="uk-table uk-table-hover uk-table-divider uk-align-center"
+                       th:with="df='dd.MM.yyyy hh:mm'"
+                       style="width: 1100px;">
+                    <thead>
+                    <tr>
+                        <th class="">Выбор заявки в работу (список заявок)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="request: ${requests}">
+                        <td>
+                            <div class="uk-card uk-card-default uk-card-body uk-width-expand uk-background-muted"
+                                 style="
+                                        padding-top: 20px;
+                                        padding-left: 20px;
+                                        padding-right: 20px;
+                                        padding-bottom: 20px; ">
+                                <div class="uk-grid-divider uk-child-width-expand@s" uk-grid>
+                                    <div>
+                                        <span class="uk-card-title" th:text="${request.getName()}">Помочь по дому</span>
+                                        <p class="uk-text-meta uk-margin-remove-top"
+                                           th:text="${#strings.concat(request.getIntervalStartTime() != null ? #calendars.format(request.getIntervalStartTime(),df) : ' '
+                                           , ' - ', request.getIntervalEndTime() != null ? #calendars.format(request.getIntervalEndTime(),df) : '')}">
+                                            10.02.2021 10:00 - 10.02.2021 15:30</p>
+                                    </div>
+                                </div>
+
+                                <h5 class="uk-heading-line uk-text-center" style="margin-top: 5px;margin-bottom: 5px;">
+                                    <span>Данные по задаче</span>
+                                </h5>
+                                <ul uk-accordion="multiple: true"
+                                    style="width: 870px;margin-top: 0px;margin-bottom: 0px;">
+                                    <li>
+                                        <a class="uk-accordion-title" href="#">Описание задачи</a>
+                                        <div class="uk-accordion-content">
+                                            <p class="uk-text-muted" style="padding-left: 10px; "
+                                               th:text="${request.getDescr()}">Нужно помочь с
+                                                домашними делами</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="uk-accordion-title" href="#">Список задач</a>
+                                        <div class="uk-accordion-content">
+                                            <div>
+                                                <ul class="uk-list uk-list-collapse uk-list-striped"
+                                                    th:each="task: ${request.getTaskList()}">
+                                                    <li th:text="${task.getInfo()}">Помыть пол</li>
+<!--                                                    <li>Вынести мусор</li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="uk-position-top-right uk-margin-small-right">
+                                    <ul class=" uk-iconnav" style=" margin-left: 0px; margin-top: 20px; ">
+                                        <li>
+                                            <button class="uk-button uk-button-primary uk-button-small">Взять
+                                                заявку в работу
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <div class="uk-card uk-card-default uk-card-body uk-width-expand uk-background-muted"-->
+<!--                                 style="-->
+<!--                                        padding-top: 20px;-->
+<!--                                        padding-left: 20px;-->
+<!--                                        padding-right: 20px;-->
+<!--                                        padding-bottom: 20px; ">-->
+<!--                                <div class="uk-grid-divider uk-child-width-expand@s" uk-grid>-->
+<!--                                    <div>-->
+<!--                                        <span class="uk-card-title">Хавка</span>-->
+<!--                                        <p class="uk-text-meta uk-margin-remove-top">10.02.2021 10:00 - -->
+<!--                                            10.02.2021 15:30</p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <h5 class="uk-heading-line uk-text-center" style="margin-top: 5px;margin-bottom: 5px;">-->
+<!--                                    <span>Данные по задаче</span>-->
+<!--                                </h5>-->
+<!--                                <ul uk-accordion="multiple: true"-->
+<!--                                    style="width: 870px;margin-top: 0px;margin-bottom: 0px;">-->
+<!--                                    <li>-->
+<!--                                        <a class="uk-accordion-title" href="#">Описание задачи</a>-->
+<!--                                        <div class="uk-accordion-content">-->
+<!--                                            <p class="uk-text-muted" style="padding-left: 10px; ">Купить еды</p>-->
+<!--                                        </div>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <a class="uk-accordion-title" href="#">Список задач</a>-->
+<!--                                        <div class="uk-accordion-content">-->
+<!--                                            <div>-->
+<!--                                                <ul class="uk-list uk-list-collapse uk-list-striped">-->
+<!--                                                    <li>Пивас 0.5л</li>-->
+<!--                                                    <li>Закусь</li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                                <div class="uk-position-top-right uk-margin-small-right">-->
+<!--                                    <ul class=" uk-iconnav" style=" margin-left: 0px; margin-top: 20px; ">-->
+<!--                                        <li>-->
+<!--                                            <button class="uk-button uk-button-primary uk-button-small">Взять-->
+<!--                                                заявку в работу-->
+<!--                                            </button>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+</div>
 
 </body>
 

@@ -44,6 +44,8 @@ public class User implements UserDetails {
     private Executor executor;
     @Column(name = "descr")
     private String descr;
+    @Column(name = "avatar")
+    private byte[] avatar;
 
     public Long getId() {
         return id;
@@ -107,6 +109,14 @@ public class User implements UserDetails {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 
     @Override

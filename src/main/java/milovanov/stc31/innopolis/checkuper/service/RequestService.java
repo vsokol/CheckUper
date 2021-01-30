@@ -1,6 +1,7 @@
 package milovanov.stc31.innopolis.checkuper.service;
 
 import milovanov.stc31.innopolis.checkuper.dao.RequestDao;
+import milovanov.stc31.innopolis.checkuper.pojo.Customer;
 import milovanov.stc31.innopolis.checkuper.pojo.Executor;
 import milovanov.stc31.innopolis.checkuper.pojo.Request;
 import milovanov.stc31.innopolis.checkuper.pojo.RequestStatus;
@@ -74,6 +75,22 @@ public class RequestService implements IRequestService {
     public Request getRequestById(Long id) {
         Request request = requestDao.findRequestById(id);
         return request;
+    }
+
+    /**
+     * Возвращает список всех заказов указанного заказчика
+     * @param customer заказчик
+     * @return список всех заказов указанного заказчика
+     */
+    @Override
+    public List<Request> getAllRequestsByCustomer(Customer customer) {
+        List<Request> list = requestDao.findByCustomer(customer);
+        return list;
+    }
+
+    @Override
+    public void deleteRequestById(Long id) {
+        requestDao.deleteById(id);
     }
 
     @Override
