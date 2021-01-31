@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="../resource/ico/favicon.png" type="image/png">
 
     <script>
-        var url = "localhost";
+        var url = "/tasks/check";
         function send(task_id, status) {
             var data = new FormData();
             data.append('task_id', task_id);
@@ -153,7 +153,7 @@
                                                                         style=" padding-top: 8px; height: 21px; ">
                                                                         <div>
                                                                             <input id="tes" class="uk-checkbox uk-align-center"
-                                                                                type="checkbox" task_id="${task.id}"
+                                                                                type="checkbox" th:task_id="${task.getId()}"
                                                                                 onchange="cheked(this)" th:checked="${task.isCompleted}">
                                                                         </div>
                                                                     </div>

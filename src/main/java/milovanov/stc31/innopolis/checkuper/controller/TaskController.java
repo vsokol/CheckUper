@@ -1,15 +1,25 @@
 package milovanov.stc31.innopolis.checkuper.controller;
 
+import milovanov.stc31.innopolis.checkuper.service.ITaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/tasks")
 public class TaskController {
+    ITaskService taskService;
 
-    @RequestMapping(value = "/tasks", method = RequestMethod.GET)
-    public String getAllTasks(Model model) {
-        return "AllCheckTasks";
+    @Autowired
+    public TaskController(ITaskService taskService) {
+        this.taskService = taskService;
+    }
+
+    @PostMapping(value = "/check")
+    public void checkTask(Long task_id, Boolean status) {
+        if (task_id != null) {
+            taskService.saveStatusOnTask(task_id, status);
+        }
     }
 }
