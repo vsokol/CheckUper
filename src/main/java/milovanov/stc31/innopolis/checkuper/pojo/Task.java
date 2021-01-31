@@ -19,7 +19,7 @@ public class Task implements Persistable<Long> {
     private Long indexNumber;
     @Column(name = "descr")
     private String descr;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "request_id", referencedColumnName = "id", nullable = false)
     private Request request;
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)

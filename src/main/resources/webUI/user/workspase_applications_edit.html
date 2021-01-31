@@ -25,7 +25,8 @@
         <td class=" uk-table-expand" style="padding: 0px;">
             <input id="data_row"
                 class="uk-input uk-width-expand uk-form-small uk-form-blank uk-text-left" name="info" type="text"
-                placeholder="Подзадача...">
+                placeholder="Подзадача..."
+                >
         </td>
         </tr>`;
             return template;
@@ -94,23 +95,17 @@
             <div class="uk-navbar-item paging-mini">
                 <span id="UserName" class="uk-text-middle">User Usersky</span>
             </div>
-
             <div id="UserPhoto" class="uk-navbar-item paging-mini">
                 <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
             </div>
-
             <div class="uk-navbar-item paging-mini">
                 <a class="uk-icon-button uk-icon" href="../logoff" uk-icon="icon: sign-out; ratio: 1.5"></a>
             </div>
-
         </div>
-
     </nav>
-
 </div>
 
 <div class="uk-container uk-container-expand contpadding pad0">
-
     <div>
         <div class="uk-width-auto@m uk-background-muted menu">
             <div>
@@ -131,23 +126,23 @@
                       class="uk-form-horizontal uk-margin-large uk-align-center"
                       style="width: 800px;">
                     <div class="uk-margin">
-                        <label class="uk-form-label" for="form-horizontal-text">Название заявки</label>
+                        <label class="uk-form-label" for="form-request-name">Название заявки</label>
                         <div class="uk-form-controls">
-                            <input class="uk-input uk-form-small" id="" type="text" th:field="${request.name}"
+                            <input class="uk-input uk-form-small" id="form-request-name" type="text" th:field="${request.name}"
                                    placeholder="Название заявки...">
                         </div>
 
                     </div>
                     <div class="uk-margin">
-                        <label class="uk-form-label" for="form-horizontal-text">Описание заявки</label>
+                        <label class="uk-form-label" for="form-request-descr">Описание заявки</label>
                         <div class="uk-form-controls">
-                                <textarea class="uk-form-small uk-textarea" rows="5" th:field="${request.descr}"
+                                <textarea class="uk-form-small uk-textarea" rows="5" id="form-request-descr" th:field="${request.descr}"
                                           placeholder="Описание..." style="resize: none;"></textarea>
                         </div>
                     </div>
 
                     <div class="uk-margin">
-                        <label class="uk-form-label" for="form-horizontal-text">Количество подзадач</label>
+                        <label class="uk-form-label">Количество подзадач</label>
                         <div class="">
                             <div class="uk-form-controls" style="margin-left: 705px;">
                                 <button onclick="addrow()" onmouseout="this.blur();" type="button"
@@ -166,18 +161,18 @@
                     </div>
 
                     <div class="uk-margin">
-                        <label class="uk-form-label" for="form-horizontal-text">Плановая дата начала задачи</label>
+                        <label class="uk-form-label" for="form-datetimelocal-begin">Плановая дата начала задачи</label>
                         <div class="uk-form-controls">
-                            <input class="uk-input uk-form-small" id="form-s-datetimelocal"
+                            <input class="uk-input uk-form-small" id="form-datetimelocal-begin"
                                    th:field="${request.intervalStartTime}"
                                    type="datetime-local" placeholder="">
                         </div>
                     </div>
 
                     <div class="uk-margin">
-                        <label class="uk-form-label" for="form-horizontal-text">Действительно до</label>
+                        <label class="uk-form-label" for="form-datetimelocal-end">Действительно до</label>
                         <div class="uk-form-controls">
-                            <input class="uk-input uk-form-small" id="form-s-datetimelocal"
+                            <input class="uk-input uk-form-small" id="form-datetimelocal-end"
                                    th:field="${request.intervalEndTime}"
                                    type="datetime-local" placeholder="">
                         </div>
@@ -186,11 +181,13 @@
                     <table class="uk-table uk-table-auto uk-margin-remove tablesupersmall table_">
                         <tbody id="table">
                         <tr id="row_1">
+<!--                            th:each="task: ${tasks}"-->
                             <td class="uk-table-shrink uk-text-nowrap tablesupersmall uk-text-middle">1</td>
                             <td class=" uk-table-expand" style="padding: 0px;">
-                                <input id="data_row" th:field="${task}"
+                                <input id="data_row"
                                        class="uk-input uk-width-expand uk-form-small uk-form-blank uk-text-left"
-                                       type="text" placeholder="Подзадача...">
+                                       type="text" placeholder="Подзадача..."
+                                       th:field="${task.info}">
 <!--                                <input id="data_row" th:field="${task.info}"-->
 <!--                                       class="uk-input uk-width-expand uk-form-small uk-form-blank uk-text-left"-->
 <!--                                       type="text" placeholder="Подзадача...">-->

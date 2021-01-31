@@ -1,13 +1,11 @@
 package milovanov.stc31.innopolis.checkuper.service;
 
 import milovanov.stc31.innopolis.checkuper.dao.RequestDao;
-import milovanov.stc31.innopolis.checkuper.pojo.Customer;
-import milovanov.stc31.innopolis.checkuper.pojo.Executor;
-import milovanov.stc31.innopolis.checkuper.pojo.Request;
-import milovanov.stc31.innopolis.checkuper.pojo.RequestStatus;
+import milovanov.stc31.innopolis.checkuper.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -114,5 +112,22 @@ public class RequestService implements IRequestService {
     @Override
     public void takeExecutor(Request request, Executor executor) {
 
+    }
+
+    @Override
+    public void save(Request request, String stringWithTasks, Customer customer) {
+        request.setCustomer(customer);
+        request.setStatus(RequestStatus.TODO);
+        String[] taskArray = stringWithTasks.split(",");
+        for (String info : taskArray) {
+            Task task = new Task();
+            task.setInfo(info);
+            task.setRequest(request);
+            if (request.getTaskList() == null) {
+                request.setTaskList(new ArrayList<>());
+            }
+            request.getTaskList().add(task);
+        }
+        requestDao.save(request);
     }
 }

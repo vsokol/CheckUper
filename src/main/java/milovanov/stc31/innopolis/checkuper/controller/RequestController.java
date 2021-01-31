@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -172,38 +174,34 @@ public class RequestController {
 //        Request request = new Request();
 //        request.setTaskList(new ArrayList<>());
         model.addAttribute("request", new Request());
-        model.addAttribute("COUNTROW", 3);
-        model.addAttribute("task", new String[]{"111", "222", "333"});
+        model.addAttribute("task", new Task());
         return "/user/workspase_applications_edit";
     }
 
     @GetMapping(value = "/editrequest")
-    public String getRequestForEdit(Model model, @RequestParam(value = "reguestId", required = false) String paramRequestId) {
+    public String getRequestForEdit(Model model, @RequestParam(value = "id", required = false) String paramRequestId) {
         try {
-            model.addAttribute("request", requestService.getRequestById(Long.valueOf(paramRequestId)));
+            Request request = requestService.getRequestById(Long.valueOf(paramRequestId));
+            model.addAttribute("request", request);
         } catch (NumberFormatException exception) {
             logger.error("Ошибка при разборе параметра reguestId = '{}'", paramRequestId, exception);
         }
+
+//        Request request = new Request();
+//        request.setTaskList(new ArrayList<>());
+//        model.addAttribute("request", new Request());
+//        model.addAttribute("tasks", new ArrayList<>(Arrays.asList("111", "222", "333")));
+
         return "/user/workspase_applications_edit";
     }
 
     @PostMapping(value = "/addrequest")
     public String createRequest(
             @ModelAttribute Request request,
-//            @Valid Task task,
-            String[] task,
+            @Valid Task task,
             @AuthenticationPrincipal User user) {
 
-        request.setCustomer(user.getCustomer());
-//        request.setStatus(RequestStatus.TODO);
-//        requestDao.save(request);
-//
-//        String[] arrStr = task.getInfo().split(",");
-//        for (String info : arrStr) {
-//            task.setInfo(info);
-//            task.setRequest(request);
-//            taskDao.save(task);
-//        }
+        requestService.save(request, task.getInfo(), user.getCustomer());
         return "redirect:/requests/my";
     }
 
