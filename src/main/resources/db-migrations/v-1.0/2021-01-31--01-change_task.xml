@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2021-01-31-01-010" author="Vladimir">
+        <comment>изменение таблицы задач для чек-листов</comment>
+        <addColumn tableName="task">
+            <column name="is_completed" type="boolean" defaultValue="false" remarks="Признак выполнения (true - выполнен, иначе - не выполнен)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <rollback>
+            <dropColumn tableName="task" columnName="is_completed"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2021-01-31-01-900" author="Vladimir">
+        <tagDatabase tag="version-1.0.4"/>
+    </changeSet>
+</databaseChangeLog>
