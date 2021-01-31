@@ -50,13 +50,10 @@
         <div class="uk-width-auto@m uk-background-muted menu">
             <div>
                 <ul class="uk-nav uk-nav-default">
-                    <li class=""><a href="/">Статистика</a></li>
-                    <li class="" th:class="${viewType} == 'my' ? 'uk-active' : ''"><a href="/requests/my">Мои заявки</a>
-                    </li>
-                    <li class="" th:class="${viewType} == 'available' ? 'uk-active' : ''"><a href="/requests/available">Взять
-                        в работу</a></li>
-                    <li class="uk-active" th:class="${viewType} == 'progress' ? 'uk-active' : ''"><a
-                            href="/requests/progress">У меня в работе</a></li>
+                    <li class=""><a href="/user/stats">Статистика</a></li>
+                    <li class=""><a href="/requests/my">Мои заявки</a></li>
+                    <li class=""><a href="/requests/available">Взять в работу</a></li>
+                    <li class="uk-active"><a href="/requests/progress">У меня в работе</a></li>
                 </ul>
             </div>
         </div>
