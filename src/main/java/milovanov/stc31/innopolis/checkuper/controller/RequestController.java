@@ -82,30 +82,34 @@ public class RequestController {
     }
 
     @GetMapping("/take")
-    public ModelAndView takeRequest(@RequestParam(value = "id", required = false) String paramRequestId) {
-        Request request;
-        java.lang.String title;
+    public String takeRequest(Model model
+            , @RequestParam(value = "id", required = false) String paramRequestId
+            , @AuthenticationPrincipal User user) {
+
+        Request request = null;
         try {
-            Long requestId = Long.valueOf(paramRequestId);
-            request = requestService.getRequestById(requestId);
-            if (request == null) {
-                title = "Заказ не найден";
-            } else {
-                title = request.getName();
-            }
+            request = requestService.getRequestById(Long.valueOf(paramRequestId));
+            model.addAttribute("request", request);
         } catch (NumberFormatException exception) {
-            request = null;
-            title = "Заказ не найден";
+            logger.error("Взять заявку в работу. Ошибка при разборе параметра reguestId = '{}'.", paramRequestId, exception);
         }
-        Executor executor = executorService.getExecutorById(1001L);
-        requestService.takeExecutor(request, executor);
+        requestService.takeRequestInWork(request, user.getExecutor());
+        return "redirect:/requests/progress";
+    }
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("title", title);
-        modelAndView.addObject("request", request);
+    @GetMapping("/done")
+    public String doneRequest(Model model
+            , @RequestParam(value = "id", required = false) String paramRequestId) {
 
-        modelAndView.setViewName("show_request");
-        return modelAndView;
+        Request request = null;
+        try {
+            request = requestService.getRequestById(Long.valueOf(paramRequestId));
+            model.addAttribute("request", request);
+        } catch (NumberFormatException exception) {
+            logger.error("Завершить заявку в работу. Ошибка при разборе параметра reguestId = '{}'.", paramRequestId, exception);
+        }
+        requestService.doneRequest(request);
+        return "redirect:/requests/progress";
     }
 
     /**
@@ -146,7 +150,7 @@ public class RequestController {
     public ModelAndView getMyRequestsInProgress(@AuthenticationPrincipal User user) {
         Executor executor = user.getExecutor();
         ModelAndView modelAndView =
-                getModelAndView(requestService.getAllRequestsByExecutor(executor)
+                getModelAndView(requestService.getAllRequestsByExecutorInWork(executor)
                         , "Доступные заявки", "progress"
                         , "user/workspase_applications_progress");
         return modelAndView;

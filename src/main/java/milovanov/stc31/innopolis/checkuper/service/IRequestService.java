@@ -50,6 +50,13 @@ public interface IRequestService {
     List<Request> getAllRequestsByExecutor(Executor executor);
 
     /**
+     * Возвращает список заказов находящихся в работе для указанного исполнителя
+     * @param executor исполнитель
+     * @return список всех заказов для указанного исполнителя
+     */
+    List<Request> getAllRequestsByExecutorInWork(Executor executor);
+
+    /**
      * Возварщает заказ по его идентификтору
      * @param id идентификатор заказа
      * @return заказ
@@ -65,7 +72,9 @@ public interface IRequestService {
 
     public void deleteRequestById(Long id);
 
-    void takeExecutor(Request request, Executor executor);
-
     void save(Request request, String stringWithTasks, Customer customer);
+
+    void takeRequestInWork(Request request, Executor executor);
+
+    void doneRequest(Request request);
 }
