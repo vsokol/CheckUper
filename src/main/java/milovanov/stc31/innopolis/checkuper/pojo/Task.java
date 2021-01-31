@@ -22,8 +22,11 @@ public class Task implements Persistable<Long> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "request_id", referencedColumnName = "id", nullable = false)
     private Request request;
-    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)
-    private TaskResult taskResult;
+    @Column(name = "is_completed", nullable = false)
+    private boolean isCompleted;
+
+//    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)
+//    private TaskResult taskResult;
 
     public Long getId() {
         return id;
@@ -78,11 +81,19 @@ public class Task implements Persistable<Long> {
         this.request = request;
     }
 
-    public TaskResult getTaskResult() {
-        return taskResult;
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
-    public void setTaskResult(TaskResult taskResult) {
-        this.taskResult = taskResult;
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
+
+    //    public TaskResult getTaskResult() {
+//        return taskResult;
+//    }
+//
+//    public void setTaskResult(TaskResult taskResult) {
+//        this.taskResult = taskResult;
+//    }
 }
