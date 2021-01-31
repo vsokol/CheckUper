@@ -5,7 +5,10 @@ import milovanov.stc31.innopolis.checkuper.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -162,6 +165,7 @@ public class RequestService implements IRequestService {
             return;
         }
         request.setStatus(RequestStatus.DONE);
+        request.setCompletionTime(new Date());
         requestDao.save(request);
     }
 }
