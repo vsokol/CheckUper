@@ -17,12 +17,14 @@ public class UserService implements IUserService {
     UserDao userDao;
     BCryptPasswordEncoder bCryptPasswordEncoder;
     IRoleService roleService;
+    IServiceUtils serviceUtils;
 
     @Autowired
-    public UserService(UserDao userDao, BCryptPasswordEncoder bCryptPasswordEncoder, IRoleService roleService) {
+    public UserService(UserDao userDao, BCryptPasswordEncoder bCryptPasswordEncoder, IRoleService roleService, IServiceUtils serviceUtils) {
         this.userDao = userDao;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.roleService = roleService;
+        this.serviceUtils = serviceUtils;
     }
 
     @Override
@@ -174,7 +176,12 @@ public class UserService implements IUserService {
         if (avatar != null && !avatar.getOriginalFilename().isEmpty()) {
             user.setAvatar(avatar.getBytes());
         }
-        return saveUser(userDto, user, withAdminOption);
+        if (saveUser(userDto, user, withAdminOption)) {
+            serviceUtils.saveImageToFile(avatar, user.getUsername());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
