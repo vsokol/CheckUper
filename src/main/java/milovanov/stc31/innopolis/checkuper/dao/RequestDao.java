@@ -44,6 +44,13 @@ public interface RequestDao extends JpaRepository<Request, Long> {
     List<Request> findByExecutor(Executor executor);
 
     /**
+     * Возвращает список заказов находящихся в работе для указанного исполнителя
+     * @param executor исполнитель
+     * @return список всех заказов для указанного исполнителя
+     */
+    List<Request> findByExecutorAndStatus(Executor executor, RequestStatus requestStatus);
+
+    /**
      * Возвбращает заказ по его уникльному идентификатору
      * @param id идентификатор заказа
      * @return заказ

@@ -8,21 +8,16 @@
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-
     <link rel="stylesheet" href="../resource/css/uikit.min.css"/>
     <link rel="stylesheet" href="../resource/css/maine.css"/>
     <script src="../resource/js/uikit.min.js"></script>
     <script src="../resource/js/uikit-icons.min.js"></script>
 
-
     <link rel="shortcut icon" href="../resource/ico/favicon.png" type="image/png">
-
 </head>
 
 <body class="container unselectable">
-
 <div uk-sticky="" class="uk-sticky uk-sticky-fixed" style="height: 50px; position: fixed; ">
-
     <nav style="height: 50px; " class="uk-navbar uk-navbar-container uk-margin uk-box-shadow-medium ">
         <div class="uk-navbar-left ">
             <div class="uk-padding-small paging-mini uk-text-primary">
@@ -48,7 +43,6 @@
 </div>
 
 <div class="uk-container uk-container-expand contpadding pad0">
-
     <div>
         <div class="uk-width-auto@m uk-background-muted menu">
             <div>
@@ -63,7 +57,6 @@
 
         <div class="contentbox">
             <div id="box" class="uk-container uk-width-expand@m pad20 contpadding">
-
                 <table class="uk-table uk-table-hover uk-table-divider uk-align-center"
                        th:with="df='dd.MM.yyyy hh:mm'"
                        style="width: 1100px;">
@@ -120,8 +113,8 @@
                                 <div class="uk-position-top-right uk-margin-small-right">
                                     <ul class=" uk-iconnav" style=" margin-left: 0px; margin-top: 20px; ">
                                         <li>
-                                            <button class="uk-button uk-button-primary uk-button-small">Взять
-                                                заявку в работу
+                                            <button class="uk-button uk-button-primary uk-button-small"
+                                                    th:onclick="|location.href='@{/requests/take(id=${request.id})}'|">Взять заявку в работу
                                             </button>
                                         </li>
                                     </ul>

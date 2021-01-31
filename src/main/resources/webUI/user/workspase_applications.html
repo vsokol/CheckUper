@@ -74,8 +74,9 @@
 
                                     <div>
                                         <span class="uk-card-title" th:text="${request.getName()}">Помочь по дому</span>
-                                        <span class="uk-label uk-align-right" th:unless="${request.getStatus() == T(milovanov.stc31.innopolis.checkuper.pojo.RequestStatus).TODO}">В работе</span>
+                                        <span class="uk-label uk-align-right" th:if="${request.getStatus() == T(milovanov.stc31.innopolis.checkuper.pojo.RequestStatus).IN_PROGRESS}">В работе</span>
                                         <span class="uk-label uk-align-right uk-label-success" th:if="${request.getStatus() == T(milovanov.stc31.innopolis.checkuper.pojo.RequestStatus).TODO}">Не начата</span>
+                                        <span class="uk-label uk-align-right uk-label-warning" th:if="${request.getStatus() == T(milovanov.stc31.innopolis.checkuper.pojo.RequestStatus).DONE}">Закрыто</span>
                                         <p class="uk-text-meta uk-margin-remove-top"
                                            th:text="${#strings.concat(request.getIntervalStartTime() != null ? #calendars.format(request.getIntervalStartTime(),df) : ' '
                                            , ' - ', request.getIntervalEndTime() != null ? #calendars.format(request.getIntervalEndTime(),df) : '')}">

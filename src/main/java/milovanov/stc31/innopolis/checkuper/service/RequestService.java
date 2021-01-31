@@ -5,7 +5,10 @@ import milovanov.stc31.innopolis.checkuper.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -71,6 +74,17 @@ public class RequestService implements IRequestService {
     }
 
     /**
+     * Возвращает список заказов находящихся в работе для указанного исполнителя
+     * @param executor исполнитель
+     * @return список всех заказов для указанного исполнителя
+     */
+    @Override
+    public List<Request> getAllRequestsByExecutorInWork(Executor executor) {
+        List<Request> list = requestDao.findByExecutorAndStatus(executor, RequestStatus.IN_PROGRESS);
+        return list;
+    }
+
+    /**
      * Создает новый заказ
      *
      * @param request заказ
@@ -110,11 +124,6 @@ public class RequestService implements IRequestService {
     }
 
     @Override
-    public void takeExecutor(Request request, Executor executor) {
-
-    }
-
-    @Override
     public void save(Request request, String stringWithTasks, Customer customer) {
         request.setCustomer(customer);
         request.setStatus(RequestStatus.TODO);
@@ -128,6 +137,35 @@ public class RequestService implements IRequestService {
             }
             request.getTaskList().add(task);
         }
+        requestDao.save(request);
+    }
+
+    /**
+     * Взять заявку в работу
+     * @param request
+     * @param executor
+     */
+    @Override
+    public void takeRequestInWork(Request request, Executor executor) {
+        if (request == null || executor == null) {
+            return;
+        }
+        request.setStatus(RequestStatus.IN_PROGRESS);
+        request.setExecutor(executor);
+        requestDao.save(request);
+    }
+
+    /**
+     * Завершить исполнение заявки
+     * @param request
+     */
+    @Override
+    public void doneRequest(Request request) {
+        if (request == null) {
+            return;
+        }
+        request.setStatus(RequestStatus.DONE);
+        request.setCompletionTime(new Date());
         requestDao.save(request);
     }
 }
