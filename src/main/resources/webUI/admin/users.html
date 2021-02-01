@@ -33,7 +33,7 @@
                 <span id="UserName" class="uk-text-middle">[[${#httpServletRequest.remoteUser}]]</span>
             </div>
             <div id="UserPhoto" class="uk-navbar-item paging-mini">
-                <span uk-icon="icon: user; ratio: 2" class="uk-icon"></span>
+                <img class="uk-border-rounded " th:src="${viewAvatar} == null ? '../resource/ico/user.png' : 'data:image/jpeg;base64,' + ${imgUtil.getImgData(viewAvatar)}" width="45" height="45">
             </div>
             <div class="uk-navbar-item paging-mini">
                 <a class="uk-icon-button uk-icon" href="/logout" uk-icon="icon: sign-out; ratio: 1.5"></a>
